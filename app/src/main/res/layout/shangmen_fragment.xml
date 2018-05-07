@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+     <com.liaoinstan.springview.widget.SpringView
+         android:layout_above="@+id/xian"
+         android:id="@+id/sp_view"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent">
+         <android.support.v7.widget.RecyclerView
+             android:id="@+id/recy_view"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+         </android.support.v7.widget.RecyclerView>
+     </com.liaoinstan.springview.widget.SpringView>
+
+</RelativeLayout>

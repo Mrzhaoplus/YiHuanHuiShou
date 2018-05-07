@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_xxxhdpi"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -16,7 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.Home_detailActivity"></activity>
+        <activity android:name=".activity.Home_detailActivity" />
+        <activity android:name=".activity.LocationActivity" />
+        <activity android:name=".activity.Bill_DetailActivity" />
+        <activity android:name=".activity.OrderActivity" />
+        <activity android:name=".activity.Pay_DetailsActivity" />
+        <activity android:name=".activity.Dingdan_DetailsActivity" />
+        <activity android:name=".activity.Wait_zhifu_DetailsActivity" />
+        <activity android:name=".activity.Wait_wancheng_DetailsActivity"></activity>
     </application>
 
 </manifest>

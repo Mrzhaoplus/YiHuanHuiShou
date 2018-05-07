@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.example.mr.yihuanhuishou.activity.OrderActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorAccent"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_xxxhdpi"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/beak"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单列表"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:orientation="horizontal"
+          android:background="@color/colorAccent"
+          android:layout_height="40dp">
+          <RelativeLayout
+              android:id="@+id/dd_hs"
+              android:layout_weight="1"
+              android:orientation="vertical"
+              android:layout_width="0dp"
+              android:layout_height="match_parent">
+              <TextView
+                  android:layout_centerInParent="true"
+                  android:layout_width="wrap_content"
+                  android:textColor="@color/white"
+                  android:textSize="16sp"
+                  android:text="回收订单"
+                  android:layout_height="wrap_content" />
+
+              <ImageView
+                  android:id="@+id/jiao1"
+                  android:layout_centerHorizontal="true"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/jiao_xxxhdpi"
+                  android:layout_alignParentBottom="true"
+                  android:visibility="visible"
+                  />
+
+          </RelativeLayout>
+
+          <RelativeLayout
+              android:id="@+id/dd_siji"
+              android:layout_weight="1"
+              android:orientation="vertical"
+              android:layout_width="0dp"
+              android:layout_height="match_parent">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:textColor="@color/white"
+                  android:layout_centerInParent="true"
+                  android:textSize="16sp"
+                  android:text="司机取货订单"
+                  android:layout_height="wrap_content" />
+              <ImageView
+                  android:id="@+id/jiao2"
+                  android:layout_centerHorizontal="true"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/jiao_xxxhdpi"
+                  android:layout_alignParentBottom="true"
+                  android:visibility="gone"
+                  />
+          </RelativeLayout>
+          <RelativeLayout
+              android:id="@+id/dd_zisong"
+              android:layout_weight="1"
+              android:orientation="vertical"
+              android:layout_width="0dp"
+              android:layout_height="match_parent">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:textColor="@color/white"
+                  android:textSize="16sp"
+                  android:layout_centerInParent="true"
+                  android:text="自送订单"
+                  android:layout_height="wrap_content" />
+              <ImageView
+                  android:id="@+id/jiao3"
+                  android:layout_centerHorizontal="true"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/jiao_xxxhdpi"
+                  android:layout_alignParentBottom="true"
+                  android:visibility="gone"
+                  />
+
+          </RelativeLayout>
+      </LinearLayout>
+        <FrameLayout
+            android:id="@+id/dd_fl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+
+</LinearLayout>

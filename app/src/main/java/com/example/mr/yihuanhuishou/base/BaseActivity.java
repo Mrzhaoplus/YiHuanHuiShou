@@ -2,6 +2,7 @@ package com.example.mr.yihuanhuishou.base;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,6 +32,7 @@ import java.util.List;
 public class BaseActivity extends AppCompatActivity {
     private static List<Activity> activityList = new ArrayList<>();
     private static int MY_PERMISSION_REQUEST_CODE=1;
+    protected Context mContext;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
