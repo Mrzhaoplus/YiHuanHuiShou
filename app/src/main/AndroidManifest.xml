@@ -23,7 +23,15 @@
         <activity android:name=".activity.Pay_DetailsActivity" />
         <activity android:name=".activity.Dingdan_DetailsActivity" />
         <activity android:name=".activity.Wait_zhifu_DetailsActivity" />
-        <activity android:name=".activity.Wait_wancheng_DetailsActivity"></activity>
+        <activity android:name=".activity.Wait_wancheng_DetailsActivity" />
+        <activity android:name=".activity.Driver_dingdan_DetailsActivity" />
+        <activity android:name=".activity.Clame_Goods_DetailsActivity" />
+        <activity android:name=".activity.Distrbstion_DetailActivity" />
+        <activity android:name=".activity.Distribution_success_DetailsActivity" />
+        <activity android:name=".activity.Driver_Wait_zhifu_DetailsActivity" />
+        <activity android:name=".activity.Driver_zhifu_success_DetailsActivity" />
+        <activity android:name=".activity.Driver_Cancle_DetailsActivity" />
+        <activity android:name=".activity.Wait_Designate_DetailsActivity"></activity>
     </application>
 
 </manifest>

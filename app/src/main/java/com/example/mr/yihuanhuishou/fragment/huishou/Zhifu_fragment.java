@@ -118,6 +118,5 @@ public class Zhifu_fragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().removeAllStickyEvents();
     }
 }

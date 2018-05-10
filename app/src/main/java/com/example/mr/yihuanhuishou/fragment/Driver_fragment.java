@@ -67,7 +67,7 @@ public class Driver_fragment extends BaseFragment {
                         fragment= new Driver_all_fragment(list.get(position));
                         break;
                     case 1:
-                        fragment= new Driver_jiedan_fragment(list.get(position));
+                        fragment= new Driver_all_fragment(list.get(position));
                         break;
                     case 2:
                         fragment= new Driver_all_fragment(list.get(position));
@@ -86,6 +86,7 @@ public class Driver_fragment extends BaseFragment {
                         break;
                     case 7:
                         fragment= new Driver_all_fragment();
+                        fragment= new Driver_all_fragment(list.get(position));
                         break;
                 }
                 return fragment;

@@ -57,12 +57,13 @@
         android:textSize="16sp"
         />
 </LinearLayout>
-    <LinearLayout
+    <RelativeLayout
         android:padding="10dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/til_zl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="废品重量:"
@@ -70,6 +71,7 @@
             android:textSize="16sp"
             />
         <TextView
+            android:layout_toRightOf="@+id/til_zl"
             android:layout_marginLeft="5dp"
             android:id="@+id/jie_zl"
             android:layout_width="wrap_content"
@@ -77,14 +79,36 @@
             android:text="10Kg"
             android:textSize="16sp"
             />
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/til_price"
+            android:visibility="visible"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_toLeftOf="@+id/jie_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="待支付金额："/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/jie_price"
+                android:text="1000元"
+                />
 
+        </LinearLayout>
+
+
+    </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/huise"
         />
        <RelativeLayout
+           android:id="@+id/clo_bill"
+           android:visibility="visible"
            android:padding="10dp"
            android:layout_width="match_parent"
            android:layout_height="wrap_content">
@@ -104,6 +128,6 @@
                    android:textSize="16sp"
                    />
            </LinearLayout>
-           
+
        </RelativeLayout>
 </LinearLayout>

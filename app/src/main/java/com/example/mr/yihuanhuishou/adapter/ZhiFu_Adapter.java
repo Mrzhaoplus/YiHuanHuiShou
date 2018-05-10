@@ -31,7 +31,7 @@ public class ZhiFu_Adapter extends RecyclerView.Adapter<ZhiFu_Adapter.Holder>{
     }
 
     private void data() {
-        for (int i=0;i<10;i++){
+        for (int i=0;i<8;i++){
             list.add("");
         }
     }

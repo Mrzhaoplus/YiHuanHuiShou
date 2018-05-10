@@ -25,12 +25,7 @@ public class Driver_jiedan_fragment extends BaseFragment {
     private SpringView sp_view;
     private RecyclerView recy_view;
 
-    public Driver_jiedan_fragment(String state) {
-        this.state=state;
-    }
-    public Driver_jiedan_fragment() {
 
-    }
 
     @Override
     protected int setContentView() {
@@ -77,7 +72,5 @@ public class Driver_jiedan_fragment extends BaseFragment {
         recy_view.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         Driver_all_adapter driver_all_adapter = new Driver_all_adapter(getActivity(),state);
         recy_view.setAdapter(driver_all_adapter);
-
-
     }
 }

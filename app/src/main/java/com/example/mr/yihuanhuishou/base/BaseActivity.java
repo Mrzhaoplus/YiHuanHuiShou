@@ -68,7 +68,7 @@ public class BaseActivity extends AppCompatActivity {
 //                Toast.makeText(BaseActivity.this, "我看看", Toast.LENGTH_SHORT).show();
             } else {
                 // 弹出对话框告诉用户需要权限的原因, 并引导用户去应用权限管理中手动打开权限按钮
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+               /* AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("备份通讯录需要访问")
                         .setPositiveButton("设置", new DialogInterface.OnClickListener() {
                             @Override
@@ -84,7 +84,7 @@ public class BaseActivity extends AppCompatActivity {
                             }
                         })
                         .setNegativeButton("退出",null);
-                builder.show();
+                builder.show();*/
             }
         }
     }

@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.fragment.Driver_fragment;
 import com.example.mr.yihuanhuishou.fragment.HuiShou_fragment;
+import com.example.mr.yihuanhuishou.fragment.Oneseif_fragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +38,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
     private Fragment currfit;
     private HuiShou_fragment huiShou_fragment;
     private Driver_fragment driver_fragment;
+    private Oneseif_fragment oneseif_fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +81,10 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
                 jiao3.setVisibility(View.GONE);
                 break;
             case R.id.dd_zisong:
-                if(huiShou_fragment==null){
-                    huiShou_fragment = new HuiShou_fragment();
+                if(oneseif_fragment==null){
+                    oneseif_fragment = new Oneseif_fragment();
                 }
-                AddFragment(huiShou_fragment);
+                AddFragment(oneseif_fragment);
                 jiao1.setVisibility(View.GONE);
                 jiao2.setVisibility(View.GONE);
                 jiao3.setVisibility(View.VISIBLE);

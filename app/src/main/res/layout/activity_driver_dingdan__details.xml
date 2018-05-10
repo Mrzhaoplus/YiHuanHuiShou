@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:background="@color/huise"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mr.yihuanhuishou.activity.Dingdan_DetailsActivity">
+    tools:context="com.example.mr.yihuanhuishou.activity.Driver_dingdan_DetailsActivity">
     <RelativeLayout
-        android:id="@+id/rela"
+        android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorAccent"
@@ -29,56 +29,19 @@
             android:textSize="18sp"
             android:layout_centerInParent="true"
             />
-        <TextView
-            android:id="@+id/shang_qx"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="取消订单"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            />
     </RelativeLayout>
+
     <ScrollView
-        android:layout_above="@+id/shang_qr"
-        android:layout_below="@+id/rela"
+        android:layout_above="@+id/cancle_bill"
+        android:layout_below="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <LinearLayout
-                android:id="@+id/line"
 
-                android:orientation="horizontal"
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                >
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/shangmen_xxxhdpi"
-                    />
-                <TextView
-                    android:id="@+id/shang_state"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="待上门"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="18sp"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/black"
-                    />
-
-            </LinearLayout>
             <RelativeLayout
                 android:id="@+id/rela1"
-                android:layout_below="@+id/line"
                 android:background="@color/white"
                 android:layout_marginTop="10dp"
                 android:padding="10dp"
@@ -94,7 +57,7 @@
                     android:text="订单编号："
                     />
                 <TextView
-                    android:id="@+id/shang_bh"
+                    android:id="@+id/jiedan_bh"
                     android:layout_toRightOf="@+id/tile_bian"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
@@ -103,10 +66,10 @@
                     />
 
                 <TextView
-                    android:id="@+id/shang_name"
+                    android:id="@+id/jiedan_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="蒋先生"
+                    android:text="待接单"
                     android:textSize="16sp"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/colorAccent"
@@ -119,32 +82,10 @@
                     android:layout_marginTop="15dp"
                     android:id="@+id/xian"
                     />
-                <LinearLayout
-                    android:layout_below="@+id/xian"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/line1"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="订单来源："
-                        />
-                    <TextView
-                        android:id="@+id/shang_ly"
-                        android:layout_toRightOf="@+id/tile_bian"
-                        android:textSize="16sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="主动抢单"
-                        />
-                </LinearLayout>
+
 
                 <LinearLayout
-                    android:layout_below="@+id/line1"
+                    android:layout_below="@+id/xian"
                     android:layout_marginTop="10dp"
                     android:id="@+id/line2"
                     android:orientation="horizontal"
@@ -158,7 +99,7 @@
                         android:text="废品类型："
                         />
                     <TextView
-                        android:id="@+id/shang_lx"
+                        android:id="@+id/jiedan_lx"
                         android:layout_toRightOf="@+id/tile_bian"
                         android:textSize="16sp"
                         android:layout_width="wrap_content"
@@ -181,7 +122,7 @@
                         android:text="废品重量："
                         />
                     <TextView
-                        android:id="@+id/shang_zl"
+                        android:id="@+id/jiedan_zl"
                         android:layout_toRightOf="@+id/tile_bian"
                         android:textSize="16sp"
                         android:layout_width="wrap_content"
@@ -189,37 +130,37 @@
                         android:text="15Kg"
                         />
                 </LinearLayout>
-                <RelativeLayout
+                <LinearLayout
                     android:layout_below="@+id/line3"
                     android:layout_marginTop="10dp"
-                    android:id="@+id/line4"
+                    android:id="@+id/line8"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/til_miao"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="废品描述："
+                        android:text="废品总价："
                         />
                     <TextView
-                        android:id="@+id/shang_ms"
-                        android:layout_toRightOf="@+id/til_miao"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/jiedan_zj"
+                        android:layout_toRightOf="@+id/tile_bian"
                         android:textSize="16sp"
-                        android:text="我的废品老多了，快来取吧！我的废品老多了，快来取吧！我的废品老多了，快来取吧！"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/orange"
+                        android:layout_height="wrap_content"
+                        android:text="1000元"
                         />
-                </RelativeLayout>
-
+                </LinearLayout>
 
             </RelativeLayout>
             <RelativeLayout
                 android:padding="10dp"
                 android:background="@color/white"
                 android:layout_below="@+id/rela1"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="1dp"
                 android:id="@+id/rela3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -229,10 +170,10 @@
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="居民地址："
+                    android:text="取货地址："
                     />
                 <TextView
-                    android:id="@+id/shang_dz"
+                    android:id="@+id/jiedan_dizhi"
                     android:layout_toRightOf="@+id/til_dizhi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -244,7 +185,7 @@
                 android:padding="10dp"
                 android:background="@color/white"
                 android:layout_below="@+id/rela3"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="1dp"
                 android:id="@+id/rela2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -254,10 +195,10 @@
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="预约时间："
+                    android:text="发布时间："
                     />
                 <TextView
-                    android:id="@+id/shang_time"
+                    android:id="@+id/jiedan_time"
                     android:layout_toRightOf="@+id/til_tim"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -265,18 +206,42 @@
                     android:text="2017.11.30"
                     />
             </RelativeLayout>
-
+            <RelativeLayout
+                android:padding="10dp"
+                android:background="@color/white"
+                android:layout_below="@+id/rela2"
+                android:layout_marginTop="1dp"
+                android:id="@+id/rela4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/til_haoma"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="车牌号码："
+                    />
+                <TextView
+                    android:id="@+id/jiedan_Lpnum"
+                    android:layout_toRightOf="@+id/til_haoma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="京P.J8U86"
+                    />
+            </RelativeLayout>
         </RelativeLayout>
 
     </ScrollView>
-
     <Button
-        android:id="@+id/shang_qr"
+        android:id="@+id/cancle_bill"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/colorAccent"
         android:layout_alignParentBottom="true"
-        android:text="确认收货"
+        android:text="取消订单"
         android:textColor="@color/white"
         />
+
 </RelativeLayout>
