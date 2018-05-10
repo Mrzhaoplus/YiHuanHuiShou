@@ -13,6 +13,7 @@ import com.example.mr.yihuanhuishou.fragment.huishou.Shangmen_fragment;
 import com.example.mr.yihuanhuishou.fragment.huishou.Wancheng_fragment;
 import com.example.mr.yihuanhuishou.fragment.huishou.Zhifu_fragment;
 import com.example.mr.yihuanhuishou.fragment.oneseif.Designate_fragment;
+import com.example.mr.yihuanhuishou.fragment.oneseif.Oneseif_Success_fragment;
 import com.example.mr.yihuanhuishou.fragment.oneseif.Wait_Pay_fragment;
 
 /**
@@ -36,6 +37,7 @@ public class Oneseif_fragment extends BaseFragment implements View.OnClickListen
     private TextView pay;
     private Designate_fragment designate_fragment;
     private Wait_Pay_fragment wait_pay_fragment;
+    private Oneseif_Success_fragment oneseif_success_fragment;
 
     /**
      * 设置Fragment要显示的布局
@@ -129,10 +131,10 @@ public class Oneseif_fragment extends BaseFragment implements View.OnClickListen
                 xuanding.setTextColor(getResources().getColor(R.color.black));
                 pay.setTextColor(getResources().getColor(R.color.black));
                 success.setTextColor(getResources().getColor(R.color.colorAccent));
-                if(designate_fragment==null){
-                    designate_fragment = new Designate_fragment();
+                if(oneseif_success_fragment==null){
+                    oneseif_success_fragment = new Oneseif_Success_fragment();
                 }
-                AddFragment(designate_fragment);
+                AddFragment(oneseif_success_fragment);
                 break;
         }
     }

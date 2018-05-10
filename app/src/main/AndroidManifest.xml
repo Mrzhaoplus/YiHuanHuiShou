@@ -31,7 +31,9 @@
         <activity android:name=".activity.Driver_Wait_zhifu_DetailsActivity" />
         <activity android:name=".activity.Driver_zhifu_success_DetailsActivity" />
         <activity android:name=".activity.Driver_Cancle_DetailsActivity" />
-        <activity android:name=".activity.Wait_Designate_DetailsActivity"></activity>
+        <activity android:name=".activity.Wait_Designate_DetailsActivity" />
+        <activity android:name=".activity.Oneseif_Wait_pay_detailsActivity" />
+        <activity android:name=".activity.Oneseif_Success_DetailsActivity"></activity>
     </application>
 
 </manifest>
