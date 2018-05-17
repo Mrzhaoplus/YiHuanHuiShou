@@ -3,10 +3,12 @@ package com.example.mr.yihuanhuishou.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,34 +24,31 @@ import java.util.List;
  * Created by Mr赵 on 2018/5/4.
  */
 
-public class ZhiFu_Adapter extends RecyclerView.Adapter<ZhiFu_Adapter.Holder>{
+public class ZhiFu_Adapter extends RecyclerView.Adapter<ZhiFu_Adapter.Holder> {
     private Context context;
-    private List<String>list=new ArrayList<>();
+    private List<String> list = new ArrayList<>();
     public ZhiFu_Adapter(Context context) {
         this.context = context;
         data();
     }
 
     private void data() {
-        for (int i=0;i<8;i++){
+        for (int i = 0; i < 9; i++) {
             list.add("");
         }
     }
-
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(context).inflate(R.layout.zhifu_adapter, parent, false);
         Holder holder = new Holder(inflate);
         return holder;
     }
-
-
     @Override
-    public void onBindViewHolder(Holder holder, int position) {
+    public void onBindViewHolder(final Holder holder, final int position) {
         holder.zhifu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtils.getToast(context,"支付");
+                ToastUtils.getToast(context, "支付");
             }
         });
         holder.view.setOnClickListener(new View.OnClickListener() {
@@ -59,20 +58,13 @@ public class ZhiFu_Adapter extends RecyclerView.Adapter<ZhiFu_Adapter.Holder>{
                 context.startActivity(intent);
             }
         });
-
-
-
     }
-
-
     @Override
     public int getItemCount() {
         return list.size();
     }
-
     public class Holder extends RecyclerView.ViewHolder {
-
-        public  LinearLayout quxiao;
+        public LinearLayout quxiao;
         public LinearLayout shouhuo;
         public TextView state;
         public TextView price;
@@ -83,7 +75,8 @@ public class ZhiFu_Adapter extends RecyclerView.Adapter<ZhiFu_Adapter.Holder>{
         public TextView yihuan;
         public CheckBox xuan;
         public LinearLayout zhifu;
-        public  View view;
+        public View view;
+
         public Holder(View itemView) {
             super(itemView);
             view = itemView;

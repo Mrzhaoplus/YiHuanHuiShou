@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ public class Pay_DetailsActivity extends BaseActivity implements View.OnClickLis
     Button zhifu;
     @BindView(R.id.beak)
     ImageView beak;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,36 @@ public class Pay_DetailsActivity extends BaseActivity implements View.OnClickLis
         price.setText(money+"元");
         zhifu.setOnClickListener(this);
         beak.setOnClickListener(this);
+        weixin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean wei) {
+                if(wei){
+                    zhifubao.setChecked(false);
+                    xianxia.setChecked(false);
+                }
+            }
+        });
+        zhifubao.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean zhi) {
+                if(zhi){
+                    weixin.setChecked(false);
+                    xianxia.setChecked(false);
+                }
+            }
+        });
+        xianxia.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean xian) {
+                if(xian){
+                    zhifubao.setChecked(false);
+                    weixin.setChecked(false);
+                }
+            }
+        });
+
+
+
     }
     @Override
     public void onClick(View view) {

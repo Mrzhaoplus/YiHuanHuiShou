@@ -23,6 +23,7 @@ import java.util.List;
 public class Designate_Adapter extends RecyclerView.Adapter<Designate_Adapter.Holder> {
      Context context;
      List<String>list=new ArrayList<>();
+
     public Designate_Adapter(Context context) {
         this.context = context;
         data();
@@ -31,8 +32,10 @@ public class Designate_Adapter extends RecyclerView.Adapter<Designate_Adapter.Ho
     private void data() {
         for (int i=0;i<8;i++){
             list.add("");
+
         }
     }
+
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {

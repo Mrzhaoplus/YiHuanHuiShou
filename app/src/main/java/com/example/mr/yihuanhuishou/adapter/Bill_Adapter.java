@@ -1,6 +1,7 @@
 package com.example.mr.yihuanhuishou.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +47,7 @@ public class Bill_Adapter extends RecyclerView.Adapter<Bill_Adapter.Holder>{
         holder.qiangdan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtils.getToast(context,"抢单"+position+1);
+                new Intent();
             }
         });
     }

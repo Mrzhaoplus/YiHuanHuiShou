@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="系统消息大标题"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_toLeftOf="@+id/dian"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/title"
+            android:id="@+id/neirong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="系统消息系统消息系统消息系统消息系统消息系统消息系统消息系统消息"
+            android:textSize="16sp"
+            />
+        <ImageView
+            android:id="@+id/dian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dian_xxxhdpi"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="visible"
+            />
+    </RelativeLayout>
+</LinearLayout>

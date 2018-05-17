@@ -21,9 +21,6 @@ import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 
@@ -38,7 +35,6 @@ public class Zhifu_fragment extends BaseFragment implements View.OnClickListener
     private CheckBox all_xuan;
     private TextView price;
     private Button tijiao;
-    private boolean flag=true;
 
     /**
      * 设置Fragment要显示的布局
@@ -61,9 +57,6 @@ public class Zhifu_fragment extends BaseFragment implements View.OnClickListener
         price = contentView.findViewById(R.id.price);
         tijiao = contentView.findViewById(R.id.tijiao);
         tijiao.setOnClickListener(this);
-
-
-
         //刷新加载
         sp_view.setType(SpringView.Type.FOLLOW);
         sp_view.setListener(new SpringView.OnFreshListener() {
@@ -72,7 +65,6 @@ public class Zhifu_fragment extends BaseFragment implements View.OnClickListener
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
                     }
                 },0);
                 sp_view.onFinishFreshAndLoad();
