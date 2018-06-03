@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.example.mr.yihuanhuishou.activity.QiangDan_DetailsActivity">
+
+       <LinearLayout
+           android:visibility="visible"
+           android:layout_marginTop="100dp"
+           android:gravity="center"
+           android:orientation="vertical"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <ImageView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/chenggong_xxxhdpi"
+               />
+           <TextView
+               android:textSize="16sp"
+               android:layout_marginTop="10dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="抢单成功"
+               android:textColor="@color/black"
+               />
+           <LinearLayout
+               android:gravity="center_horizontal"
+               android:layout_marginTop="20dp"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+              <TextView
+                  android:textColor="@color/white"
+                  android:paddingTop="5dp"
+                  android:paddingBottom="5dp"
+                  android:paddingLeft="10dp"
+                  android:paddingRight="10dp"
+                  android:text="查看订单"
+                  android:textSize="16sp"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:background="@drawable/zhifu_button"
+                  />
+               <TextView
+                   android:layout_marginLeft="20dp"
+                   android:paddingTop="5dp"
+                   android:paddingBottom="5dp"
+                   android:paddingLeft="10dp"
+                   android:paddingRight="10dp"
+                   android:text="返回首页"
+                   android:textColor="@color/colorAccent"
+                   android:textSize="16sp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:background="@drawable/shape_button"
+                   />
+
+           </LinearLayout>
+
+
+       </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shibai_hdpi"
+            />
+        <TextView
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="抢单失败"
+            android:textColor="@color/black"
+            />
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/white"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="重新抢单"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/zhifu_button"
+                />
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="返回首页"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_button"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

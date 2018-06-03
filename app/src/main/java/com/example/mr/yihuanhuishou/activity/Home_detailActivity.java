@@ -169,18 +169,19 @@ public class Home_detailActivity extends AppCompatActivity implements View.OnCli
                 Intent intent3 = new Intent(Home_detailActivity.this, MyMsgActivity.class);
                 startActivity(intent3);
                 break;
-            //联系人
+            //个人中心
             case R.id.home_lianxiren:
-                ToastUtils.getToast(Home_detailActivity.this, "联系人");
+                Intent intent4 = new Intent(Home_detailActivity.this, MineActivity.class);
+                startActivity(intent4);
                 break;
             //定位
             case R.id.home_dingwei:
                 ToastUtils.getToast(Home_detailActivity.this, "定位");
-
                 break;
             //详情
             case R.id.home_xiangqing:
-                ToastUtils.getToast(Home_detailActivity.this, "详情");
+                Intent intent5 = new Intent(Home_detailActivity.this, Bill_DetailActivity.class);
+                startActivity(intent5);
                 break;
             //抢单
             case R.id.home_qd:

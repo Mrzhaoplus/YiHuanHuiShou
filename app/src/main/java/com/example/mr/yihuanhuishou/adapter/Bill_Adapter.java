@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
+import com.example.mr.yihuanhuishou.activity.QiangDan_DetailsActivity;
 import com.example.mr.yihuanhuishou.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -47,7 +48,8 @@ public class Bill_Adapter extends RecyclerView.Adapter<Bill_Adapter.Holder>{
         holder.qiangdan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Intent();
+                Intent intent = new Intent(context, QiangDan_DetailsActivity.class);
+                context.startActivity(intent);
             }
         });
     }
@@ -58,16 +60,14 @@ public class Bill_Adapter extends RecyclerView.Adapter<Bill_Adapter.Holder>{
     }
 
     public class Holder extends RecyclerView.ViewHolder{
-
         public  TextView name;
         public LinearLayout qiangdan;
         public TextView address;
-
         public Holder(View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.name);
+                name = itemView.findViewById(R.id.name);
             qiangdan = itemView.findViewById(R.id.qiangdan);
-            address = itemView.findViewById(R.id.address);
+             address = itemView.findViewById(R.id.address);
         }
     }
 }
