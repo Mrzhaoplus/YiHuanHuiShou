@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.amap.api.maps2d.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ding">
+
+    </com.amap.api.maps2d.MapView>
+    <RelativeLayout
+        android:id="@+id/home_ddxx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ding"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:drawableLeft="@drawable/driver_tishi_iv"
+            android:drawablePadding="10dp"
+            android:text="有新的订单消息"
+            android:textColor="@color/textColor" />
+
+        <TextView
+            android:id="@+id/home_qd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingBottom="13dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="13dp"
+            android:text="立即抢单"
+            android:textColor="@color/colorAccent" />
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/home_dingwei"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/driver_dingwei_iv" />
+    <LinearLayout
+        android:id="@+id/home_suofang"
+        android:layout_width="55dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_above="@+id/home_dingwei"
+        android:background="@drawable/driver_juxing1_bg"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:padding="6dp">
+
+        <ImageView
+            android:id="@+id/home_jia_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/driver_jia_iv" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@color/huise" />
+
+        <ImageView
+            android:id="@+id/home_jian_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/driver_jian_iv"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="55dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/driver_juxing1_bg"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="6dp">
+
+        <TextView
+            android:id="@+id/huishou_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/driver_huishourenyuan_true"
+            android:drawablePadding="5dp"
+            android:text="回收人员"
+            android:textSize="10sp"
+            android:layout_marginTop="10dp"/>
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/huise" />
+
+        <TextView
+            android:id="@+id/gongsi_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="回收公司"
+            android:textSize="10sp"
+            android:drawableTop="@drawable/driver_gongsi_false_iv"
+            android:drawablePadding="5dp"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+</RelativeLayout>

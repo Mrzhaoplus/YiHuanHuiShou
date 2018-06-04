@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/home_xuanxiang">
+        <ImageView
+            android:id="@+id/item_img_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/driver_qhcg"
+            android:layout_marginTop="30dp" />
+        <TextView
+            android:id="@+id/item_content_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取货完成"
+            android:textSize="16sp"
+            android:layout_marginTop="15dp"/>
+        <TextView
+            android:id="@+id/item_query_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:padding="15dp"
+            android:text="确认"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_bottomgreen"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</LinearLayout>

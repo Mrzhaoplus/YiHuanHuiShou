@@ -15,8 +15,60 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- 登录分享 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
 
     <application
+        android:name=".base.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo_xxxhdpi"
         android:label="@string/app_name"
@@ -24,9 +76,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
-            android:name="com.example.mr.yihuanhuishou"
+            android:name="com.amap.api.v2.apikey"
             android:value="7a25cc37d7e0df275217ab3a60614bfd">
-            //开发者申请的key</meta-data>
+            //开发者申请的key
+        </meta-data>
 
         <activity android:name=".activity.MainActivity">
             <intent-filter>
@@ -35,6 +88,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <service android:name="com.amap.api.location.APSService" />
+
         <activity android:name=".activity.Home_detailActivity" />
         <activity android:name=".activity.LocationActivity" />
         <activity android:name=".activity.Bill_DetailActivity" />
@@ -58,8 +124,39 @@
         <activity android:name=".activity.Msg_neirongActivity" />
         <activity android:name=".activity.Infor_Msg_DetailsActivity" />
         <activity android:name=".activity.Fire_msg_DetailsActivity" />
+        <activity android:name=".driver.DriverHomeActivity" />
+        <activity android:name=".driver.ui.CompanyDetailActivity" />
+        <activity android:name=".driver.ui.DriverOrderActivity" />
+        <activity android:name=".driver.ui.OrderDetailActivity" />
+        <activity android:name=".driver.ui.DriverMessageActivity" />
+        <activity android:name=".driver.ui.DriverPersonActivity" />
+        <activity android:name=".driver.ui.QiangdanDetailActivity" />
+        <activity android:name=".driver.ui.MyDriverMessageActivity" />
+        <activity android:name=".driver.ui.PersonInfoActivity" />
+        <activity android:name=".driver.ui.HuishouCompanyActivity" />
+        <activity android:name=".driver.ui.HuiShouCompanyDetailActivity" />
+        <activity android:name=".driver.ui.DriverWalletActivity" />
+        <activity android:name=".driver.ui.JiluDetailActivity" />
+        <activity android:name=".driver.ui.TixianActivity" />
+        <activity android:name=".driver.ui.TixianManagerActivity" />
+        <activity android:name=".driver.ui.BindCardActivity" />
+        <activity android:name=".driver.ui.UnBindCardActivity" />
+        <activity
+            android:name=".driver.ui.DriverChepaiActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".driver.ui.DriverYijianActivity" />
+        <activity android:name=".driver.ui.DriverSettingActivity" />
+        <activity android:name=".driver.ui.EditPassWordActivity" />
+        <activity android:name=".driver.ui.AboutUsActivity" />
+        <activity android:name=".driver.ui.HelpActivity" />
+        <activity android:name=".driver.ui.HelpDetailActivity" />
+        <activity android:name=".driver.ui.PackageBagManagerActivity" />
         <activity android:name=".activity.MineActivity" />
-        <activity android:name=".activity.QiangDan_DetailsActivity"></activity>
+        <activity android:name=".activity.QiangDan_DetailsActivity" />
+        <activity android:name=".activity.HomePersonInfoActivity" />
+        <activity android:name=".activity.YihuanBiActivity" />
+        <activity android:name=".activity.YaJinActivity" />
+        <activity android:name=".activity.PostDemandActivity"></activity>
     </application>
 
 </manifest>

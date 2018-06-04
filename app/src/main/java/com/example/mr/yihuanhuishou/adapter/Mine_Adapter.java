@@ -53,16 +53,14 @@ public class Mine_Adapter extends BaseAdapter {
         }else{
             vh= (Viewholder) view.getTag();
         }
-        Glide.with(context) .load(list.get(i).getImg_view()).into(vh.img_view);
+        Glide.with(context).load(list.get(i).getImg_view()).into(vh.img_view);
         vh.text_view.setText(list.get(i).getText_view());
-
         return view;
     }
 
     class Viewholder{
         ImageView img_view;
         TextView text_view;
-
     }
 
 

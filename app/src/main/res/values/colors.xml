@@ -11,4 +11,11 @@
     <color name="orange">#fbaf27</color>
     <color name="red">#ff0000</color>
     <color name="bg_color">#333333</color>
+    <color name="textColor">#333333</color>
+    <color name="textColorgray">#999999</color>
+    <color name="driver_bg">#ECEDEC</color>
+    <color name="order_bg">#F9FAF9</color>
+    <color name="red1">#f84f63</color>
+    <color name="pink">#FF6F6F</color>
+
 </resources>

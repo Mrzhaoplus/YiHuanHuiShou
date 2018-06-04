@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/driver_bg"
+    tools:context="com.example.mr.yihuanhuishou.driver.ui.HelpDetailActivity">
+    <include layout="@layout/item_title_layout"/>
+    <TextView
+        android:id="@+id/content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这是内容"
+        android:textSize="16sp"
+        android:textColor="@color/textColor"
+        android:padding="10dp"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"/>
+</LinearLayout>

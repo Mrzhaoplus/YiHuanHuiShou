@@ -54,7 +54,6 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         holder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, mDatas.get(position).getCity(), Toast.LENGTH_SHORT).show();
                 int position = holder.getLayoutPosition();
                 mOnItemClickListener.onItemClick(holder.itemView, position);
                 EventBus.getDefault().postSticky(new Event_dingwei(mDatas.get(position).getCity()));

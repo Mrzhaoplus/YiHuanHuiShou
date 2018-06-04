@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
+    <TextView
+        android:id="@+id/item_phone_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/driver_qipao_iv"
+        android:textColor="@color/white"
+        android:text="15372338966"
+        android:gravity="center_horizontal"
+        android:paddingTop="5dp"/>
+</LinearLayout>

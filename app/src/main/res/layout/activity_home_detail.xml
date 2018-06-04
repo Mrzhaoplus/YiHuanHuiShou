@@ -13,58 +13,57 @@
         android:background="@color/colorAccent">
 
         <ImageView
+            android:id="@+id/home_dingdan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/home_dingdan"
-            android:src="@drawable/home_dingdan_xxxhdpi"
-            />
+            android:src="@drawable/home_dingdan_xxxhdpi" />
+
         <ImageView
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/home_lianxiren"
-            android:src="@drawable/home_lianxi_xxxhdpi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            />
-        <ImageView
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:layout_width="wrap_content"
-            android:layout_toLeftOf="@+id/home_lianxiren"
-            android:layout_height="wrap_content"
+            android:src="@drawable/home_lianxi_xxxhdpi" />
+
+        <ImageView
             android:id="@+id/home_msg"
-            android:src="@drawable/home_xiaoxi_xxxhdpi"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/home_lianxiren"
+            android:src="@drawable/home_xiaoxi_xxxhdpi" />
 
         <LinearLayout
             android:id="@+id/jiao"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-              <ImageView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:src="@drawable/home_weizhi_xxxhdpi"
-                  />
-            <TextView
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:src="@drawable/home_weizhi_xxxhdpi" />
+
+            <TextView
+                android:id="@+id/home_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="北京"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/home_address"
-                />
+                android:textSize="16sp" />
+
             <ImageView
-                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/home_xuan_xxxhdpi"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                />
+                android:src="@drawable/home_xuan_xxxhdpi" />
         </LinearLayout>
     </RelativeLayout>
     <com.amap.api.maps2d.MapView

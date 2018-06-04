@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/driver_bg"
+    tools:context="com.example.mr.yihuanhuishou.driver.ui.DriverYijianActivity">
+    <include
+        android:id="@+id/title_include"
+        layout="@layout/item_title_layout"/>
+
+    <EditText
+        android:id="@+id/yijian_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_include"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:hint="请输入问题描述"
+        android:padding="15dp"
+        android:textSize="14sp"
+        android:textColor="@color/textColor"
+        android:minLines="15"
+        android:gravity="start"/>
+    <TextView
+        android:id="@+id/query_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_green_button"
+        android:layout_below="@+id/yijian_et"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="80dp"/>
+    <TextView
+        android:id="@+id/kefu_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="客服电话：1234567"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

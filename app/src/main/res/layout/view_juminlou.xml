@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/juminlou_iv">
+        <TextView
+            android:id="@+id/item_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123号楼"
+            android:textColor="@color/textColor"
+            android:paddingLeft="55dp"
+            android:paddingTop="5dp"/>
+        <TextView
+            android:id="@+id/ratingBarView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="40个"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginLeft="55dp"
+            android:paddingTop="2dp"
+            android:layout_below="@+id/item_name_tv"/>
+    </RelativeLayout>
+</LinearLayout>
