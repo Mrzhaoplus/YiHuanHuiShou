@@ -102,6 +102,7 @@ public class PostDemandActivity extends BaseActivity {
             case R.id.shuliang_tv:
                 break;
             case R.id.select_address:
+                startActivity(new Intent(this,Select_AddressActivity.class));
                 break;
         }
     }
@@ -124,7 +125,6 @@ public class PostDemandActivity extends BaseActivity {
         //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状态
         map.onSaveInstanceState(outState);
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

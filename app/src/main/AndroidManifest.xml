@@ -156,7 +156,10 @@
         <activity android:name=".activity.HomePersonInfoActivity" />
         <activity android:name=".activity.YihuanBiActivity" />
         <activity android:name=".activity.YaJinActivity" />
-        <activity android:name=".activity.PostDemandActivity"></activity>
+        <activity android:name=".activity.PostDemandActivity" />
+        <activity android:name=".activity.Real_nameActivity" />
+        <activity android:name=".activity.Recycle_priceActivity" />
+        <activity android:name=".activity.Select_AddressActivity"></activity>
     </application>
 
 </manifest>

@@ -219,6 +219,7 @@ public class BaseActivity extends AppCompatActivity {
 
     /** 设置状态栏颜色 */
     protected void initSystemBarTint() {
+
         Window window = getWindow();
         if (translucentStatusBar()) {
             // 设置状态栏全透明

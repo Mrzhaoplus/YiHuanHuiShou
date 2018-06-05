@@ -107,13 +107,17 @@ public class MineActivity extends BaseActivity {
                         startActivity(new Intent(MineActivity.this, MyMsgActivity.class));
                         break;
                     case 2:
+                        startActivity(new Intent(MineActivity.this, Recycle_priceActivity.class));
                         break;
                     case 3:
+
                         break;
                     case 4:
+                        startActivity(new Intent(MineActivity.this,PostDemandActivity.class));
                         break;
                     case 5:
-                        break;
+                        startActivity(new Intent(MineActivity.this, Real_nameActivity.class));
+                    break;
                     case 6:
                         startActivity(new Intent(MineActivity.this, DriverYijianActivity.class));
                         break;
@@ -142,6 +146,7 @@ public class MineActivity extends BaseActivity {
                 startActivity(new Intent(MineActivity.this,YaJinActivity.class));
                 break;
             case R.id.gongsi_ll:
+
                 break;
         }
     }
