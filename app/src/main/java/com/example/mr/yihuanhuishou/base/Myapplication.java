@@ -13,7 +13,6 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.orhanobut.logger.AndroidLogAdapter;
-import com.orhanobut.logger.BuildConfig;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
@@ -27,8 +26,9 @@ import okhttp3.OkHttpClient;
  * Created by Administrator on 2017/8/24.
  */
 
-public class MyApplication extends Application {
-    private static MyApplication application;
+public class Myapplication extends Application {
+    private static Myapplication application;
+
 
     @Override
     public void onCreate() {
