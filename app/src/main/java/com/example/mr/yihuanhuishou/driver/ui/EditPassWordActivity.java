@@ -69,7 +69,7 @@ public class EditPassWordActivity extends BaseActivity {
         TextView contentTv = mDialog.getView(R.id.item_content_tv);
         TextView queryTv = mDialog.getView(R.id.item_query_tv);
         if (TextUtils.equals("success",type)){
-            imageView.setImageResource(R.drawable.driver_qhcg_iv);
+            imageView.setImageResource(R.drawable.driver_qhcg);
             contentTv.setText("密码修改成功");
         }else if (TextUtils.equals("filed",type)){
             imageView.setImageResource(R.drawable.xgsb_iv);

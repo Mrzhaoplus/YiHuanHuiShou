@@ -29,7 +29,6 @@ import okhttp3.OkHttpClient;
 public class Myapplication extends Application {
     private static Myapplication application;
 
-
     @Override
     public void onCreate() {
         super.onCreate();

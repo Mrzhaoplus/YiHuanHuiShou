@@ -314,7 +314,7 @@ public class DriverAllOrderFragment extends BaseFragment implements BaseQuickAda
         TextView queryTv = mDialog.getView(R.id.item_query_tv);
         if (TextUtils.equals("company",type)){
             if (isPay){
-                imageView.setImageResource(R.drawable.driver_qhcg_iv);
+                imageView.setImageResource(R.drawable.driver_qhcg);
                 contentTv.setText("取货完成");
                 queryTv.setText("确认");
             }else {

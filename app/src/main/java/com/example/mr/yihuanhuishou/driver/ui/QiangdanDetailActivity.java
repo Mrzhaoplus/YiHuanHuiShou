@@ -87,7 +87,7 @@ public class QiangdanDetailActivity extends BaseActivity {
         TextView contentTv = mDialog.getView(R.id.item_content_tv);
         TextView queryTv = mDialog.getView(R.id.item_query_tv);
         if (isSuccess){
-            imageView.setImageResource(R.drawable.driver_qhcg_iv);
+            imageView.setImageResource(R.drawable.driver_qhcg);
             contentTv.setText(type);
         }else {
             imageView.setImageResource(R.drawable.driver_qhsb_iv);
