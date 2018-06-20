@@ -27,6 +27,7 @@ public class MyChatFragment extends EaseChatFragment implements EaseChatFragment
     protected void setUpView() {
         setChatFragmentHelper(this);
         super.setUpView();
+
         //隐藏右边删除聊天记录按钮
         titleBar.setRightLayoutVisibility(View.GONE);
         titleBar.setLeftImageResource(R.drawable.title_back_iv);
