@@ -22,6 +22,12 @@ import com.example.mr.yihuanhuishou.driver.ui.DriverMessageActivity;
 import com.example.mr.yihuanhuishou.driver.ui.DriverOrderActivity;
 import com.example.mr.yihuanhuishou.driver.ui.DriverPersonActivity;
 import com.example.mr.yihuanhuishou.driver.ui.MyDriverMessageActivity;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.EMConnectionListener;
+import com.hyphenate.EMError;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.util.NetUtils;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -97,7 +103,51 @@ public class DriverHomeActivity extends BaseActivity {
     }
 
     private void initView() {
+        //TODO 测试账户密码，记得修改
+        EMClient.getInstance().login("test02","123",new EMCallBack() {//回调
+            @Override
+            public void onSuccess() {
+                Logger.e("登录聊天服务器成功！");
+            }
 
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                Logger.e("登录聊天服务器失败！"+message);
+            }
+        });
+        //注册一个监听连接状态的listener
+        EMClient.getInstance().addConnectionListener(new MyConnectionListener());
+    }
+
+    //实现ConnectionListener接口
+    private class MyConnectionListener implements EMConnectionListener {
+        @Override
+        public void onConnected() {
+        }
+        @Override
+        public void onDisconnected(final int error) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(error == EMError.USER_REMOVED){
+                        // 显示帐号已经被移除
+                    }else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
+                        // 显示帐号在其他设备登录
+                    } else {
+                        if (NetUtils.hasNetwork(DriverHomeActivity.this)){
+                            //连接不到聊天服务器
+                        } else{
+                            //当前网络不可用，请检查网络设置
+                        }
+                    }
+                }
+            });
+        }
     }
 
     @OnClick(R.id.home_dingdan)

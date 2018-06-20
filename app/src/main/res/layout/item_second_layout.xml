@@ -2,5 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2018-06-05 15:30:39"
+        android:gravity="center"
+        android:padding="5dp"
+        android:background="@color/white"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/three_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 </LinearLayout>

@@ -35,7 +35,9 @@
         android:id="@+id/second_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:background="@color/driver_bg"/>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/white"/>
 </LinearLayout>

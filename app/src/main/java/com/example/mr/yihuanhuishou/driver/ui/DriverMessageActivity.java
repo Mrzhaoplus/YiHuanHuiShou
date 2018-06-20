@@ -140,7 +140,7 @@ public class DriverMessageActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rela2, R.id.rela3, R.id.rela4})
+    @OnClick({R.id.rela2, R.id.rela3, R.id.rela4,R.id.title_back_iv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rela2:
@@ -179,6 +179,9 @@ public class DriverMessageActivity extends BaseActivity {
                     driverGonggaoFragment = new DriverGonggaoFragment();
                 }
                 AddFragment(driverGonggaoFragment);
+                break;
+            case R.id.title_back_iv:
+                finish();
                 break;
         }
     }

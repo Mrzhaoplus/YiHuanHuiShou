@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
@@ -22,6 +23,17 @@ import java.util.List;
 public class Mymsg_Adapter extends RecyclerView.Adapter<Mymsg_Adapter.Holder>{
     private Context context;
     List<String> list=new ArrayList<>();
+
+
+    private OnMyItemClickListener listener;
+    public void setOnMyItemClickListener(OnMyItemClickListener listener){
+        this.listener = listener;
+
+    }
+
+    public interface OnMyItemClickListener{
+        void myClick(View v,int pos);
+    }
 
     public Mymsg_Adapter(Context context, List<String> list) {
         this.context = context;
@@ -50,6 +62,12 @@ public class Mymsg_Adapter extends RecyclerView.Adapter<Mymsg_Adapter.Holder>{
                  holder.dian.setVisibility(View.GONE);
              }
          });
+         holder.clickRl.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 listener.myClick(view,position);
+             }
+         });
     }
 
     @Override
@@ -64,6 +82,7 @@ public class Mymsg_Adapter extends RecyclerView.Adapter<Mymsg_Adapter.Holder>{
         public TextView name;
         public ImageView touxiang;
         public View view;
+        public RelativeLayout clickRl;
 
         public Holder(View itemView) {
             super(itemView);
@@ -72,7 +91,7 @@ public class Mymsg_Adapter extends RecyclerView.Adapter<Mymsg_Adapter.Holder>{
             name = view.findViewById(R.id.jname);
             neirong = view.findViewById(R.id.neirong);
             dian = view.findViewById(R.id.dian);
-
+            clickRl = view.findViewById(R.id.click_rl);
         }
     }
 }

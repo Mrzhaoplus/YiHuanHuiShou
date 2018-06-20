@@ -101,6 +101,52 @@
 
         <service android:name="com.amap.api.location.APSService" />
 
+        <!-- 设置环信应用的AppKey -->
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="1149180427146127#yihuan" />
+        <!-- 声明SDK所需的service SDK核心功能 -->
+        <service
+            android:name="com.hyphenate.chat.EMChatService"
+            android:exported="true" />
+        <service
+            android:name="com.hyphenate.chat.EMJobService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <!-- 声明SDK所需的receiver -->
+        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+            <!-- 可选filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 地图 -->
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="PTGhoQbuEgT3Ws27u3cwIk35uTkAmc4d" />
+
+        <!-- 显示下载大图页面 -->
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+        <!-- 下载文件 -->
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseShowNormalFileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
         <activity android:name=".activity.Home_detailActivity" />
         <activity android:name=".activity.LocationActivity" />
         <activity android:name=".activity.Bill_DetailActivity" />
@@ -158,10 +204,12 @@
         <activity android:name=".activity.YaJinActivity" />
         <activity android:name=".activity.PostDemandActivity" />
         <activity android:name=".activity.HomeCompanyDetailActivity" />
-        <activity android:name=".activity.CarDetailActivity"/>
+        <activity android:name=".activity.CarDetailActivity" />
         <activity android:name=".activity.Real_nameActivity" />
         <activity android:name=".activity.Recycle_priceActivity" />
-        <activity android:name=".activity.Select_AddressActivity"/>
+        <activity android:name=".activity.Select_AddressActivity" />
+        <activity android:name=".driver.ui.SendPackgeActivity" />
+        <activity android:name=".driver.ui.ChatActivity"></activity>
     </application>
 
 </manifest>

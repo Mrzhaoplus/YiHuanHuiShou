@@ -15,6 +15,10 @@ import com.example.mr.yihuanhuishou.activity.MyMsgActivity;
 import com.example.mr.yihuanhuishou.adapter.Mymsg_Adapter;
 import com.example.mr.yihuanhuishou.base.BaseActivity;
 import com.example.mr.yihuanhuishou.bean.Event_fragment;
+import com.example.mr.yihuanhuishou.utils.SpUtils;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseConstant;
+import com.luck.picture.lib.tools.Constant;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
@@ -67,6 +71,20 @@ public class MyDriverMessageActivity extends BaseActivity {
         swipRecycler.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
 
         final Mymsg_Adapter mymsg_adapter = new Mymsg_Adapter(MyDriverMessageActivity.this,list);
+        mymsg_adapter.setOnMyItemClickListener(new Mymsg_Adapter.OnMyItemClickListener() {
+            @Override
+            public void myClick(View v, int pos) {
+                //设置要发送出去的昵称
+                SpUtils.putString(MyDriverMessageActivity.this,"userName","Power回收司机");
+                //设置要发送出去的头像
+                SpUtils.putString(MyDriverMessageActivity.this,"face","http://img5.duitang.com/uploads/item/201508/30/20150830132007_TjANX.thumb.224_0.jpeg");
+
+                Intent intent = new Intent(MyDriverMessageActivity.this,ChatActivity.class);
+                intent.putExtra(EaseConstant.EXTRA_USER_ID,"test01");
+                intent.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EMMessage.ChatType.Chat);
+                startActivity(intent);
+            }
+        });
         // 设置监听器。
         swipRecycler.setSwipeMenuCreator(mSwipeMenuCreator);
 

@@ -3,6 +3,9 @@ package com.example.mr.yihuanhuishou.base;
 import android.app.Application;
 import android.content.Context;
 
+import com.example.mr.yihuanhuishou.driver.weight.HXHelper;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.EaseUI;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -35,6 +38,7 @@ public class Myapplication extends Application {
         application = this;
         setLogger();
         setOkGo();//OkGo----第三方网络框架
+        initEM();
     }
 
     @Override
@@ -49,6 +53,11 @@ public class Myapplication extends Application {
 
     public static Context getGloableContext() {
         return application.getApplicationContext();
+    }
+
+    private void initEM() {
+        //初始化UI界面
+        HXHelper.getInstance().init(this);
     }
 
     /**

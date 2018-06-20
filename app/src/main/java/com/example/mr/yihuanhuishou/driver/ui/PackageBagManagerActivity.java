@@ -1,5 +1,6 @@
 package com.example.mr.yihuanhuishou.driver.ui;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -140,6 +141,7 @@ public class PackageBagManagerActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.title_right_tv:
+                startActivity(new Intent(this,SendPackgeActivity.class));
                 break;
         }
     }

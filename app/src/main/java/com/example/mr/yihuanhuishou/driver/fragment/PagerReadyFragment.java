@@ -2,6 +2,7 @@ package com.example.mr.yihuanhuishou.driver.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -65,13 +66,53 @@ public class PagerReadyFragment extends BaseFragment {
             secondRecyclerView.setNestedScrollingEnabled(false);
             secondRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
             SecondAdapter secondAdapter = new SecondAdapter(R.layout.item_second_layout,secondList);
-
+            secondRecyclerView.setAdapter(secondAdapter);
         }
     }
 
     private class SecondAdapter extends BaseQuickAdapter<String,BaseViewHolder>{
 
         public SecondAdapter(int layoutResId, @Nullable List<String> data) {
+            super(layoutResId, data);
+        }
+
+        @Override
+        protected void convert(BaseViewHolder helper, String item) {
+            RecyclerView threeRecyclerView = helper.getView(R.id.three_recyclerView);
+            List<String> threeList = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                threeList.add("");
+            }
+            threeRecyclerView.setNestedScrollingEnabled(false);
+            threeRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+            ThreeAdapter threeAdapter = new ThreeAdapter(R.layout.item_three_layout,threeList);
+            threeRecyclerView.setAdapter(threeAdapter);
+        }
+    }
+
+    private class ThreeAdapter extends BaseQuickAdapter<String,BaseViewHolder>{
+
+        public ThreeAdapter(int layoutResId, @Nullable List<String> data) {
+            super(layoutResId, data);
+        }
+
+        @Override
+        protected void convert(BaseViewHolder helper, String item) {
+            RecyclerView fourRecycler = helper.getView(R.id.four_recyclerView);
+            List<String> fourList = new ArrayList<>();
+            for (int i = 0; i < 16; i++) {
+                fourList.add("");
+            }
+            fourRecycler.setNestedScrollingEnabled(false);
+            fourRecycler.setLayoutManager(new GridLayoutManager(mContext,4));
+            FourAdapter fourAdapter = new FourAdapter(R.layout.item_three_not_layout,fourList);
+            fourRecycler.setAdapter(fourAdapter);
+        }
+    }
+
+    private class FourAdapter extends BaseQuickAdapter<String,BaseViewHolder>{
+
+        public FourAdapter(int layoutResId, @Nullable List<String> data) {
             super(layoutResId, data);
         }
 
