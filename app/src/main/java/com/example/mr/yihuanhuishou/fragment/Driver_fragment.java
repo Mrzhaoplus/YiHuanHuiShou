@@ -9,7 +9,14 @@ import android.view.View;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.base.BaseFragment;
 import com.example.mr.yihuanhuishou.fragment.driver.Driver_all_fragment;
+import com.example.mr.yihuanhuishou.fragment.driver.Driver_daijiedan_fragment;
+import com.example.mr.yihuanhuishou.fragment.driver.Driver_daizhifu_fragment;
 import com.example.mr.yihuanhuishou.fragment.driver.Driver_jiedan_fragment;
+import com.example.mr.yihuanhuishou.fragment.driver.Driver_peisong_fragment;
+import com.example.mr.yihuanhuishou.fragment.driver.Driver_peisongwan_fragment;
+import com.example.mr.yihuanhuishou.fragment.driver.Driver_quhuozhong_fragment;
+import com.example.mr.yihuanhuishou.fragment.driver.Driver_yiquxiao_fragment;
+import com.example.mr.yihuanhuishou.fragment.driver.Driver_zhifuwan_fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +48,6 @@ public class Driver_fragment extends BaseFragment {
         View contentView = getContentView();
         tab = contentView.findViewById(R.id.tab);
         vp = contentView.findViewById(R.id.vp_pager);
-
         list.add("全部");
         list.add("待接单");
         list.add("取货中");
@@ -64,29 +70,35 @@ public class Driver_fragment extends BaseFragment {
                 Fragment fragment=null;
                 switch (position){
                     case 0:
-                        fragment= new Driver_all_fragment(list.get(position));
+                        fragment= new Driver_all_fragment();
                         break;
                     case 1:
-                        fragment= new Driver_all_fragment(list.get(position));
+                         fragment= new Driver_all_fragment("0");
+                        // fragment= new Driver_daijiedan_fragment();
                         break;
                     case 2:
-                        fragment= new Driver_all_fragment(list.get(position));
+                        fragment= new Driver_all_fragment("1");
+                       // fragment= new Driver_quhuozhong_fragment();
                         break;
                     case 3:
-                        fragment= new Driver_all_fragment(list.get(position));
+                        fragment= new Driver_all_fragment("3");
+                       // fragment= new Driver_peisong_fragment();
                         break;
                     case 4:
-                        fragment= new Driver_all_fragment(list.get(position));
+                        fragment= new Driver_all_fragment("4");
+                      // fragment= new Driver_peisongwan_fragment();
                         break;
                     case 5:
-                        fragment= new Driver_all_fragment(list.get(position));
+                        fragment= new Driver_all_fragment("11");
+                        //fragment= new Driver_daizhifu_fragment();
                         break;
                     case 6:
-                        fragment= new Driver_all_fragment(list.get(position));
+                        fragment= new Driver_all_fragment("12");
+                        //fragment= new Driver_zhifuwan_fragment();
                         break;
                     case 7:
-                        fragment= new Driver_all_fragment();
-                        fragment= new Driver_all_fragment(list.get(position));
+                        fragment= new Driver_all_fragment("5");
+                        //fragment= new Driver_yiquxiao_fragment();
                         break;
                 }
                 return fragment;

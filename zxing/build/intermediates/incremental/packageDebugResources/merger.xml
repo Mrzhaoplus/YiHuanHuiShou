@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main$Generated" generated="true"><source path="D:\YiHuanHuiShou\zxing\src\main\res"/><source path="D:\YiHuanHuiShou\zxing\build\generated\res\rs\debug"/><source path="D:\YiHuanHuiShou\zxing\build\generated\res\resValues\debug"/></dataSet><dataSet config="main" generated-set="main$Generated"><source path="D:\YiHuanHuiShou\zxing\src\main\res"><file name="divider_title" path="D:\YiHuanHuiShou\zxing\src\main\res\drawable-xhdpi\divider_title.9.png" qualifiers="xhdpi-v4" type="drawable"/><file name="fanhui_2x" path="D:\YiHuanHuiShou\zxing\src\main\res\drawable-xhdpi\fanhui_2x.png" qualifiers="xhdpi-v4" type="drawable"/><file name="qr_scan_line" path="D:\YiHuanHuiShou\zxing\src\main\res\drawable-xhdpi\qr_scan_line.png" qualifiers="xhdpi-v4" type="drawable"/><file name="sdt_2x" path="D:\YiHuanHuiShou\zxing\src\main\res\drawable-xhdpi\sdt_2x.png" qualifiers="xhdpi-v4" type="drawable"/><file name="activity_qrcode_capture_layout" path="D:\YiHuanHuiShou\zxing\src\main\res\layout\activity_qrcode_capture_layout.xml" qualifiers="" type="layout"/><file name="item_qrcode_footer" path="D:\YiHuanHuiShou\zxing\src\main\res\layout\item_qrcode_footer.xml" qualifiers="" type="layout"/><file name="layout_title" path="D:\YiHuanHuiShou\zxing\src\main\res\layout\layout_title.xml" qualifiers="" type="layout"/><file name="main" path="D:\YiHuanHuiShou\zxing\src\main\res\menu\main.xml" qualifiers="" type="menu"/><file name="beep" path="D:\YiHuanHuiShou\zxing\src\main\res\raw\beep.mp3" qualifiers="" type="raw"/><file name="dddd" path="D:\YiHuanHuiShou\zxing\src\main\res\raw\dddd.mp3" qualifiers="" type="raw"/><file path="D:\YiHuanHuiShou\zxing\src\main\res\values\attrs.xml" qualifiers=""><declare-styleable name="TitleView">
+        <attr format="string" name="tv_title"/>
+        <attr format="string" name="tv_right"/>
+        <attr format="enum" name="tv_img_left_visibility">
+            <enum name="visable" value="0"/>
+            <enum name="invisable" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr>
+        <attr format="enum" name="tv_img_right_visibility">
+            <enum name="visable" value="0"/>
+            <enum name="invisable" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr>
+        <attr format="enum" name="tv_right_tv_visibility">
+            <enum name="visable" value="0"/>
+            <enum name="invisable" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr>
+    </declare-styleable></file><file path="D:\YiHuanHuiShou\zxing\src\main\res\values\colors.xml" qualifiers=""><color name="lans_bg">#039EFF</color><color name="viewfinder_mask">#60000000</color><color name="result_view">#b0000000</color><color name="possible_result_points">#c0ffff00</color><color name="result_image_border">#ffffffff</color><color name="result_minor_text">#ffc0c0c0</color><color name="result_points">#c000ff00</color><color name="system_bar_color">#fed952</color><color name="navpage">#FFE1E8EB</color></file><file path="D:\YiHuanHuiShou\zxing\src\main\res\values\dimens.xml" qualifiers=""><dimen name="activity_horizontal_margin">16dp</dimen><dimen name="activity_vertical_margin">16dp</dimen><dimen name="title_height">42dp</dimen><dimen name="text_size34px">17dp</dimen><dimen name="text_size30px">15dp</dimen></file><file path="D:\YiHuanHuiShou\zxing\src\main\res\values\ids.xml" qualifiers=""><item name="auto_focus" type="id"/><item name="decode" type="id"/><item name="decode_failed" type="id"/><item name="decode_succeeded" type="id"/><item name="encode_failed" type="id"/><item name="encode_succeeded" type="id"/><item name="launch_product_query" type="id"/><item name="quit" type="id"/><item name="restart_preview" type="id"/><item name="return_scan_result" type="id"/><item name="search_book_contents_failed" type="id"/><item name="search_book_contents_succeeded" type="id"/><item name="gridview" type="id"/><item name="webview" type="id"/><item name="about_version_code" type="id">false</item><item name="split" type="id">false</item></file><file path="D:\YiHuanHuiShou\zxing\src\main\res\values\strings.xml" qualifiers=""><string name="app_name">Zxing</string><string name="hello_world">Hello world!</string><string name="action_settings">Settings</string></file><file path="D:\YiHuanHuiShou\zxing\src\main\res\values\styles.xml" qualifiers=""><style name="AppBaseTheme" parent="android:Theme.Light">
+        
+    </style><style name="AppTheme" parent="AppBaseTheme">
+        
+    </style></file><file path="D:\YiHuanHuiShou\zxing\src\main\res\values-v11\styles.xml" qualifiers="v11"><style name="AppBaseTheme" parent="android:Theme.Holo.Light">
+        
+    </style></file><file path="D:\YiHuanHuiShou\zxing\src\main\res\values-v14\styles.xml" qualifiers="v14"><style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        
+    </style></file><file path="D:\YiHuanHuiShou\zxing\src\main\res\values-w820dp\dimens.xml" qualifiers="w820dp-v13"><dimen name="activity_horizontal_margin">64dp</dimen></file></source><source path="D:\YiHuanHuiShou\zxing\build\generated\res\rs\debug"/><source path="D:\YiHuanHuiShou\zxing\build\generated\res\resValues\debug"/></dataSet><dataSet config="debug$Generated" generated="true"><source path="D:\YiHuanHuiShou\zxing\src\debug\res"/></dataSet><dataSet config="debug" generated-set="debug$Generated"><source path="D:\YiHuanHuiShou\zxing\src\debug\res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="TitleView"><attr format="string" name="tv_title"/><attr format="string" name="tv_right"/><attr format="enum" name="tv_img_left_visibility">
+            <enum name="visable" value="0"/>
+            <enum name="invisable" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr><attr format="enum" name="tv_img_right_visibility">
+            <enum name="visable" value="0"/>
+            <enum name="invisable" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr><attr format="enum" name="tv_right_tv_visibility">
+            <enum name="visable" value="0"/>
+            <enum name="invisable" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr></declare-styleable></configuration></mergedItems></merger>

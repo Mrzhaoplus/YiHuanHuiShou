@@ -2,6 +2,7 @@ package com.example.mr.yihuanhuishou.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,14 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.adapter.Mine_Adapter;
 import com.example.mr.yihuanhuishou.base.BaseActivity;
 import com.example.mr.yihuanhuishou.bean.Mine_bean;
 import com.example.mr.yihuanhuishou.driver.ui.DriverSettingActivity;
 import com.example.mr.yihuanhuishou.driver.ui.DriverWalletActivity;
-import com.example.mr.yihuanhuishou.driver.ui.DriverYijianActivity;
-import com.example.mr.yihuanhuishou.driver.ui.PersonInfoActivity;
+import com.example.mr.yihuanhuishou.driver.weight.CircleImageView;
+import com.example.mr.yihuanhuishou.utils.GGUtils;
 import com.example.mr.yihuanhuishou.utils.MyUtils;
 
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ public class MineActivity extends BaseActivity {
     RelativeLayout titleRl;
     List<Mine_bean> list = new ArrayList<>();
     @BindView(R.id.iv_grtx)
-    ImageView ivGrtx;
+    CircleImageView ivGrtx;
     @BindView(R.id.name)
     TextView name;
     @BindView(R.id.wallet_ll)
@@ -49,14 +51,52 @@ public class MineActivity extends BaseActivity {
     LinearLayout yajinLl;
     @BindView(R.id.gongsi_ll)
     LinearLayout gongsiLl;
+    @BindView(R.id.sex_imag)
+    ImageView sexImag;
+    @BindView(R.id.xianjin)
+    TextView xianjin;
+    @BindView(R.id.yihuan)
+    TextView yihuan;
+    @BindView(R.id.yajin)
+    TextView yajin;
+    @BindView(R.id.fire_weight)
+    TextView fireWeight;
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine);
         ButterKnife.bind(this);
+        sp = getSharedPreferences(GGUtils.SP_NAME, MODE_PRIVATE);
         initSystemBarTint();
         initdata();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String imagpath = sp.getString(GGUtils.IMAGE_path, "");
+        Glide.with(this).load(imagpath).into(ivGrtx);
+        if(imagpath.equals("")){
+            Glide.with(this).load(R.drawable.logo_xxxhdpi).into(ivGrtx);
+        }
+        String user_name = sp.getString(GGUtils.USER_NAME, "");
+        if(user_name.equals("")){
+            name.setText("暂无昵称！");
+        }else{
+            name.setText(user_name);
+        }
+        String sex = sp.getString(GGUtils.SEX, "");
+        if(sex.equals("0")){
+            Glide.with(this).load(R.drawable.icon_girl).into(sexImag);
+        }else if(sex.equals("1")){
+            Glide.with(this).load(R.drawable.icon_boy).into(sexImag);
+        }else{
+            sexImag.setVisibility(View.GONE);
+        }
+        xianjin.setText(sp.getInt(GGUtils.XIANJIN,0)+".00元");
+        yihuan.setText(sp.getInt(GGUtils.YIHUAN,0)+".00元");
     }
 
     @Override
@@ -75,10 +115,12 @@ public class MineActivity extends BaseActivity {
 
     private void initdata() {
 
+
         final int statusBarHeight = getStatusBarHeight(this);
         MyUtils.setMargins(titleRl, 0, statusBarHeight, 0, 0);
 
         list.add(new Mine_bean(R.drawable.wddd_iv, "我的订单"));
+        list.add(new Mine_bean(R.drawable.ggb_xxxhdpi, "公告板"));
         list.add(new Mine_bean(R.drawable.wdxx_iv, "我的消息"));
         list.add(new Mine_bean(R.drawable.hsjg_iv, "回收价格"));
         list.add(new Mine_bean(R.drawable.bzdgl_iv, "包装袋管理"));
@@ -104,24 +146,27 @@ public class MineActivity extends BaseActivity {
                         startActivity(new Intent(MineActivity.this, OrderActivity.class));
                         break;
                     case 1:
-                        startActivity(new Intent(MineActivity.this, MyMsgActivity.class));
+                        startActivity(new Intent(MineActivity.this, NoticolActivity.class));
                         break;
                     case 2:
-                        startActivity(new Intent(MineActivity.this, Recycle_priceActivity.class));
+                        startActivity(new Intent(MineActivity.this, MyMsgActivity.class));
                         break;
                     case 3:
-
+                        startActivity(new Intent(MineActivity.this, Recycle_priceActivity.class));
                         break;
                     case 4:
-                        startActivity(new Intent(MineActivity.this,PostDemandActivity.class));
+                        startActivity(new Intent(MineActivity.this, PackManageActivity.class));
                         break;
                     case 5:
-                        startActivity(new Intent(MineActivity.this, Real_nameActivity.class));
-                    break;
+                        startActivity(new Intent(MineActivity.this, Select_AddressActivity.class));
+                        break;
                     case 6:
-                        startActivity(new Intent(MineActivity.this, DriverYijianActivity.class));
+                        startActivity(new Intent(MineActivity.this, Real_nameActivity.class));
                         break;
                     case 7:
+                        startActivity(new Intent(MineActivity.this, ComplaintActivity.class));
+                        break;
+                    case 8:
                         startActivity(new Intent(MineActivity.this, DriverSettingActivity.class));
                         break;
                 }
@@ -140,13 +185,13 @@ public class MineActivity extends BaseActivity {
                 startActivity(new Intent(MineActivity.this, DriverWalletActivity.class));
                 break;
             case R.id.yihuanbi_ll:
-                startActivity(new Intent(MineActivity.this,YihuanBiActivity.class));
+                startActivity(new Intent(MineActivity.this, YihuanBiActivity.class));
                 break;
             case R.id.yajin_ll:
-                startActivity(new Intent(MineActivity.this,YaJinActivity.class));
+                startActivity(new Intent(MineActivity.this, YaJinActivity.class));
                 break;
             case R.id.gongsi_ll:
-
+                startActivity(new Intent(MineActivity.this, Recycler_FirmActivity.class));
                 break;
         }
     }

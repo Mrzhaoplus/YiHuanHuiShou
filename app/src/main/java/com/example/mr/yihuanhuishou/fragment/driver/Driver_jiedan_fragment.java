@@ -21,7 +21,6 @@ import com.liaoinstan.springview.widget.SpringView;
 
 public class Driver_jiedan_fragment extends BaseFragment {
 
-    private  String state;
     private SpringView sp_view;
     private RecyclerView recy_view;
 
@@ -70,7 +69,7 @@ public class Driver_jiedan_fragment extends BaseFragment {
         recy_view.setNestedScrollingEnabled(false);
         recy_view.setLayoutManager(new LinearLayoutManager(getActivity()));
         recy_view.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-        Driver_all_adapter driver_all_adapter = new Driver_all_adapter(getActivity(),state);
-        recy_view.setAdapter(driver_all_adapter);
+        /*Driver_all_adapter driver_all_adapter = new Driver_all_adapter(getActivity());
+        recy_view.setAdapter(driver_all_adapter);*/
     }
 }

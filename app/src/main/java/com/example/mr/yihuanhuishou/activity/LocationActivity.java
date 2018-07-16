@@ -101,13 +101,7 @@ public class LocationActivity extends BaseActivity {
                 finish();
             }
         });
-
-
     }
-
-
-
-
     /**
      * 组织数据源
      *

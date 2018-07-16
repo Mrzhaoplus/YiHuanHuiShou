@@ -36,11 +36,14 @@ public class Oneseif_Success_DetailsActivity extends AppCompatActivity implement
     TextView wait_price;
     @BindView(R.id.pay_fu_price)
     TextView fu_price;
+    private int id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oneseif__success__details);
         ButterKnife.bind(this);
+        id = getIntent().getIntExtra("id", 0);
         initview();
     }
 

@@ -8,10 +8,34 @@
     android:orientation="vertical"
     android:background="@color/driver_bg"
     tools:context="com.example.mr.yihuanhuishou.activity.YihuanBiActivity">
-    <include layout="@layout/item_title_layout"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="50dp"
+        android:background="@color/colorAccent"
+        >
+        <ImageView
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_xxxhdpi"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/beak"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的易换币"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:background="@color/colorPrimary">
         <TextView
             android:id="@+id/view_01"
@@ -21,7 +45,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="20dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,10 +54,10 @@
             android:textStyle="bold"
             android:layout_below="@+id/view_01"
             android:layout_marginLeft="15dp"
-            android:textColor="@color/white"
-            android:layout_marginTop="10dp"/>
+            android:textColor="@color/white"/>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/chong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -55,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white">
         <RelativeLayout
             android:id="@+id/xiaofei_rl"

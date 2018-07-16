@@ -68,7 +68,7 @@
                     android:id="@+id/pay_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="已完成"
+                    android:text="待支付"
                     android:textSize="16sp"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/colorAccent"

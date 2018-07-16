@@ -19,12 +19,9 @@ public class DriverYijianActivity extends BaseActivity {
     ImageView titleBackIv;
     @BindView(R.id.title_content_tv)
     TextView titleContentTv;
-    @BindView(R.id.yijian_et)
-    EditText yijianEt;
     @BindView(R.id.query_tv)
     TextView queryTv;
-    @BindView(R.id.kefu_tv)
-    TextView kefuTv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +33,7 @@ public class DriverYijianActivity extends BaseActivity {
 
     private void initView() {
         titleBackIv.setVisibility(View.VISIBLE);
-        titleContentTv.setText("意见建议");
+        titleContentTv.setText("问题留言");
     }
 
     @OnClick({R.id.title_back_iv, R.id.query_tv})

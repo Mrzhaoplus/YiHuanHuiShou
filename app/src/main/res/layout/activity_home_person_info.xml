@@ -10,6 +10,8 @@
     tools:context="com.example.mr.yihuanhuishou.driver.ui.PersonInfoActivity">
     <include layout="@layout/item_title_layout"/>
     <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -53,15 +55,19 @@
             android:layout_height="wrap_content"
             android:padding="15dp">
             <TextView
+                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="昵称"
                 android:textColor="@color/textColor"/>
-            <TextView
+            <EditText
                 android:id="@+id/name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:text="Sense"
+                android:hint="昵称"
+                android:textSize="14sp"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
         <View
@@ -76,15 +82,19 @@
             android:layout_height="wrap_content"
             android:padding="15dp">
             <TextView
+                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="年龄"
                 android:textColor="@color/textColor"/>
-            <TextView
+            <EditText
                 android:id="@+id/age_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="21"
+                android:hint="年龄"
+                android:background="@null"
+                android:textSize="14sp"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
         <View
@@ -103,6 +113,7 @@
                 android:text="性别"
                 android:textColor="@color/textColor"/>
             <RadioGroup
+                android:id="@+id/rg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

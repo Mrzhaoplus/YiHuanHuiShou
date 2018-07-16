@@ -30,7 +30,7 @@
               android:id="@+id/jie_state"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="待接单"
+              android:text="全部"
               android:layout_alignParentRight="true"
               android:textSize="16sp"
               android:textColor="@color/red"

@@ -1,30 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/white">
     <LinearLayout
+        android:id="@+id/ding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:background="@color/white">
         <TextView
+            android:textSize="16sp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="需求总数量："
+            android:text="需求总数量:"
             android:textColor="@color/textColor"/>
         <TextView
+            android:id="@+id/itme_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10个"
+            android:textSize="16sp"
+            android:textStyle="bold"
             android:textColor="@color/textColor"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="5dp"/>
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
+        android:layout_above="@+id/ckdt"
+        android:layout_below="@+id/ding"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
-</LinearLayout>
+    <TextView
+        android:id="@+id/ckdt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/colorAccent"
+        android:layout_alignParentBottom="true"
+        android:text="点击查看地图"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+         android:gravity="center"
+        />
+</RelativeLayout>

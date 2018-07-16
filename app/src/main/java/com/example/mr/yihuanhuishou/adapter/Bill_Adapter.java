@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.activity.QiangDan_DetailsActivity;
+import com.example.mr.yihuanhuishou.activity.Xuqiu_DetailActivity;
+import com.example.mr.yihuanhuishou.jsonbean.Fujin_Order_Bean;
 import com.example.mr.yihuanhuishou.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -23,16 +25,11 @@ import java.util.List;
 
 public class Bill_Adapter extends RecyclerView.Adapter<Bill_Adapter.Holder>{
     Context context;
-    List<String> list=new ArrayList<>();
-    public Bill_Adapter(Context context) {
-        this.context = context;
-        data();
-    }
+    List<Fujin_Order_Bean.DataBean> list=new ArrayList<>();
 
-    private void data() {
-        for (int i=0;i<10;i++){
-            list.add("");
-        }
+    public Bill_Adapter(Context context, List<Fujin_Order_Bean.DataBean> list) {
+        this.context = context;
+        this.list = list;
     }
 
     @Override
@@ -45,6 +42,10 @@ public class Bill_Adapter extends RecyclerView.Adapter<Bill_Adapter.Holder>{
 
     @Override
     public void onBindViewHolder(Holder holder, final int position) {
+
+        holder.leixing.setText(list.get(position).getEecWasteinfo().getVarieties());
+        holder.address.setText(list.get(position).getEecWasteinfo().getWasteinfoAddr());
+
         holder.qiangdan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +53,15 @@ public class Bill_Adapter extends RecyclerView.Adapter<Bill_Adapter.Holder>{
                 context.startActivity(intent);
             }
         });
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, Xuqiu_DetailActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
+
     }
 
     @Override
@@ -61,11 +71,16 @@ public class Bill_Adapter extends RecyclerView.Adapter<Bill_Adapter.Holder>{
 
     public class Holder extends RecyclerView.ViewHolder{
         public  TextView name;
+        public  TextView leixing;
         public LinearLayout qiangdan;
         public TextView address;
+        public  View view;
+
         public Holder(View itemView) {
             super(itemView);
-                name = itemView.findViewById(R.id.name);
+            view = itemView;
+            name = itemView.findViewById(R.id.name);
+            leixing = itemView.findViewById(R.id.leixing);
             qiangdan = itemView.findViewById(R.id.qiangdan);
              address = itemView.findViewById(R.id.address);
         }

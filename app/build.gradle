@@ -4,12 +4,13 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
+        multiDexEnabled true
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "arm64-v8a", "x86_64"
         }
         applicationId "com.example.mr.yihuanhuishou"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -21,7 +22,7 @@ android {
             keyAlias 'key0'
             keyPassword '123456'
             storePassword '123456'
-            storeFile file('/Users/power/PowerProject/jks/yihuan.jks')
+            storeFile file('D:/yihuan.jks')
         }
     }
 
@@ -51,8 +52,8 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
-//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -74,6 +75,13 @@ dependencies {
     compile 'com.orhanobut:logger:2.1.1'
     compile 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.1'
     compile 'com.contrarywind:Android-PickerView:3.2.6'
+    compile 'com.contrarywind:wheelview:4.0.5'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
     compile project(':easeui')
+    implementation project(':zxing')
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.google.code.gson:gson:2.8.2'
+    //WebSocket 依赖包
+    compile 'org.java-websocket:Java-WebSocket:1.3.0'
+    implementation files('libs/AMapSearch_6.1.0_AMapLocation_4.1.0_20180619.jar')
 }

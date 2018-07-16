@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="lans_bg">#039EFF</color>
+    <color name="navpage">#FFE1E8EB</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="result_image_border">#ffffffff</color>
+    <color name="result_minor_text">#ffc0c0c0</color>
+    <color name="result_points">#c000ff00</color>
+    <color name="result_view">#b0000000</color>
+    <color name="system_bar_color">#fed952</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <declare-styleable name="TitleView"><attr format="string" name="tv_title"/><attr format="string" name="tv_right"/><attr format="enum" name="tv_img_left_visibility">
+            <enum name="visable" value="0"/>
+            <enum name="invisable" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr><attr format="enum" name="tv_img_right_visibility">
+            <enum name="visable" value="0"/>
+            <enum name="invisable" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr><attr format="enum" name="tv_right_tv_visibility">
+            <enum name="visable" value="0"/>
+            <enum name="invisable" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr></declare-styleable>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="text_size30px">15dp</dimen>
+    <dimen name="text_size34px">17dp</dimen>
+    <dimen name="title_height">42dp</dimen>
+    <item name="about_version_code" type="id">false</item>
+    <item name="auto_focus" type="id"/>
+    <item name="decode" type="id"/>
+    <item name="decode_failed" type="id"/>
+    <item name="decode_succeeded" type="id"/>
+    <item name="encode_failed" type="id"/>
+    <item name="encode_succeeded" type="id"/>
+    <item name="gridview" type="id"/>
+    <item name="launch_product_query" type="id"/>
+    <item name="quit" type="id"/>
+    <item name="restart_preview" type="id"/>
+    <item name="return_scan_result" type="id"/>
+    <item name="search_book_contents_failed" type="id"/>
+    <item name="search_book_contents_succeeded" type="id"/>
+    <item name="split" type="id">false</item>
+    <item name="webview" type="id"/>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">Zxing</string>
+    <string name="hello_world">Hello world!</string>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+</resources>

@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:src="@drawable/home_xuan_xxxhdpi" />
         </LinearLayout>
     </RelativeLayout>
@@ -131,14 +131,17 @@
         />
 
        <Button
-           android:visibility="visible"
+           android:visibility="gone"
            android:layout_width="wrap_content"
-           android:padding="10dp"
-           android:layout_height="40dp"
+          android:paddingLeft="20dp"
+           android:paddingRight="20dp"
+           android:paddingTop="5dp"
+           android:paddingBottom="5dp"
+           android:layout_height="35dp"
            android:layout_alignParentBottom="true"
            android:layout_centerInParent="true"
            android:layout_marginBottom="50dp"
-           android:text="发送配送消息"
+           android:text="发送配送信息"
            android:textColor="@color/white"
            android:background="@drawable/home_button"
            android:id="@+id/home_send"
@@ -160,7 +163,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:id="@+id/home_jm"
-                  android:src="@drawable/home_jm_xxxhdpi"
+                  android:src="@drawable/home_jm_icon_xxxhdpi"
                 />
               <TextView
                   android:layout_width="wrap_content"
@@ -201,7 +204,7 @@
                 android:layout_margin="5dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/home_firm_xuanzhong"
+                android:src="@drawable/home_gongsi_xxxhdpi"
                 />
             <TextView
                 android:layout_width="wrap_content"

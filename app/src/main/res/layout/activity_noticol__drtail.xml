@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/hui"
+    android:layout_height="match_parent"
+    tools:context="com.example.mr.yihuanhuishou.activity.Noticol_DrtailActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorAccent"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_xxxhdpi"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/beak"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="公告板详情"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/content"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，"
+            />
+    </LinearLayout>
+</LinearLayout>

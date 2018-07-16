@@ -37,4 +37,14 @@
         android:padding="10dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"/>
+    <ImageView
+        android:id="@+id/title_more_bj"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/duihao"
+        android:padding="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+
 </RelativeLayout>

@@ -43,16 +43,17 @@
                         android:textSize="16sp" />
 
                     <ImageView
+                        android:padding="10dp"
                         android:id="@+id/beak"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="5dp"
                         android:src="@drawable/back_xxxhdpi" />
                 </RelativeLayout>
             </RelativeLayout>
 
-            <ImageView
+            <com.example.mr.yihuanhuishou.driver.weight.CircleImageView
                 android:id="@+id/iv_grtx"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
@@ -73,24 +74,26 @@
                 android:textSize="16sp" />
 
             <ImageView
+                android:id="@+id/sex_imag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/beijing"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="11dp"
                 android:layout_toRightOf="@+id/name"
-                android:src="@drawable/icon_girl" />
+                android:src="@drawable/icon_boy" />
 
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
             android:gravity="center"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            >
 
             <LinearLayout
                 android:id="@+id/wallet_ll"
@@ -102,10 +105,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/xianjin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="100.00元"
-                    android:textSize="15sp" />
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -124,10 +129,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/yihuan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1000元"
-                    android:textSize="15sp" />
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -146,10 +153,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/yajin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="199元"
-                    android:textSize="15sp" />
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -168,10 +177,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/fire_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3个"
-                    android:textSize="15sp" />
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"

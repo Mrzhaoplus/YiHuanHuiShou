@@ -58,7 +58,7 @@
             android:drawableLeft="@drawable/mima_iv"
             android:drawablePadding="15dp"/>
     </LinearLayout>
-    <TextView
+    <Button
         android:id="@+id/edit_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,9 +67,8 @@
         android:textSize="16sp"
         android:background="@drawable/bg_green_button"
         android:gravity="center"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+       android:textStyle="bold"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="100dp"/>
+        android:layout_marginTop="80dp"/>
 </LinearLayout>

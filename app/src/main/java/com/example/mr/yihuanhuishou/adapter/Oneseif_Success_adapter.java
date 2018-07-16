@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.activity.Oneseif_Success_DetailsActivity;
+import com.example.mr.yihuanhuishou.jsonbean.Order_Daijiedan_Bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +23,11 @@ import java.util.List;
 
 public class Oneseif_Success_adapter extends RecyclerView.Adapter<Oneseif_Success_adapter.Holder> {
     Context context;
-    List<String>list=new ArrayList<>();
-    public Oneseif_Success_adapter(Context context) {
-        this.context = context;
-        data();
-    }
+    List<Order_Daijiedan_Bean.DataBean>list=new ArrayList<>();
 
-    private void data() {
-        for (int i=0;i<8;i++){
-            list.add("");
-        }
+    public Oneseif_Success_adapter(Context context, List<Order_Daijiedan_Bean.DataBean> list) {
+        this.context = context;
+        this.list = list;
     }
 
     @Override
@@ -41,11 +37,15 @@ public class Oneseif_Success_adapter extends RecyclerView.Adapter<Oneseif_Succes
         return holder;
     }
     @Override
-    public void onBindViewHolder(Holder holder, int position) {
+    public void onBindViewHolder(Holder holder, final int position) {
+        holder.number.setText(list.get(position).getOrderNumber());
+        holder.sort.setText(list.get(position).getVarieties());
+        holder.price.setText(list.get(position).getTotalPrice()+"元");
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, Oneseif_Success_DetailsActivity.class);
+                intent.putExtra("id",list.get(position).getId());
                 context.startActivity(intent);
             }
         });

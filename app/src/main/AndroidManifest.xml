@@ -78,16 +78,16 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="7a25cc37d7e0df275217ab3a60614bfd">
-            //开发者申请的key
-        </meta-data>
+            //开发者申请的key</meta-data>
 
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.LogonActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.MainActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -209,7 +209,29 @@
         <activity android:name=".activity.Recycle_priceActivity" />
         <activity android:name=".activity.Select_AddressActivity" />
         <activity android:name=".driver.ui.SendPackgeActivity" />
-        <activity android:name=".driver.ui.ChatActivity"></activity>
+        <activity android:name=".driver.ui.ChatActivity" />
+        <activity android:name=".activity.ZhuCe_RegisterActivity" />
+        <activity android:name=".activity.XieyiActivity" />
+        <activity android:name=".activity.wangji_forgetActivity" />
+        <activity android:name=".activity.ChongzhiActivity" />
+        <activity android:name=".activity.Record_jiluActivity" />
+        <activity android:name=".activity.Yajin_recordActivity" />
+        <activity android:name=".activity.New_AddressActivity" />
+        <activity android:name=".activity.Address_DetailsActivity" />
+        <activity android:name=".activity.Address_bianjiActivity" />
+        <activity android:name=".activity.Recycler_FirmActivity" />
+        <activity android:name=".activity.Shenhe_Frim_DetailsActivity" />
+        <activity android:name=".activity.Xuqiu_DetailActivity" />
+        <activity android:name=".activity.Two_dismins_codActivity" />
+        <activity android:name=".activity.PackManageActivity" />
+        <activity android:name=".activity.PackManage_DetailsActivity" />
+        <activity android:name=".activity.Bar_CodeActivity" />
+        <activity android:name="com.bjxf.zxing.view.SweepCodeActivity" />
+        <activity android:name=".activity.ComplaintActivity" />
+        <activity android:name=".activity.NoticolActivity" />
+        <activity android:name=".activity.Noticol_DrtailActivity" />
+        <activity android:name=".activity.Dingdan_itmeActivity" />
+        <activity android:name=".activity.Dingdan_DetailActivity"></activity>
     </application>
 
 </manifest>

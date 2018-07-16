@@ -15,6 +15,7 @@ import com.example.mr.yihuanhuishou.fragment.huishou.Zhifu_fragment;
 import com.example.mr.yihuanhuishou.fragment.oneseif.Designate_fragment;
 import com.example.mr.yihuanhuishou.fragment.oneseif.Oneseif_Success_fragment;
 import com.example.mr.yihuanhuishou.fragment.oneseif.Wait_Pay_fragment;
+import com.example.mr.yihuanhuishou.fragment.oneseif.Wait_all_fragment;
 
 /**
  * Created by Mr赵 on 2018/5/8.
@@ -38,6 +39,8 @@ public class Oneseif_fragment extends BaseFragment implements View.OnClickListen
     private Designate_fragment designate_fragment;
     private Wait_Pay_fragment wait_pay_fragment;
     private Oneseif_Success_fragment oneseif_success_fragment;
+    private Wait_all_fragment wait_all_fragment;
+    private View xian;
 
     /**
      * 设置Fragment要显示的布局
@@ -60,6 +63,7 @@ public class Oneseif_fragment extends BaseFragment implements View.OnClickListen
         rela3 = contentView.findViewById(R.id.rela3);
         rela4 = contentView.findViewById(R.id.rela4);
         xian1 = contentView.findViewById(R.id.xian1);
+        xian = contentView.findViewById(R.id.xian);
         xian2 = contentView.findViewById(R.id.xian2);
         xian3 = contentView.findViewById(R.id.xian3);
         xian4 = contentView.findViewById(R.id.xian4);
@@ -82,6 +86,7 @@ public class Oneseif_fragment extends BaseFragment implements View.OnClickListen
         switch (view.getId()){
             //全部
             case R.id.rela1:
+                xian.setVisibility(View.VISIBLE);
                 xian1.setVisibility(View.VISIBLE);
                 xian2.setVisibility(View.GONE);
                 xian3.setVisibility(View.GONE);
@@ -90,10 +95,15 @@ public class Oneseif_fragment extends BaseFragment implements View.OnClickListen
                 xuanding.setTextColor(getResources().getColor(R.color.black));
                 pay.setTextColor(getResources().getColor(R.color.black));
                 success.setTextColor(getResources().getColor(R.color.black));
-
+                //默认页面
+                if(wait_all_fragment==null){
+                    wait_all_fragment = new Wait_all_fragment();
+                }
+                AddFragment(wait_all_fragment);
                 break;
             //待选定
             case R.id.rela2:
+                xian.setVisibility(View.VISIBLE);
                 xian1.setVisibility(View.GONE);
                 xian2.setVisibility(View.VISIBLE);
                 xian3.setVisibility(View.GONE);
@@ -109,6 +119,7 @@ public class Oneseif_fragment extends BaseFragment implements View.OnClickListen
                 break;
             //待支付
             case R.id.rela3:
+                xian.setVisibility(View.VISIBLE);
                 xian1.setVisibility(View.GONE);
                 xian2.setVisibility(View.GONE);
                 xian3.setVisibility(View.VISIBLE);
@@ -123,6 +134,7 @@ public class Oneseif_fragment extends BaseFragment implements View.OnClickListen
                 AddFragment(wait_pay_fragment);
                 break;
             case R.id.rela4:
+                xian.setVisibility(View.VISIBLE);
                 xian1.setVisibility(View.GONE);
                 xian2.setVisibility(View.GONE);
                 xian3.setVisibility(View.GONE);

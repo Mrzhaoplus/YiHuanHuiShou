@@ -72,6 +72,7 @@ public class Msg_neirongActivity extends AppCompatActivity implements View.OnCli
         rela2.setOnClickListener(this);
         rela3.setOnClickListener(this);
         rela4.setOnClickListener(this);
+        beak.setOnClickListener(this);
 
         //注册
         if(flag){

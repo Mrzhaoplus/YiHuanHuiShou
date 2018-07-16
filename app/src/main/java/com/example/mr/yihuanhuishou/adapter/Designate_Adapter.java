@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.activity.Wait_Designate_DetailsActivity;
+import com.example.mr.yihuanhuishou.jsonbean.Order_Daijiedan_Bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,20 +23,12 @@ import java.util.List;
 
 public class Designate_Adapter extends RecyclerView.Adapter<Designate_Adapter.Holder> {
      Context context;
-     List<String>list=new ArrayList<>();
+     List<Order_Daijiedan_Bean.DataBean>list=new ArrayList<>();
 
-    public Designate_Adapter(Context context) {
+    public Designate_Adapter(Context context, List<Order_Daijiedan_Bean.DataBean> list) {
         this.context = context;
-        data();
+        this.list = list;
     }
-
-    private void data() {
-        for (int i=0;i<8;i++){
-            list.add("");
-
-        }
-    }
-
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,11 +39,16 @@ public class Designate_Adapter extends RecyclerView.Adapter<Designate_Adapter.Ho
 
 
     @Override
-    public void onBindViewHolder(Holder holder, int position) {
+    public void onBindViewHolder(Holder holder, final int position) {
+        holder.bianhao.setText(list.get(position).getOrderNumber());
+        holder.sort.setText(list.get(position).getVarieties());
+        holder.weight.setText(list.get(position).getCount()+""+list.get(position).getUnit());
+
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, Wait_Designate_DetailsActivity.class);
+                intent.putExtra("id",list.get(position).getId());
                 context.startActivity(intent);
             }
         });
@@ -60,7 +58,6 @@ public class Designate_Adapter extends RecyclerView.Adapter<Designate_Adapter.Ho
     public int getItemCount() {
         return list.size();
     }
-
     public class Holder extends RecyclerView.ViewHolder {
 
         public TextView weight;

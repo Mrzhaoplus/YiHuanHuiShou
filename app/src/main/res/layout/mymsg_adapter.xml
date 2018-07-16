@@ -10,7 +10,7 @@
          android:id="@+id/touxiang"
          android:layout_width="55dp"
          android:layout_height="55dp"
-         android:src="@drawable/icon_tou"
+         android:src="@drawable/test_face_iv"
          />
        <TextView
 

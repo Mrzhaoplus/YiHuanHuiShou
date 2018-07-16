@@ -45,6 +45,8 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         ButterKnife.bind(this);
+        int state = getIntent().getIntExtra("state", 0);
+
         beak.setOnClickListener(this);
         dd_hs.setOnClickListener(this);
         siji.setOnClickListener(this);
@@ -53,6 +55,23 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
             huiShou_fragment = new HuiShou_fragment();
         }
         AddFragment(huiShou_fragment);
+        if(state==1){
+            if(driver_fragment==null){
+                driver_fragment = new Driver_fragment();
+            }
+            AddFragment(driver_fragment);
+            jiao1.setVisibility(View.GONE);
+            jiao2.setVisibility(View.VISIBLE);
+            jiao3.setVisibility(View.GONE);
+        }else if(state==2){
+            if(oneseif_fragment==null){
+                oneseif_fragment = new Oneseif_fragment();
+            }
+            AddFragment(oneseif_fragment);
+            jiao1.setVisibility(View.GONE);
+            jiao2.setVisibility(View.GONE);
+            jiao3.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

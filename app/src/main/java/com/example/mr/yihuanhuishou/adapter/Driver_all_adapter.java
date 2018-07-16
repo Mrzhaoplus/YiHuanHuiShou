@@ -19,6 +19,7 @@ import com.example.mr.yihuanhuishou.activity.Driver_Cancle_DetailsActivity;
 import com.example.mr.yihuanhuishou.activity.Driver_Wait_zhifu_DetailsActivity;
 import com.example.mr.yihuanhuishou.activity.Driver_dingdan_DetailsActivity;
 import com.example.mr.yihuanhuishou.activity.Driver_zhifu_success_DetailsActivity;
+import com.example.mr.yihuanhuishou.jsonbean.Order_Daijiedan_Bean;
 import com.example.mr.yihuanhuishou.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -29,19 +30,19 @@ import java.util.List;
  */
 
 public class Driver_all_adapter extends RecyclerView.Adapter<Driver_all_adapter.Holder> {
-    private  String state;
+
     Context context;
-    List<String>list=new ArrayList<>();
-    public Driver_all_adapter(Context context,String state) {
-        this.state=state;
+    List<Order_Daijiedan_Bean.DataBean>list=new ArrayList<>();
+    private QuXiao click;
+
+    public Driver_all_adapter(Context context,List<Order_Daijiedan_Bean.DataBean>list) {
         this.context = context;
-        data();
+        this.list=list;
     }
-    private void data() {
-       for(int i=0;i<8;i++){
-            list.add("");
-        }
+    public void getclick(QuXiao jiekou){
+        this.click=jiekou;
     }
+
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.driver_all_adapter, parent, false);
@@ -50,63 +51,75 @@ public class Driver_all_adapter extends RecyclerView.Adapter<Driver_all_adapter.
     }
     @Override
     public void onBindViewHolder(Holder holder, final int position) {
-        holder.state.setText(state);
-
+        holder.bian.setText(list.get(position).getOrderNumber());
+        holder.sort.setText(list.get(position).getVarieties());
+        holder.zhong.setText(list.get(position).getCount()+""+list.get(position).getUnit());
        //取消
         holder.quxiao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtils.getToast(context,"取消订单");
+                click.getcanleClick(position);
             }
         });
 
-        if(state.equals("待接单")){
+        final String state = list.get(position).getState();
+        if(state.equals("0")){
+            holder.state.setText("待接单");
             holder.til_price.setVisibility(View.GONE);
-        }else if(state.equals("取货中")){
+        }else if(state.equals("1")){
+            holder.state.setText("取货中");
             holder.til_price.setVisibility(View.GONE);
-        }else if(state.equals("配送中")){
+        }else if(state.equals("3")){
+            holder.state.setText("配送中");
             holder.til_price.setVisibility(View.GONE);
             holder.clo_bill.setVisibility(View.GONE);
-        } else if(state.equals("配送完")){
+        }else if(state.equals("4")){
+            holder.state.setText("配送完");
             holder.til_price.setVisibility(View.GONE);
             holder.clo_bill.setVisibility(View.GONE);
-        }else if(state.equals("待支付")){
+        }else if(state.equals("11")){
+            holder.state.setText("待支付");
             holder.clo_bill.setVisibility(View.GONE);
-        } else if(state.equals("已支付")){
+        }else if(state.equals("12")) {
+            holder.state.setText("已支付");
             holder.clo_bill.setVisibility(View.GONE);
-        }else if(state.equals("已取消")){
+        }else if(state.equals("5")){
+            holder.state.setText("已取消");
             holder.til_price.setVisibility(View.GONE);
             holder.clo_bill.setVisibility(View.GONE);
         }
 
-        //点击事件
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(state.equals("待接单")){
+                int id = list.get(position).getId();
+                if(state.equals("0")){
                     Intent intent = new Intent(context, Driver_dingdan_DetailsActivity.class);
+                    intent.putExtra("id",id);
                     context.startActivity(intent);
-                }else if(state.equals("取货中")){
+                }else if(state.equals("1")){
                     Intent intent = new Intent(context, Clame_Goods_DetailsActivity.class);
                     context.startActivity(intent);
-                }else if(state.equals("配送中")){
+                }else if(state.equals("3")){
                     Intent intent = new Intent(context, Distrbstion_DetailActivity.class);
                     context.startActivity(intent);
-                } else if(state.equals("配送完")){
+                }else if(state.equals("4")){
                     Intent intent = new Intent(context, Distribution_success_DetailsActivity.class);
                     context.startActivity(intent);
-                }else if(state.equals("待支付")){
+                }else if(state.equals("11")){
                     Intent intent = new Intent(context,Driver_Wait_zhifu_DetailsActivity.class);
                     context.startActivity(intent);
-                } else if(state.equals("已支付")){
-                    Intent intent = new Intent(context, Driver_zhifu_success_DetailsActivity.class);
+                }else if(state.equals("12")){
+                    Intent intent = new Intent(context,Driver_zhifu_success_DetailsActivity.class);
                     context.startActivity(intent);
-                }else if(state.equals("已取消")){
+                }else if(state.equals("5")){
                     Intent intent = new Intent(context, Driver_Cancle_DetailsActivity.class);
+                    intent.putExtra("id",id);
                     context.startActivity(intent);
                 }
             }
         });
+
     }
     @Override
     public int getItemCount() {
@@ -134,5 +147,8 @@ public class Driver_all_adapter extends RecyclerView.Adapter<Driver_all_adapter.
             price = itemView.findViewById(R.id.jie_price);
             clo_bill = itemView.findViewById(R.id.clo_bill);
         }
+    }
+    public interface QuXiao{
+        void getcanleClick(int postion);
     }
 }

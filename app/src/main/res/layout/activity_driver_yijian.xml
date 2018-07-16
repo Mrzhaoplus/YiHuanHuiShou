@@ -1,50 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/driver_bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="com.example.mr.yihuanhuishou.driver.ui.DriverYijianActivity">
     <include
         android:id="@+id/title_include"
         layout="@layout/item_title_layout"/>
 
-    <EditText
-        android:id="@+id/yijian_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title_include"
-        android:background="@color/white"
+
+    <LinearLayout
         android:layout_marginTop="10dp"
-        android:hint="请输入问题描述"
-        android:padding="15dp"
-        android:textSize="14sp"
-        android:textColor="@color/textColor"
-        android:minLines="15"
-        android:gravity="start"/>
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_include"
+            android:text="问题标题："
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            />
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_marginTop="10dp"
+              android:background="@color/hui"
+              />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:hint="请输入问题标题"
+            android:textSize="14sp"
+            android:textColor="@color/textColor"
+            android:minLines="5"
+            android:gravity="start"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_include"
+            android:text="问题描述："
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/hui"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:hint="请输入问题描述"
+            android:textSize="14sp"
+            android:textColor="@color/textColor"
+            android:minLines="8"
+            android:gravity="start"/>
+    </LinearLayout>
     <TextView
         android:id="@+id/query_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="确定"
+        android:text="提交"
         android:textColor="@color/white"
         android:background="@drawable/bg_green_button"
         android:layout_below="@+id/yijian_et"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:gravity="center"
-        android:textSize="16sp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:textSize="18sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="80dp"/>
-    <TextView
+    <!--<TextView
         android:id="@+id/kefu_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="客服电话：1234567"
         android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"/>
-</RelativeLayout>
+        android:layout_alignParentBottom="true"/>-->
+</LinearLayout>

@@ -12,11 +12,12 @@
         android:background="@color/colorAccent"
         >
         <ImageView
+            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back_xxxhdpi"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="5dp"
             android:id="@+id/beak"
             />
 
@@ -66,13 +67,15 @@
               android:orientation="vertical"
               android:layout_width="0dp"
               android:layout_height="match_parent">
+
               <TextView
                   android:layout_width="wrap_content"
-                  android:textColor="@color/white"
-                  android:layout_centerInParent="true"
-                  android:textSize="16sp"
+                  android:layout_height="wrap_content"
+                  android:layout_centerHorizontal="true"
+                  android:layout_centerVertical="true"
                   android:text="司机取货订单"
-                  android:layout_height="wrap_content" />
+                  android:textColor="@color/white"
+                  android:textSize="16sp" />
               <ImageView
                   android:id="@+id/jiao2"
                   android:layout_centerHorizontal="true"

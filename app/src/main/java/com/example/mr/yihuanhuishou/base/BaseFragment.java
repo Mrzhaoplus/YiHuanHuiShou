@@ -133,8 +133,5 @@ public abstract class BaseFragment extends Fragment {
     public float getpx(int dp){
         return dp*getResources().getDisplayMetrics().density;
     }
-
-
-
 }
 

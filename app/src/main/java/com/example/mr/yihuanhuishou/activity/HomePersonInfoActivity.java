@@ -1,36 +1,43 @@
 package com.example.mr.yihuanhuishou.activity;
 
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.base.BaseActivity;
-import com.example.mr.yihuanhuishou.driver.ui.HuishouCompanyActivity;
 import com.example.mr.yihuanhuishou.driver.weight.BaseSelectPopupWindow;
 import com.example.mr.yihuanhuishou.driver.weight.CircleImageView;
+import com.example.mr.yihuanhuishou.jsonbean.File_bean;
+import com.example.mr.yihuanhuishou.jsonbean.Login_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.XiuGai_Bean;
 import com.example.mr.yihuanhuishou.utils.BaseDialog;
+import com.example.mr.yihuanhuishou.utils.DialogCallback;
+import com.example.mr.yihuanhuishou.utils.GGUtils;
+import com.example.mr.yihuanhuishou.utils.MyUrls;
+import com.example.mr.yihuanhuishou.utils.ToastUtils;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.compress.Luban;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Response;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -44,42 +51,105 @@ public class HomePersonInfoActivity extends BaseActivity {
 
     @BindView(R.id.title_back_iv)
     ImageView titleBackIv;
+    @BindView(R.id.title_more_bj)
+    ImageView title_bj;
     @BindView(R.id.title_content_tv)
     TextView titleContentTv;
     @BindView(R.id.face_iv)
     CircleImageView faceIv;
     @BindView(R.id.face_rl)
     RelativeLayout faceRl;
-    @BindView(R.id.name_tv)
-    TextView nameTv;
+
     @BindView(R.id.name_rl)
     RelativeLayout nameRl;
-    @BindView(R.id.age_tv)
-    TextView ageTv;
     @BindView(R.id.age_rl)
     RelativeLayout ageRl;
     @BindView(R.id.rbt_nan)
     RadioButton rbtNan;
     @BindView(R.id.rbt_nv)
     RadioButton rbtNv;
+    @BindView(R.id.name_tv)
+    EditText nameTv;
+    @BindView(R.id.age_tv)
+    EditText ageTv;
+    @BindView(R.id.rg)
+    RadioGroup rg;
     private BaseDialog mDialog;
     private BaseDialog.Builder mBuilder;
     private List<LocalMedia> selectList = new ArrayList<>();
     private String cutPath;
     private BaseSelectPopupWindow popWiw;// 昵称 编辑框
+    private SharedPreferences sp;
+    private String sex;
+    private String user_name;
+    private String age;
+    private String xingbie=null;
+    private File file;
+    private String imags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_person_info);
         ButterKnife.bind(this);
+        sp = getSharedPreferences(GGUtils.SP_NAME, MODE_PRIVATE);
         initView();
     }
 
     private void initView() {
+        title_bj.setVisibility(View.VISIBLE);
         titleBackIv.setVisibility(View.VISIBLE);
         titleContentTv.setText("个人信息");
+
+        String imag = sp.getString(GGUtils.IMAGE_path, "");
+        Glide.with(this).load(imag).into(faceIv);
+        if(imag.equals("")){
+            Glide.with(this).load(R.drawable.logo_xxxhdpi).into(faceIv);
+        }
+
+        user_name = sp.getString(GGUtils.USER_NAME, "");
+        if (user_name.equals("")||user_name==null) {
+            nameTv.setText("");
+        } else {
+            nameTv.setText(user_name);
+        }
+        age = sp.getString(GGUtils.AGE, "");
+        if (age.equals("")||age==null) {
+            ageTv.setText("");
+        } else {
+            ageTv.setText(age);
+        }
+        sex = sp.getString(GGUtils.SEX, "");
+        if (sex.equals("0")) {
+            rbtNan.setChecked(false);
+            rbtNv.setChecked(true);
+
+        } else if (sex.equals("1")) {
+            rbtNan.setChecked(true);
+            rbtNv.setChecked(false);
+
+        } else {
+            rbtNan.setChecked(false);
+            rbtNv.setChecked(false);
+
+        }
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+                    case R.id.rbt_nan:
+                        xingbie="1";
+                        break;
+                    case R.id.rbt_nv:
+                        xingbie="0";
+                        break;
+                }
+            }
+        });
+
+
     }
+
 
     private void showCameraDialog() {
         mBuilder = new BaseDialog.Builder(this);
@@ -193,101 +263,33 @@ public class HomePersonInfoActivity extends BaseActivity {
                     selectList = PictureSelector.obtainMultipleResult(data);
                     cutPath = selectList.get(0).getCutPath();
                     Glide.with(this).load(cutPath).into(faceIv);
-                    File file = new File(cutPath);
+                    file = new File(cutPath);
+                    infoview(file);
                     break;
             }
         }
     }
 
-    private void showNickName(final String type) {
-        if (popWiw == null) {
-            popWiw = new BaseSelectPopupWindow(this, R.layout.edit_data);
-            // popWiw.setOpenKeyboard(true);
-            popWiw.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
+    private void infoview(File file) {
+        OkGo.<File_bean>post(MyUrls.BASEURL + "/resident/upload")
+                .tag(this)
+                .params("images",file)
+                .execute(new DialogCallback<File_bean>(HomePersonInfoActivity.this, File_bean.class) {
+                        @Override
+                        public void onSuccess(Response<File_bean> response) {
+                            File_bean body = response.body();
+                            List<String> data = body.getData();
+                            imags = data.get(0);
+                            Log.e("===================",imags);
+                        }
 
-            popWiw.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-            popWiw.setShowTitle(false);
-        }
-        popWiw.setFocusable(true);
-        InputMethodManager im = (InputMethodManager)
-                getSystemService(Context.INPUT_METHOD_SERVICE);
-        im.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-
-        final ImageView send = (ImageView) popWiw.getContentView().findViewById(R.id.query_iv);
-        final EditText edt = (EditText) popWiw.getContentView().findViewById(R.id.edt_content);
-        final ImageView close = (ImageView) popWiw.getContentView().findViewById(R.id.cancle_iv);
-        if (type.equals("name")){
-            if (!TextUtils.isEmpty(edt.getText().toString())){
-                edt.getText().clear();
-            }
-            edt.setHint("请输入昵称");
-            edt.setInputType(EditorInfo.TYPE_CLASS_TEXT);
-        }
-        if (type.equals("age")){
-            if (!TextUtils.isEmpty(edt.getText().toString())){
-                edt.getText().clear();
-            }
-            edt.setHint("请输入年龄");
-            edt.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
-        }
-        if (type.equals("chepai")){
-            if (!TextUtils.isEmpty(edt.getText().toString())){
-                edt.getText().clear();
-            }
-            edt.setHint("请输入车牌号");
-            edt.setInputType(EditorInfo.TYPE_CLASS_TEXT);
-        }
-//        edt.setImeOptions(EditorInfo.IME_ACTION_SEND);
-        edt.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                if (TextUtils.isEmpty(edt.getText())) {
-                    send.setEnabled(false);
-                } else {
-                    send.setEnabled(true);
-                }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+                });
 
 
-            }
-        });
-
-        send.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (!TextUtils.isEmpty(edt.getText().toString().trim())) {
-                    // 昵称
-                    String content = edt.getText().toString().trim();
-                    if (type.equals("name")) nameTv.setText(content);
-                    if (type.equals("age")) ageTv.setText(content);
-                    popWiw.dismiss();
-                }
-            }
-        });
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popWiw.dismiss();
-            }
-        });
-
-        popWiw.showAtLocation(nameRl, Gravity.BOTTOM
-                | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
-    @OnClick({R.id.title_back_iv, R.id.face_rl, R.id.name_rl, R.id.age_rl})
+
+    @OnClick({R.id.title_back_iv, R.id.face_rl, R.id.title_more_bj})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_back_iv:
@@ -296,12 +298,164 @@ public class HomePersonInfoActivity extends BaseActivity {
             case R.id.face_rl:
                 showCameraDialog();
                 break;
-            case R.id.name_rl:
-                showNickName("name");
-                break;
-            case R.id.age_rl:
-                showNickName("age");
+            case R.id.title_more_bj:
+                String name = nameTv.getText().toString().trim();
+                String agetv = ageTv.getText().toString().trim();
+
+                if(!user_name.equals(name)){
+                    nameview(name);
+                }
+                if(!age.equals(agetv)){
+                    ageview(agetv);
+                }
+                if((xingbie!=null&&!sex.equals(xingbie))){
+                    sexview(xingbie);
+                }
+                if(!sp.getString(GGUtils.IMAGE_path,"").equals(imags)){
+                    imagview(imags);
+                }
                 break;
         }
+    }
+
+
+
+
+
+    private void imagview(String imags) {
+        HttpParams params3 = new HttpParams();
+        params3.put("token",sp.getString(GGUtils.TOKEN,""));
+        params3.put("updCode","photoPath");
+        params3.put("content",imags);
+        OkGo.<XiuGai_Bean>post(MyUrls.BASEURL + "/recyclers/update")
+                .tag(this)
+                .params(params3)
+                .execute(new DialogCallback<XiuGai_Bean>(HomePersonInfoActivity.this, XiuGai_Bean.class) {
+                    @Override
+                    public void onSuccess(Response<XiuGai_Bean> response) {
+                        XiuGai_Bean body = response.body();
+                        String code = body.getCode();
+                        if (code.equals("200")) {
+                            SharedPreferences.Editor edit = sp.edit();
+                            edit.putString(GGUtils.IMAGE_path,body.getData().getPhotoPath());
+                            edit.commit();
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                            finish();
+                        } else if (code.equals("201")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("500")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("404")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("203")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("204")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        }
+                    }
+                });
+
+    }
+    private void sexview(String xingbie) {
+        HttpParams params2 = new HttpParams();
+        params2.put("token",sp.getString(GGUtils.TOKEN,""));
+        params2.put("updCode","sex");
+        params2.put("content",xingbie);
+        OkGo.<XiuGai_Bean>post(MyUrls.BASEURL + "/recyclers/update")
+                .tag(this)
+                .params(params2)
+                .execute(new DialogCallback<XiuGai_Bean>(HomePersonInfoActivity.this, XiuGai_Bean.class) {
+                    @Override
+                    public void onSuccess(Response<XiuGai_Bean> response) {
+                        XiuGai_Bean body = response.body();
+                        String code = body.getCode();
+                        if (code.equals("200")) {
+                            SharedPreferences.Editor edit = sp.edit();
+                            edit.putString(GGUtils.SEX,body.getData().getSex());
+                            edit.commit();
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                            finish();
+                        } else if (code.equals("201")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("500")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("404")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("203")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("204")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        }
+                    }
+                });
+    }
+    private void ageview(String age_nl) {
+        HttpParams params1 = new HttpParams();
+        params1.put("token",sp.getString(GGUtils.TOKEN,""));
+        params1.put("updCode","age");
+        params1.put("content",age_nl);
+        OkGo.<XiuGai_Bean>post(MyUrls.BASEURL + "/recyclers/update")
+                .tag(this)
+                .params(params1)
+                .execute(new DialogCallback<XiuGai_Bean>(HomePersonInfoActivity.this, XiuGai_Bean.class) {
+                    @Override
+                    public void onSuccess(Response<XiuGai_Bean> response) {
+                        XiuGai_Bean body = response.body();
+                        String code = body.getCode();
+                        if (code.equals("200")) {
+                            SharedPreferences.Editor edit = sp.edit();
+                            edit.putString(GGUtils.AGE,body.getData().getAge()+"");
+                            edit.commit();
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                            finish();
+                        } else if (code.equals("201")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("500")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("404")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("203")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("204")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        }
+                    }
+                });
+
+    }
+    private void nameview(String name) {
+        HttpParams params = new HttpParams();
+        params.put("token",sp.getString(GGUtils.TOKEN,""));
+        params.put("updCode","nickName");
+        params.put("content",name);
+        OkGo.<XiuGai_Bean>post(MyUrls.BASEURL + "/recyclers/update")
+                .tag(this)
+                .params(params)
+                .execute(new DialogCallback<XiuGai_Bean>(HomePersonInfoActivity.this, XiuGai_Bean.class) {
+                    @Override
+                    public void onSuccess(Response<XiuGai_Bean> response) {
+                        XiuGai_Bean body = response.body();
+                        String code = body.getCode();
+                        if (code.equals("200")) {
+                            SharedPreferences.Editor edit = sp.edit();
+                            edit.putString(GGUtils.USER_NAME,body.getData().getNickname());
+                            edit.commit();
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                            finish();
+                        } else if (code.equals("201")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("500")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("404")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("203")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("204")) {
+                            ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
+                        }
+                    }
+                });
+
+
     }
 }

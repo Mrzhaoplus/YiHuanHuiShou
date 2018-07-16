@@ -25,7 +25,7 @@ public class Mymsg_Adapter extends RecyclerView.Adapter<Mymsg_Adapter.Holder>{
     List<String> list=new ArrayList<>();
 
 
-    private OnMyItemClickListener listener;
+    private OnMyItemClickListener listener ;
     public void setOnMyItemClickListener(OnMyItemClickListener listener){
         this.listener = listener;
 
@@ -60,23 +60,17 @@ public class Mymsg_Adapter extends RecyclerView.Adapter<Mymsg_Adapter.Holder>{
              @Override
              public void onClick(View view) {
                  holder.dian.setVisibility(View.GONE);
-             }
-         });
-         holder.clickRl.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 listener.myClick(view,position);
+                 if (listener != null){
+                     listener.myClick(view,position);
+                 }
              }
          });
     }
-
     @Override
     public int getItemCount() {
         return list.size();
     }
-
     public class Holder extends RecyclerView.ViewHolder{
-
         public ImageView dian;
         public TextView neirong;
         public TextView name;

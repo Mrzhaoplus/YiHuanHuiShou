@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.base.BaseActivity;
+import com.example.mr.yihuanhuishou.utils.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,7 @@ public class HelpActivity extends BaseActivity implements BaseQuickAdapter.OnIte
         list.add("");
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         HelpAdapter helpAdapter = new HelpAdapter(R.layout.item_help_layout,list);
         recyclerView.setAdapter(helpAdapter);
         helpAdapter.setOnItemClickListener(this);

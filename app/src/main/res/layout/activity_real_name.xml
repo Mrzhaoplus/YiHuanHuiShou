@@ -13,11 +13,12 @@
         android:background="@color/colorAccent"
         >
         <ImageView
+            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back_xxxhdpi"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="5dp"
             android:id="@+id/beak"
             />
 
@@ -40,6 +41,7 @@
         android:background="@color/white"
         android:layout_height="240dp">
         <ImageView
+            android:id="@+id/img_sfz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/shenfenzheng_xxxhdpi"
@@ -47,6 +49,7 @@
             android:layout_marginTop="30dp"
             />
         <ImageView
+            android:id="@+id/paizhao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/xiangji_xxxhdpi"
@@ -67,7 +70,7 @@
     </RelativeLayout>
 
      <Button
-         android:layout_marginTop="30dp"
+         android:layout_marginTop="60dp"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:text="提交"
