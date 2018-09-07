@@ -49,7 +49,6 @@
                 android:id="@+id/wechat_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1235668292"
                 android:layout_alignParentRight="true"
                 android:textSize="16sp"/>
         </RelativeLayout>
@@ -76,7 +75,6 @@
                 android:id="@+id/phone_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="17611226666"
                 android:layout_alignParentRight="true"
                 android:textSize="16sp"/>
         </RelativeLayout>
@@ -103,7 +101,6 @@
                 android:id="@+id/email_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="15373558888@163.com"
                 android:layout_alignParentRight="true"
                 android:textSize="16sp"/>
         </RelativeLayout>
@@ -130,7 +127,6 @@
                 android:id="@+id/guanwang_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="www.1234.com"
                 android:layout_alignParentRight="true"
                 android:textSize="16sp"/>
         </RelativeLayout>

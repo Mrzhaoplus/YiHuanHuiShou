@@ -12,12 +12,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.amap.api.maps2d.CameraUpdateFactory;
+import com.amap.api.maps2d.model.LatLng;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.adapter.Driver_all_adapter;
-import com.example.mr.yihuanhuishou.adapter.Shangmen_Adapter;
 import com.example.mr.yihuanhuishou.base.BaseFragment;
-import com.example.mr.yihuanhuishou.jsonbean.Order_Daijiedan_Bean;
-import com.example.mr.yihuanhuishou.jsonbean.Zhece_Bean;
+import com.example.mr.yihuanhuishou.bean.Event_dingwei;
+import com.example.mr.yihuanhuishou.bean.Event_fragment;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Order_Daijiedan_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Zhece_Bean;
 import com.example.mr.yihuanhuishou.utils.BaseDialog;
 import com.example.mr.yihuanhuishou.utils.DialogCallback;
 import com.example.mr.yihuanhuishou.utils.DividerItemDecoration;
@@ -30,6 +33,10 @@ import com.liaoinstan.springview.widget.SpringView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +54,7 @@ public class Driver_all_fragment extends BaseFragment implements Driver_all_adap
      List<Order_Daijiedan_Bean.DataBean> mList=new ArrayList<>();
     private SharedPreferences sp;
     private int anInt;
-
+    boolean flag = true;
     @SuppressLint("ValidFragment")
     public Driver_all_fragment(String state) {
         this.state = state;
@@ -55,7 +62,6 @@ public class Driver_all_fragment extends BaseFragment implements Driver_all_adap
 
     public Driver_all_fragment() {
     }
-
     @Override
     protected int setContentView() {
         return R.layout.shangmen_fragment;
@@ -65,20 +71,25 @@ public class Driver_all_fragment extends BaseFragment implements Driver_all_adap
      */
     @Override
     protected void lazyLoad() {
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         View contentView = getContentView();
         sp_view = contentView.findViewById(R.id.sp_view);
         recy_view = contentView.findViewById(R.id.recy_view);
-        infoview();
         initdata();
+        mList.clear();
+        infoview();
     }
+
     private void infoview() {
         sp = getActivity().getSharedPreferences(GGUtils.SP_NAME, Context.MODE_PRIVATE);
         if(state.equals("")){
-            mList.clear();
             HttpParams params = new HttpParams();
             params.put("token",sp.getString(GGUtils.TOKEN,""));
             params.put("distribution","0");
-
             OkGo.<Order_Daijiedan_Bean>post(MyUrls.BASEURL + "/recyclers/order/recoveryList")
                     .tag(this)
                     .params(params)
@@ -107,7 +118,6 @@ public class Driver_all_fragment extends BaseFragment implements Driver_all_adap
                         }
                     });
         }else{
-            mList.clear();
             HttpParams params = new HttpParams();
             params.put("token",sp.getString(GGUtils.TOKEN,""));
             params.put("distribution","0");
@@ -143,8 +153,23 @@ public class Driver_all_fragment extends BaseFragment implements Driver_all_adap
         }
 
     }
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void fangfa(Event_fragment eveen) {
+        int msg = eveen.getMsg();
+        if (msg == 1) {
+           infoview();
+        }
 
+    }
     private void initdata() {
+        if (flag) {
+            //注册
+            EventBus.getDefault().register(this);
+            flag = false;
+        }
+
+
+
         //刷新加载
         sp_view.setType(SpringView.Type.FOLLOW);
         sp_view.setListener(new SpringView.OnFreshListener() {
@@ -153,7 +178,8 @@ public class Driver_all_fragment extends BaseFragment implements Driver_all_adap
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                       infoview();
+                        mList.clear();
+                        infoview();
                     }
                 },0);
                 sp_view.onFinishFreshAndLoad();
@@ -164,6 +190,7 @@ public class Driver_all_fragment extends BaseFragment implements Driver_all_adap
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+
                     }
                 },0);
                 sp_view.onFinishFreshAndLoad();
@@ -222,7 +249,6 @@ public class Driver_all_fragment extends BaseFragment implements Driver_all_adap
         });
         dialog.show();
     }
-
     private void initview(String reson, int id) {
         HttpParams params = new HttpParams();
         params.put("token",sp.getString(GGUtils.TOKEN,""));
@@ -255,4 +281,12 @@ public class Driver_all_fragment extends BaseFragment implements Driver_all_adap
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //注销
+        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().removeAllStickyEvents();
+
+    }
 }

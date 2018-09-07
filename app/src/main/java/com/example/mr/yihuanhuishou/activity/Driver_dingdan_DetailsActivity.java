@@ -3,6 +3,7 @@ package com.example.mr.yihuanhuishou.activity;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -13,8 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
-import com.example.mr.yihuanhuishou.jsonbean.Order_Details_Bean;
-import com.example.mr.yihuanhuishou.jsonbean.Zhece_Bean;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
+import com.example.mr.yihuanhuishou.bean.Event_fragment;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Order_Details_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Zhece_Bean;
 import com.example.mr.yihuanhuishou.utils.BaseDialog;
 import com.example.mr.yihuanhuishou.utils.DialogCallback;
 import com.example.mr.yihuanhuishou.utils.GGUtils;
@@ -24,13 +27,15 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Driver_dingdan_DetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class Driver_dingdan_DetailsActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.beak)
     ImageView beak;
     @BindView(R.id.jiedan_bh)
@@ -99,6 +104,13 @@ public class Driver_dingdan_DetailsActivity extends AppCompatActivity implements
                             ToastUtils.getToast(Driver_dingdan_DetailsActivity.this, body.getMsg());
                         }
                     }
+                    @Override
+                    public void onError(Response<Order_Details_Bean> response) {
+                        super.onError(response);
+                        Order_Details_Bean body = response.body();
+                        Log.e("=================","失败"+body);
+                    }
+
                 });
         
         
@@ -146,8 +158,13 @@ public class Driver_dingdan_DetailsActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 String trim = reson.getText().toString().trim();
-                initdata(trim,id);
-                dialog.dismiss();
+                if(TextUtils.isEmpty(trim)){
+                    ToastUtils.getToast(Driver_dingdan_DetailsActivity.this,"请输入取消原因！");
+                }else{
+                    initdata(trim,id);
+                    dialog.dismiss();
+                }
+
             }
         });
         //取消
@@ -174,6 +191,7 @@ public class Driver_dingdan_DetailsActivity extends AppCompatActivity implements
                         Zhece_Bean body = response.body();
                         String code = body.getCode();
                         if (code.equals("200")) {
+                            EventBus.getDefault().postSticky(new Event_fragment(1));
                             ToastUtils.getToast(Driver_dingdan_DetailsActivity.this, body.getMsg());
                             finish();
                         } else if (code.equals("201")) {

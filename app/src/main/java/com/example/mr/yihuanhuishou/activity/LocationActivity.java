@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
@@ -32,10 +33,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LocationActivity extends BaseActivity {
-    @BindView(R.id.sou)
-    EditText sou;
+    /*@BindView(R.id.sou)
+    EditText sou;*/
     @BindView(R.id.beak)
-    TextView beak;
+    ImageView beak;
     @BindView(R.id.seach_dw)
     TextView dw;
     private LinearLayoutManager mManager;
@@ -68,11 +69,13 @@ public class LocationActivity extends BaseActivity {
         dw.setText(address);
         cityRecycler = (RecyclerView) findViewById(R.id.city_recycler);
         cityRecycler.setLayoutManager(mManager = new LinearLayoutManager(mContext));
+
         cityAdapter = new CityAdapter(this, cityList);
         cityAdapter.setOnItemClickListener(new CityAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 finish();
+                EventBus.getDefault().postSticky(new Event_dingwei(cityList.get(position).getCity(),1));
             }
         });
         mHeaderAdapter = new HeaderRecyclerAndFooterWrapperAdapter(cityAdapter) {

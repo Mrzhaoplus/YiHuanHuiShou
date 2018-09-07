@@ -6,12 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.activity.Oneseif_Wait_pay_detailsActivity;
-import com.example.mr.yihuanhuishou.jsonbean.Order_Daijiedan_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Order_Daijiedan_Bean;
 
 import java.util.ArrayList;
 import java.util.List;

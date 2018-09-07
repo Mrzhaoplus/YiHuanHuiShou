@@ -104,7 +104,10 @@
                 />
         </LinearLayout>
     </LinearLayout>
-
+<com.liaoinstan.springview.widget.SpringView
+    android:id="@+id/spring"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
        android:id="@+id/swip_recycler"
        android:background="@color/white"
@@ -112,7 +115,7 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
    </com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
-    
+</com.liaoinstan.springview.widget.SpringView>
     
     
 </LinearLayout>

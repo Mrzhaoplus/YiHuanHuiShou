@@ -80,6 +80,7 @@
         </LinearLayout>
     </LinearLayout>
     <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+        android:visibility="gone"
         android:id="@+id/swip_recycler"
         android:background="@color/white"
         android:layout_marginTop="10dp"

@@ -9,12 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
 import com.example.mr.yihuanhuishou.utils.BaseDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Fire_msg_DetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class Fire_msg_DetailsActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.beak)
     ImageView beak;
@@ -33,7 +34,6 @@ public class Fire_msg_DetailsActivity extends AppCompatActivity implements View.
     }
 
     private void initdate() {
-
         beak.setOnClickListener(this);
         jujue.setOnClickListener(this);
         liji.setOnClickListener(this);

@@ -14,7 +14,6 @@
            android:id="@+id/name"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="张三："
            android:textSize="16sp"
            />
            <TextView
@@ -22,7 +21,6 @@
                android:id="@+id/tel"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="13522115430"
                android:textSize="16sp"
                />
        </LinearLayout>
@@ -66,7 +64,6 @@
                     android:id="@+id/bianhao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12345678940"
                     android:textSize="16sp"
                     />
                 <TextView
@@ -96,7 +93,6 @@
                     android:id="@+id/sort"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="衣服"
                     android:textSize="16sp"
                     />
             </RelativeLayout>
@@ -104,32 +100,33 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/til_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:text="赠送易换币："
                     android:textColor="@color/black"
-                    android:textSize="16sp"
-                    />
+                    android:textSize="16sp" />
                 <TextView
+                    android:visibility="gone"
                     android:layout_toRightOf="@+id/til_weight"
                     android:id="@+id/yuhuanbi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1000元"
                     android:textSize="16sp"
                     />
                 <TextView
-                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/xianjin"
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100.00元"
                     android:textSize="16sp"
                     />
                 <TextView
-                    android:layout_toLeftOf="@+id/price"
                     android:id="@+id/xianjin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

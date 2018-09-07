@@ -320,7 +320,6 @@ public class SweepCodeActivity extends BaseActivity implements SurfaceHolder.Cal
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mediaPlayer.setOnCompletionListener(beepListener);
-
             AssetFileDescriptor file = getResources().openRawResourceFd(
                     R.raw.beep);
             try {

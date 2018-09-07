@@ -16,6 +16,7 @@
         android:background="@color/white"
         android:layout_marginTop="10dp">
         <EditText
+            android:inputType="textPassword"
             android:id="@+id/oldpass_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,11 +33,12 @@
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"/>
         <EditText
+            android:inputType="textPassword"
             android:id="@+id/newpass_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="请输入新密码"
+            android:hint="请输入新密码,密码格式为6-18位数字加字母"
             android:textSize="16sp"
             android:padding="15dp"
             android:drawableLeft="@drawable/mima_iv"
@@ -48,6 +50,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"/>
         <EditText
+            android:inputType="textPassword"
             android:id="@+id/querypass_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

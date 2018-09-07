@@ -1,5 +1,6 @@
 package com.example.mr.yihuanhuishou.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,10 +10,13 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,9 +35,14 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
-import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.CameraPosition;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.MyLocationStyle;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.geocoder.GeocodeResult;
+import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.geocoder.RegeocodeQuery;
+import com.amap.api.services.geocoder.RegeocodeResult;
 import com.bigkoo.pickerview.TimePickerView;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.bigkoo.pickerview.lib.WheelView;
@@ -42,7 +51,7 @@ import com.bjxf.zxing.view.SweepCodeActivity;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.adapter.Pop_Adapter;
 import com.example.mr.yihuanhuishou.base.BaseActivity;
-import com.example.mr.yihuanhuishou.jsonbean.Zhece_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Zhece_Bean;
 import com.example.mr.yihuanhuishou.utils.BaseDialog;
 import com.example.mr.yihuanhuishou.utils.DialogCallback;
 import com.example.mr.yihuanhuishou.utils.GGUtils;
@@ -53,6 +62,7 @@ import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -63,7 +73,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PostDemandActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, AMapLocationListener {
+public class PostDemandActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, AMapLocationListener, AMap.OnCameraChangeListener, GeocodeSearch.OnGeocodeSearchListener {
 
     @BindView(R.id.title_back_iv)
     ImageView titleBackIv;
@@ -121,6 +131,8 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
     RadioGroup rg;
     @BindView(R.id.add_lin)
     LinearLayout addLin;
+    @BindView(R.id.dingwei)
+    ImageView dingwei;
     private AMap aMap;
     private View inflate;
     private ListView list_view;
@@ -156,6 +168,7 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
     private String time;
     private String comeType;
     private AMapLocation amapLocation1;
+    private LatLonPoint latLonPoint;
 
 
     @Override
@@ -200,6 +213,7 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date date = new Date();
                 time = format.format(date);
+
                 break;
 
         }
@@ -217,7 +231,7 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
         int mouth_int = (int) Double.parseDouble(mouth_str);
 
         SimpleDateFormat formatter_day = new SimpleDateFormat("dd ");
-        String day_str = formatter_day.format(curDate);
+        final String day_str = formatter_day.format(curDate);
         int day_int = (int) Double.parseDouble(day_str);
 
 
@@ -232,6 +246,7 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
                 time = getTime(date);
+
             }
         })
 
@@ -278,15 +293,19 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
         mlist.add("塑料");
         mlist.add("纸箱");
         mlist.add("塑料瓶");
+        mlist.add("大家电");
+        mlist.add("鞋类");
+        mlist.add("手机数码");
 
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW);//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
         aMap.moveCamera(CameraUpdateFactory.zoomTo(16));
-
+//设置地图拖动监听
+        aMap.setOnCameraChangeListener(this);
         //更改定位图标
-        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.driver_map_location_iv));
+        //  myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.driver_map_location_iv));
         //设置不显示范围圆圈
         myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0));// 设置圆形的边框颜色
         myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0));// 设置圆形的填充颜色
@@ -313,7 +332,7 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
     }
 
 
-    @OnClick({R.id.view_02, R.id.title_back_iv, R.id.title_right_tv, R.id.saoma_iv, R.id.leixing_rl, R.id.select_address})
+    @OnClick({R.id.dingwei,R.id.view_02, R.id.title_back_iv, R.id.title_right_tv, R.id.saoma_iv, R.id.leixing_rl, R.id.select_address})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.view_02:
@@ -323,13 +342,34 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
                 finish();
                 break;
             case R.id.title_right_tv:
-                fabuview();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = new Date();
+                String format1 = format.format(date);
+                try {
+                    Date parse = format.parse(time);
+                    Date parse1 = format.parse(format1);
+                    if(comeType.equals("0")){
+                        if(parse.getTime()<parse1.getTime()){
+                            ToastUtils.getToast(PostDemandActivity.this,"取货时间错误，请重新选取时间！");
+                            initTimePicker1();
+                        }else{
+                            fabuview();
+                        }
+                    }else{
+                        fabuview();
+                    }
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Log.e("===============",time);
                 break;
             //二维码扫描器
             case R.id.saoma_iv:
                 startActivity(new Intent(this, SweepCodeActivity.class));
-
                 break;
+                //////////////////////////////
             case R.id.leixing_rl:
                 showFXDialog(Gravity.BOTTOM, R.style.Bottom_Top_aniamtion);
                 break;
@@ -338,7 +378,19 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
                 intent.putExtra("state", 1);
                 startActivityForResult(intent, TIAO_DEMO);
                 break;
+            case R.id.dingwei:
+                setCurrentLocationDetails();
+                break;
+
         }
+    }
+
+    private void setCurrentLocationDetails() {
+        GeocodeSearch geocodeSearch = new GeocodeSearch(getApplicationContext());
+        geocodeSearch.setOnGeocodeSearchListener(this);
+        // 第一个参数表示一个Latlng(经纬度)，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
+        RegeocodeQuery query = new RegeocodeQuery(latLonPoint, 25, GeocodeSearch.AMAP);
+        geocodeSearch.getFromLocationAsyn(query);
     }
 
     //发布接口
@@ -352,13 +404,49 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
 
 
         if (peisongLeftRbt.isChecked() == true) {
-            if(add_id==0){
+            if(TextUtils.isEmpty(detailAddress)||TextUtils.isEmpty(barCode)||TextUtils.isEmpty(varieties)||TextUtils.isEmpty(totalPrice)||TextUtils.isEmpty(count)){
+                ToastUtils.getToast(PostDemandActivity.this,"请完善信息后再发送！");
+            }else{
+                if (add_id == 0) {
+                    HttpParams params = new HttpParams();
+                    params.put("token", sp.getString(GGUtils.TOKEN, ""));
+                    params.put("distribution", "0");
+                    params.put("detailAddress", detailAddress);
+                    params.put("longitude", latLonPoint.getLongitude());
+                    params.put("latitude", latLonPoint.getLatitude());
+                    params.put("barCode", barCode);
+                    params.put("varieties", varieties);
+                    params.put("unit", unit);
+                    params.put("count", count);
+                    params.put("totalPrice", totalPrice);
+                    params.put("comdateStr", time);
+                    params.put("comeType", comeType);
+                    OkGo.<Zhece_Bean>get(MyUrls.BASEURL + "/recyclers/demand/addOrUpdate")
+                            .tag(this)
+                            .params(params)
+                            .execute(new DialogCallback<Zhece_Bean>(PostDemandActivity.this, Zhece_Bean.class) {
+                                @Override
+                                public void onSuccess(Response<Zhece_Bean> response) {
+                                    Zhece_Bean body = response.body();
+                                    String code = body.getCode();
+                                    if (code.equals("200")) {
+                                        ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
+                                        Intent intent = new Intent(PostDemandActivity.this, OrderActivity.class);
+                                        intent.putExtra("state", 1);
+                                        startActivity(intent);
+                                    } else  {
+                                        ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
+                                    }
+                                }
+                            });
+                }
                 HttpParams params = new HttpParams();
                 params.put("token", sp.getString(GGUtils.TOKEN, ""));
                 params.put("distribution", "0");
+                params.put("addrId", add_id);
                 params.put("detailAddress", detailAddress);
-                params.put("longitude", amapLocation1.getLongitude());
-                params.put("latitude", amapLocation1.getLatitude());
+                params.put("longitude", aLong);
+                params.put("latitude", ala);
                 params.put("barCode", barCode);
                 params.put("varieties", varieties);
                 params.put("unit", unit);
@@ -366,7 +454,7 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
                 params.put("totalPrice", totalPrice);
                 params.put("comdateStr", time);
                 params.put("comeType", comeType);
-                OkGo.<Zhece_Bean>post(MyUrls.BASEURL + "/recyclers/demand/addOrUpdate")
+                OkGo.<Zhece_Bean>get(MyUrls.BASEURL + "/recyclers/demand/addOrUpdate")
                         .tag(this)
                         .params(params)
                         .execute(new DialogCallback<Zhece_Bean>(PostDemandActivity.this, Zhece_Bean.class) {
@@ -379,95 +467,44 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
                                     Intent intent = new Intent(PostDemandActivity.this, OrderActivity.class);
                                     intent.putExtra("state", 1);
                                     startActivity(intent);
-                                } else if (code.equals("201")) {
-                                    ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
-                                } else if (code.equals("500")) {
-                                    ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
-                                } else if (code.equals("404")) {
-                                    ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
-                                } else if (code.equals("203")) {
-                                    ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
-                                } else if (code.equals("204")) {
+                                } else {
                                     ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
                                 }
                             }
                         });
             }
-            HttpParams params = new HttpParams();
-            params.put("token", sp.getString(GGUtils.TOKEN, ""));
-            params.put("distribution", "0");
-            params.put("addrId", add_id);
-            params.put("detailAddress", detailAddress);
-            params.put("longitude", aLong);
-            params.put("latitude", ala);
-            params.put("barCode", barCode);
-            params.put("varieties", varieties);
-            params.put("unit", unit);
-            params.put("count", count);
-            params.put("totalPrice", totalPrice);
-            params.put("comdateStr", time);
-            params.put("comeType", comeType);
-            OkGo.<Zhece_Bean>post(MyUrls.BASEURL + "/recyclers/demand/addOrUpdate")
-                    .tag(this)
-                    .params(params)
-                    .execute(new DialogCallback<Zhece_Bean>(PostDemandActivity.this, Zhece_Bean.class) {
-                        @Override
-                        public void onSuccess(Response<Zhece_Bean> response) {
-                            Zhece_Bean body = response.body();
-                            String code = body.getCode();
-                            if (code.equals("200")) {
-                                ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
-                                Intent intent = new Intent(PostDemandActivity.this, OrderActivity.class);
-                                intent.putExtra("state", 1);
-                                startActivity(intent);
-                            } else if (code.equals("201")) {
-                                ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
-                            } else if (code.equals("500")) {
-                                ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
-                            } else if (code.equals("404")) {
-                                ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
-                            } else if (code.equals("203")) {
-                                ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
-                            } else if (code.equals("204")) {
-                                ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
-                            }
-                        }
-                    });
         } else if (peisongRightRbt.isChecked() == true) {
-            HttpParams params = new HttpParams();
-            params.put("token", sp.getString(GGUtils.TOKEN, ""));
-            params.put("distribution", "1");
-            params.put("barCode", barCode);
-            params.put("varieties", varieties);
-            params.put("unit", unit);
-            params.put("count", count);
-            params.put("totalPrice", totalPrice);
-            OkGo.<Zhece_Bean>post(MyUrls.BASEURL + "/recyclers/demand/addOrUpdate")
-                    .tag(this)
-                    .params(params)
-                    .execute(new DialogCallback<Zhece_Bean>(PostDemandActivity.this, Zhece_Bean.class) {
-                        @Override
-                        public void onSuccess(Response<Zhece_Bean> response) {
-                            Zhece_Bean body = response.body();
-                            String code = body.getCode();
-                            if (code.equals("200")) {
-                                ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
-                                Intent intent = new Intent(PostDemandActivity.this, OrderActivity.class);
-                                intent.putExtra("state", 2);
-                                startActivity(intent);
-                            } else if (code.equals("201")) {
-                                ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
-                            } else if (code.equals("500")) {
-                                ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
-                            } else if (code.equals("404")) {
-                                ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
-                            } else if (code.equals("203")) {
-                                ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
-                            } else if (code.equals("204")) {
-                                ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
+            if(TextUtils.isEmpty(barCode)||TextUtils.isEmpty(varieties)||TextUtils.isEmpty(count)||TextUtils.isEmpty(totalPrice)){
+                ToastUtils.getToast(PostDemandActivity.this,"请完善信息后再发送！");
+            }else{
+                HttpParams params = new HttpParams();
+                params.put("token", sp.getString(GGUtils.TOKEN, ""));
+                params.put("distribution", "1");
+                params.put("barCode", barCode);
+                params.put("varieties", varieties);
+                params.put("unit", unit);
+                params.put("count", count);
+                params.put("totalPrice", totalPrice);
+                OkGo.<Zhece_Bean>get(MyUrls.BASEURL + "/recyclers/demand/addOrUpdate")
+                        .tag(this)
+                        .params(params)
+                        .execute(new DialogCallback<Zhece_Bean>(PostDemandActivity.this, Zhece_Bean.class) {
+                            @Override
+                            public void onSuccess(Response<Zhece_Bean> response) {
+                                Zhece_Bean body = response.body();
+                                String code = body.getCode();
+                                if (code.equals("200")) {
+                                    ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
+                                    Intent intent = new Intent(PostDemandActivity.this, OrderActivity.class);
+                                    intent.putExtra("state", 2);
+                                    startActivity(intent);
+                                } else {
+                                    ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
+                                }
                             }
-                        }
-                    });
+                        });
+            }
+
         }
 
 
@@ -493,6 +530,7 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
         final List<String> list = new ArrayList<>();
         list.add("个");
         list.add("包");
+        list.add("件");
         list.add("Kg");
         Pop_Adapter pop_adapter = new Pop_Adapter(this, list);
         list_view.setAdapter(pop_adapter);
@@ -553,7 +591,7 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
                 index1 = 0;
             }
         });
-        wheelView.setCyclic(true);
+        wheelView.setCyclic(false);
         wheelView.setAdapter(new ArrayWheelAdapter(mlist));
         wheelView.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -618,5 +656,74 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
                         + amapLocation.getErrorInfo());
             }
         }
+    }
+
+    @Override
+    public void onCameraChange(CameraPosition cameraPosition) {
+
+    }
+
+    @Override
+    public void onCameraChangeFinish(CameraPosition cameraPosition) {
+        dingwei.setVisibility(View.VISIBLE);
+        latLng = cameraPosition.target;
+        double latitude = latLng.latitude;
+        double longitude = latLng.longitude;
+        latLonPoint = new LatLonPoint(latitude, longitude);
+        Log.e("===================", latitude + "");
+        Log.e("===================", longitude + "");
+    }
+
+    @Override
+    public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
+        String formatAddress = regeocodeResult.getRegeocodeAddress().getFormatAddress();
+        addressTv.setText(formatAddress);
+    }
+
+    @Override
+    public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
+
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if(ev.getAction()==MotionEvent.ACTION_DOWN){
+            View v=getCurrentFocus();
+            boolean  hideInputResult =isShouldHideInput(v,ev);
+            Log.v("hideInputResult","zzz-->>"+hideInputResult);
+            if(hideInputResult){
+                v.clearFocus();
+                InputMethodManager imm = (InputMethodManager) PostDemandActivity.this
+                        .getSystemService(Activity.INPUT_METHOD_SERVICE);
+                if(v != null){
+                    if(imm.isActive()){
+                        imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+    public  boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] leftTop = { 0, 0 };
+            //获取输入框当前的location位置
+            v.getLocationInWindow(leftTop);
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            //之前一直不成功的原因是,getX获取的是相对父视图的坐标,getRawX获取的才是相对屏幕原点的坐标！！！
+            Log.v("leftTop[]","zz--left:"+left+"--top:"+top+"--bottom:"+bottom+"--right:"+right);
+            Log.v("event","zz--getX():"+event.getRawX()+"--getY():"+event.getRawY());
+            if (event.getRawX() > left && event.getRawX() < right
+                    && event.getRawY() > top && event.getRawY() < bottom) {
+                // 点击的是输入框区域，保留点击EditText的事件
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 }

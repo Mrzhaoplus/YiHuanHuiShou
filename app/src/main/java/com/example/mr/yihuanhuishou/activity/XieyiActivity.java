@@ -6,11 +6,12 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.mr.yihuanhuishou.R;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class XieyiActivity extends AppCompatActivity {
+public class XieyiActivity extends BaseActivity {
 
     @BindView(R.id.beak)
     ImageView beak;

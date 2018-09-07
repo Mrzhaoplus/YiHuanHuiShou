@@ -1,7 +1,9 @@
 package com.example.mr.yihuanhuishou.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,11 +17,13 @@ import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.adapter.ZhiPai_wupin_Adapter;
-import com.example.mr.yihuanhuishou.jsonbean.Fengzhuang;
-import com.example.mr.yihuanhuishou.jsonbean.Xitong_Recycler_Bean;
-import com.example.mr.yihuanhuishou.jsonbean.Yanzheng_Bean;
-import com.example.mr.yihuanhuishou.jsonbean.Zhece_Bean;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Fengzhuang;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Xitong_Recycler_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Yanzheng_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Zhece_Bean;
 import com.example.mr.yihuanhuishou.utils.DialogCallback;
+import com.example.mr.yihuanhuishou.utils.IDCard;
 import com.example.mr.yihuanhuishou.utils.MyUrls;
 import com.example.mr.yihuanhuishou.utils.ToastUtils;
 import com.example.mr.yihuanhuishou.utils.Validator;
@@ -28,17 +32,14 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 
-import org.json.JSONObject;
-
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ZhuCe_RegisterActivity extends AppCompatActivity implements View.OnClickListener, ZhiPai_wupin_Adapter.Onclickflag {
+public class ZhuCe_RegisterActivity extends BaseActivity implements View.OnClickListener, ZhiPai_wupin_Adapter.Onclickflag {
 
     @BindView(R.id.beak)
     ImageView beak;
@@ -61,8 +62,9 @@ public class ZhuCe_RegisterActivity extends AppCompatActivity implements View.On
     EditText pass;
     @BindView(R.id.IDcase)
     EditText IDcase;
+    private TimeCount time;
     List<Integer>list=new ArrayList<>();
-    private List<Integer> pos;
+    private List<Integer> pos=new ArrayList<>();
     private ZhiPai_wupin_Adapter zhiPai_wupin_adapter;
 
     @Override
@@ -89,15 +91,7 @@ public class ZhuCe_RegisterActivity extends AppCompatActivity implements View.On
                                 mlist.addAll(data);
                             }
                             zhiPai_wupin_adapter.notifyDataSetChanged();
-                        } else if (code.equals("201")) {
-                            ToastUtils.getToast(ZhuCe_RegisterActivity.this, body.getMsg());
-                        } else if (code.equals("500")) {
-                            ToastUtils.getToast(ZhuCe_RegisterActivity.this, body.getMsg());
-                        } else if (code.equals("404")) {
-                            ToastUtils.getToast(ZhuCe_RegisterActivity.this, body.getMsg());
-                        } else if (code.equals("203")) {
-                            ToastUtils.getToast(ZhuCe_RegisterActivity.this, body.getMsg());
-                        } else if (code.equals("204")) {
+                        } else {
                             ToastUtils.getToast(ZhuCe_RegisterActivity.this, body.getMsg());
                         }
 
@@ -106,7 +100,7 @@ public class ZhuCe_RegisterActivity extends AppCompatActivity implements View.On
     }
 
     private void initdate() {
-
+        time = new TimeCount(60000, 1000);
 
         beak.setOnClickListener(this);
         huoYan.setOnClickListener(this);
@@ -127,10 +121,13 @@ public class ZhuCe_RegisterActivity extends AppCompatActivity implements View.On
                 finish();
                 break;
             case R.id.zhuce:
-                for (int i = 0; i < pos.size(); i++) {
-                    list.add(mlist.get(pos.get(i)).getId());
+                if(pos!=null){
+                    for (int i = 0; i < pos.size(); i++) {
+                        list.add(mlist.get(pos.get(i)).getId());
+                    }
+                }else{
+                    ToastUtils.getToast(this,"请选择回收类型");
                 }
-
                 //获取手机号
                 String tell = tel.getText().toString().trim();
                 boolean mobileNO = Validator.isMobileNO(tell);
@@ -140,9 +137,14 @@ public class ZhuCe_RegisterActivity extends AppCompatActivity implements View.On
                 String password = pass.getText().toString().trim();
                 //获取身份证号
                 String idcard = IDcase.getText().toString().trim();
-                boolean idCard = Validator.isIDCard(idcard);
-
-                if(mobileNO&&idCard&&list!=null&&!TextUtils.isEmpty(yanzheng)&&!TextUtils.isEmpty(password)){
+                boolean idCard = false;
+                try {
+                    idCard = IDCard.IDCardValidate(idcard);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+               boolean ispsd = Validator.ispsd(password);
+                 if(mobileNO&&idCard&&list!=null&&!TextUtils.isEmpty(yanzheng)&&!TextUtils.isEmpty(password)&&ispsd&&password.length()>5&&password.length()<19){
                     infodata(tell,yanzheng,password,idcard,list);
                 }else if(!mobileNO){
                     ToastUtils.getToast(this,"手机号有误！");
@@ -154,6 +156,10 @@ public class ZhuCe_RegisterActivity extends AppCompatActivity implements View.On
                     ToastUtils.getToast(this,"验证码为空");
                 }else if(TextUtils.isEmpty(password)){
                     ToastUtils.getToast(this,"密码为空");
+                }else if (password.length()>18&&password.length()<6) {
+                    ToastUtils.getToast(this, "密码格式错误，必须为6-18位");
+                }else if (ispsd == false) {
+                    ToastUtils.getToast(this, "密码格式错误，必须为英文加数字");
                 }
                 break;
             case R.id.huo_yan:
@@ -161,6 +167,7 @@ public class ZhuCe_RegisterActivity extends AppCompatActivity implements View.On
                 String phone = tel.getText().toString().trim();
                 boolean mobile = Validator.isMobileNO(phone);
                 if(mobile){
+                    time.start();
                     yancode(phone);
                 }else{
                     ToastUtils.getToast(ZhuCe_RegisterActivity.this,"号码有误，请重新输入！");
@@ -170,7 +177,6 @@ public class ZhuCe_RegisterActivity extends AppCompatActivity implements View.On
             case R.id.xieyi:
                 startActivity(new Intent(this, XieyiActivity.class));
                 break;
-
         }
     }
      //验证码
@@ -186,7 +192,8 @@ public class ZhuCe_RegisterActivity extends AppCompatActivity implements View.On
                         Yanzheng_Bean body = response.body();
                         String code = body.getCode() + "";
                         if (code.equals("200")) {
-                            vertirCode.setText(body.getVCode()+"");
+                           // vertirCode.setText(body.getVCode()+"");
+                            ToastUtils.getToast(ZhuCe_RegisterActivity.this, body.getMsg());
                         } else if (code.equals("201")) {
                             ToastUtils.getToast(ZhuCe_RegisterActivity.this, body.getMsg());
                         } else if (code.equals("500")) {
@@ -201,7 +208,6 @@ public class ZhuCe_RegisterActivity extends AppCompatActivity implements View.On
 
                     }
                 });
-
     }
 
     //网络请求框架
@@ -249,5 +255,22 @@ public class ZhuCe_RegisterActivity extends AppCompatActivity implements View.On
     @Override
     public void flag(List<Integer> postion) {
         pos = postion;
+    }
+
+    class TimeCount extends CountDownTimer {
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+        @Override
+        public void onTick(long millisUntilFinished) {
+            huoYan.setClickable(false);
+            huoYan.setText("("+millisUntilFinished / 1000 +") 秒后可重新发送");
+        }
+        @Override
+        public void onFinish() {
+            huoYan.setText("重新获取验证码");
+            huoYan.setClickable(true);
+        }
+
     }
 }

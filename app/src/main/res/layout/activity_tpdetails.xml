@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.example.mr.yihuanhuishou.activity.TPDetailsActivity">
+    <RelativeLayout
+        android:id="@+id/real"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/tv_back"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:src="@drawable/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/shuliang"
+            android:textColor="#333"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="16sp"
+            android:text="图片（2/3）"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <android.support.v4.view.ViewPager
+        android:background="@color/black"
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+</LinearLayout>

@@ -2,6 +2,9 @@ package com.example.mr.yihuanhuishou.utils;
 
 import android.text.TextUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -9,16 +12,6 @@ import java.util.regex.Pattern;
  */
 
 public class Validator {
-    public static final String REGEX_ID_CARD = "(^\\d{15}$)|(^\\d{17}([0-9]|X)$)";
-
-    /**
-     * 校验身份证
-     * @param idCard
-     * @return 校验通过返回true，否则返回false
-     */
-    public static boolean isIDCard(String idCard) {
-        return Pattern.matches(REGEX_ID_CARD, idCard);
-    }
     /**
      * 正则表达式:验证手机号
      */
@@ -37,6 +30,27 @@ public class Validator {
         else
             return mobileNums.matches(telRegex);
     }
+     //校验密码（数字字母组合式密码）
+    public static boolean ispsd(String psd) {
 
+        Pattern p = Pattern .compile("^[a-zA-Z].*[0-9]|.*[0-9].*[a-zA-Z]");
 
+        Matcher m = p.matcher(psd);
+
+        return m.matches();
+
+    }
+
+    //车牌号正则表达式
+    public static boolean isCarnumberNO(String carnumber) {
+/*
+1.常规车牌号：仅允许以汉字开头，后面可录入六个字符，由大写英文字母和阿拉伯数字组成。如：粤B12345；
+2.武警车牌：允许前两位为大写英文字母，后面可录入五个或六个字符，由大写英文字母和阿拉伯数字组成，其中第三位可录汉字也可录大写英文字母及阿拉伯数字，第三位也可空，如：WJ警00081、WJ京1234J、WJ1234X。
+3.最后一个为汉字的车牌：允许以汉字开头，后面可录入六个字符，前五位字符，由大写英文字母和阿拉伯数字组成，而最后一个字符为汉字，汉字包括“挂”、“学”、“警”、“军”、“港”、“澳”。如：粤Z1234港。
+4.新军车牌：以两位为大写英文字母开头，后面以5位阿拉伯数字组成。如：BA12345。
+*/
+        String carnumRegex = "^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[警京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]{0,1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$";
+        if (TextUtils.isEmpty(carnumber)) return false;
+        else return carnumber.matches(carnumRegex);
+    }
 }

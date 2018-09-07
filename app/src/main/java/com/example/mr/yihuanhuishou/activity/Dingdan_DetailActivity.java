@@ -4,8 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.mr.yihuanhuishou.R;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
 
-public class Dingdan_DetailActivity extends AppCompatActivity {
+public class Dingdan_DetailActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

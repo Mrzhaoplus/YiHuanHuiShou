@@ -1,11 +1,11 @@
 [
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_big_media.xml",
-        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\dc883adf2ee9dc642246a907c9bafd95\\res\\layout\\notification_template_big_media.xml"
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\1507e973755506615fff426052f5d88b\\res\\layout\\notification_template_big_media.xml"
     },
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_lines_media.xml",
-        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\dc883adf2ee9dc642246a907c9bafd95\\res\\layout\\notification_template_lines_media.xml"
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\1507e973755506615fff426052f5d88b\\res\\layout\\notification_template_lines_media.xml"
     },
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\item_qrcode_footer.xml",
@@ -13,47 +13,47 @@
     },
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_media.xml",
-        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\dc883adf2ee9dc642246a907c9bafd95\\res\\layout\\notification_template_media.xml"
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\1507e973755506615fff426052f5d88b\\res\\layout\\notification_template_media.xml"
     },
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_big_media_narrow.xml",
-        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\dc883adf2ee9dc642246a907c9bafd95\\res\\layout\\notification_template_big_media_narrow.xml"
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\1507e973755506615fff426052f5d88b\\res\\layout\\notification_template_big_media_narrow.xml"
     },
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_media_custom.xml",
-        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\dc883adf2ee9dc642246a907c9bafd95\\res\\layout\\notification_template_media_custom.xml"
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\1507e973755506615fff426052f5d88b\\res\\layout\\notification_template_media_custom.xml"
     },
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_media_cancel_action.xml",
-        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\dc883adf2ee9dc642246a907c9bafd95\\res\\layout\\notification_media_cancel_action.xml"
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\1507e973755506615fff426052f5d88b\\res\\layout\\notification_media_cancel_action.xml"
     },
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_action_tombstone.xml",
-        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\a2803110bb0a512faacaaf9b28c4e18b\\res\\layout\\notification_action_tombstone.xml"
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\dce18c5fe8170cac00f5aa7cbd4ba0c8\\res\\layout\\notification_action_tombstone.xml"
     },
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_big_media_custom.xml",
-        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\dc883adf2ee9dc642246a907c9bafd95\\res\\layout\\notification_template_big_media_custom.xml"
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\1507e973755506615fff426052f5d88b\\res\\layout\\notification_template_big_media_custom.xml"
     },
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_part_chronometer.xml",
-        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\a2803110bb0a512faacaaf9b28c4e18b\\res\\layout\\notification_template_part_chronometer.xml"
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\dce18c5fe8170cac00f5aa7cbd4ba0c8\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_action.xml",
-        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\a2803110bb0a512faacaaf9b28c4e18b\\res\\layout\\notification_action.xml"
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\dce18c5fe8170cac00f5aa7cbd4ba0c8\\res\\layout\\notification_action.xml"
     },
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_icon_group.xml",
-        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\a2803110bb0a512faacaaf9b28c4e18b\\res\\layout\\notification_template_icon_group.xml"
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\dce18c5fe8170cac00f5aa7cbd4ba0c8\\res\\layout\\notification_template_icon_group.xml"
     },
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_big_media_narrow_custom.xml",
-        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\dc883adf2ee9dc642246a907c9bafd95\\res\\layout\\notification_template_big_media_narrow_custom.xml"
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\1507e973755506615fff426052f5d88b\\res\\layout\\notification_template_big_media_narrow_custom.xml"
     },
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_media_action.xml",
-        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\dc883adf2ee9dc642246a907c9bafd95\\res\\layout\\notification_media_action.xml"
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\1507e973755506615fff426052f5d88b\\res\\layout\\notification_media_action.xml"
     },
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\activity_qrcode_capture_layout.xml",
@@ -65,6 +65,6 @@
     },
     {
         "merged": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_part_time.xml",
-        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\a2803110bb0a512faacaaf9b28c4e18b\\res\\layout\\notification_template_part_time.xml"
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\dce18c5fe8170cac00f5aa7cbd4ba0c8\\res\\layout\\notification_template_part_time.xml"
     }
 ]

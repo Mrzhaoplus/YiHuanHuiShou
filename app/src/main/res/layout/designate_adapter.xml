@@ -41,7 +41,6 @@
                     android:id="@+id/desi_bh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12345678940"
                     android:textSize="16sp"
                     />
                 <TextView
@@ -71,7 +70,6 @@
                     android:id="@+id/desi_sort"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="衣服"
                     android:textSize="16sp"
                     />
             </RelativeLayout>
@@ -92,7 +90,6 @@
                     android:id="@+id/desi_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10Kg"
                     android:textSize="16sp"
                     />
 

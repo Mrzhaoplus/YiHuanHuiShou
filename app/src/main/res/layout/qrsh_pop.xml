@@ -39,6 +39,8 @@
                   android:orientation="horizontal"
                   >
                   <EditText
+                      android:inputType="number|numberDecimal"
+                      android:id="@+id/shuliang"
                       android:layout_width="165dp"
                       android:layout_height="wrap_content"
                       android:background="@null"
@@ -97,6 +99,8 @@
             android:orientation="horizontal"
             >
             <EditText
+                android:inputType="number|numberDecimal"
+                android:id="@+id/danjia"
                 android:layout_width="225dp"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -104,13 +108,70 @@
                 android:textSize="15sp"
                 />
         </LinearLayout>
-
-
-
     </LinearLayout>
         <LinearLayout
+            android:layout_marginTop="40px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="是否支付易换币:"
+                android:layout_marginRight="30px"
+                />
+               <View
+                   android:layout_width="0dp"
+                   android:layout_height="0dp"
+                   android:layout_weight="1"
+                   />
+            <RadioGroup
+                android:id="@+id/rg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/rbt_shi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:background="@drawable/fanxuan"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="是"
+                    android:layout_marginLeft="10dp"/>
+                <RadioButton
+                    android:id="@+id/rbt_fou"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:background="@drawable/fanxuan"
+                    android:checked="false"
+                    android:layout_marginLeft="30dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="否"
+                    android:layout_marginLeft="10dp"/>
+            </RadioGroup>
+
+
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
             android:layout_marginBottom="30dp"
-            android:layout_marginTop="30px"
+            android:layout_marginTop="40px"
             android:layout_marginLeft="30px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -135,6 +196,8 @@
                 android:orientation="horizontal"
                 >
                 <EditText
+                    android:inputType="number|numberDecimal"
+                    android:id="@+id/zongjia"
                     android:layout_width="225dp"
                     android:layout_height="wrap_content"
                     android:background="@null"

@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mr.yihuanhuishou">
     //地图SDK（包含其搜索功能）需要的基础权限
-
     <!-- 允许程序打开网络套接字 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 允许程序设置内置sd卡的写权限 -->
@@ -70,9 +69,8 @@
     <application
         android:name=".base.Myapplication"
         android:allowBackup="true"
-        android:icon="@drawable/logo_xxxhdpi"
+        android:icon="@drawable/yihuan_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
@@ -80,14 +78,14 @@
             android:value="7a25cc37d7e0df275217ab3a60614bfd">
             //开发者申请的key</meta-data>
 
-        <activity android:name=".activity.LogonActivity">
+        <activity android:name=".activity.LogonActivity" />
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -136,7 +134,6 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="PTGhoQbuEgT3Ws27u3cwIk35uTkAmc4d" />
-
         <!-- 显示下载大图页面 -->
         <activity
             android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity"
@@ -170,7 +167,9 @@
         <activity android:name=".activity.Msg_neirongActivity" />
         <activity android:name=".activity.Infor_Msg_DetailsActivity" />
         <activity android:name=".activity.Fire_msg_DetailsActivity" />
-        <activity android:name=".driver.DriverHomeActivity" />
+        <activity android:name=".driver.DriverHomeActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity android:name=".driver.ui.CompanyDetailActivity" />
         <activity android:name=".driver.ui.DriverOrderActivity" />
         <activity android:name=".driver.ui.OrderDetailActivity" />
@@ -231,7 +230,37 @@
         <activity android:name=".activity.NoticolActivity" />
         <activity android:name=".activity.Noticol_DrtailActivity" />
         <activity android:name=".activity.Dingdan_itmeActivity" />
-        <activity android:name=".activity.Dingdan_DetailActivity"></activity>
+        <activity android:name=".activity.Dingdan_DetailActivity" />
+        <activity android:name=".activity.TPDetailsActivity" />
+        <activity android:name=".activity.Touxiang_DetailsActivity" />
+        <activity android:name=".activity.Driv_ZhuCe_ReginActivity" />
+        //支付
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".activity.Driv_wangji_forgetActivity" />
+        <activity android:name=".activity.Driver_DQH_DetailsActivity" />
+        <activity android:name=".activity.Driver_PSZ_DetailsActivity" />
+        <activity android:name=".activity.Driver_YWC_DetailsActivity" />
+        <activity android:name=".activity.Driver_qx_DetailsActivity" />
+        //微信
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.Chongzhi_yihuanActivity" />
+        <activity android:name=".activity.Yaoqing_DetailsActivity" />
+        <activity android:name=".activity.Driver_is_ErweimaActivity" />
+        <activity android:name=".activity.Driver_DZF_DetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -7,13 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
-import com.example.mr.yihuanhuishou.jsonbean.Order_Details_Bean;
-import com.example.mr.yihuanhuishou.utils.DialogCallback;
-import com.example.mr.yihuanhuishou.utils.MyUrls;
-import com.example.mr.yihuanhuishou.utils.ToastUtils;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.HttpParams;
-import com.lzy.okgo.model.Response;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,7 +15,7 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Oneseif_Wait_pay_detailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class Oneseif_Wait_pay_detailsActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.beak)
     ImageView beak;
      @BindView(R.id.pay_bh)

@@ -1,8 +1,6 @@
 package com.example.mr.yihuanhuishou.fragment.driver;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,13 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.mr.yihuanhuishou.R;
-import com.example.mr.yihuanhuishou.activity.LogonActivity;
-import com.example.mr.yihuanhuishou.activity.MainActivity;
-import com.example.mr.yihuanhuishou.adapter.Driver_all_adapter;
 import com.example.mr.yihuanhuishou.adapter.Driver_daijiedan_adapter;
 import com.example.mr.yihuanhuishou.base.BaseFragment;
-import com.example.mr.yihuanhuishou.jsonbean.Login_Bean;
-import com.example.mr.yihuanhuishou.jsonbean.Order_Daijiedan_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Order_Daijiedan_Bean;
 import com.example.mr.yihuanhuishou.utils.DialogCallback;
 import com.example.mr.yihuanhuishou.utils.DividerItemDecoration;
 import com.example.mr.yihuanhuishou.utils.GGUtils;

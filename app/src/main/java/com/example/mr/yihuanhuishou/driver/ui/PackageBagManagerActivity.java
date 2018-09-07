@@ -133,7 +133,6 @@ public class PackageBagManagerActivity extends BaseActivity {
             child.invalidate();
         }
     }
-
     @OnClick({R.id.title_back_iv, R.id.title_right_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {

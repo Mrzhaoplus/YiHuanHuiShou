@@ -1,5 +1,7 @@
 package com.example.mr.yihuanhuishou.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,10 +10,18 @@ import android.view.View;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.adapter.Jumin_msg_Adapter;
 import com.example.mr.yihuanhuishou.base.BaseFragment;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Massage_Bean;
+import com.example.mr.yihuanhuishou.utils.DialogCallback;
 import com.example.mr.yihuanhuishou.utils.DividerItemDecoration;
+import com.example.mr.yihuanhuishou.utils.GGUtils;
+import com.example.mr.yihuanhuishou.utils.MyUrls;
+import com.example.mr.yihuanhuishou.utils.ToastUtils;
 import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +34,11 @@ public class Jumin_Msg_feagment extends BaseFragment {
 
     private SpringView sp_view;
     private RecyclerView recy_view;
-   List<String>list=new ArrayList<>();
+   List<Massage_Bean.DataListBean>list=new ArrayList<>();
+   private int pageNo=1;
+   private int pageCount=10;
+    private Jumin_msg_Adapter jumin_msg_adapter;
+
     /**
      * 设置Fragment要显示的布局
      *
@@ -40,13 +54,62 @@ public class Jumin_Msg_feagment extends BaseFragment {
      */
     @Override
     protected void lazyLoad() {
-        for (int i=0;i<8;i++){
-            list.add("");
-        }
+
         View contentView = getContentView();
         sp_view = contentView.findViewById(R.id.sp_view);
         recy_view = contentView.findViewById(R.id.recy_view);
+        initdata();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        list.clear();
+        infoview();
+    }
+
+    private void infoview() {
+        SharedPreferences sp = getActivity().getSharedPreferences(GGUtils.SP_NAME, Context.MODE_PRIVATE);
+        HttpParams params = new HttpParams();
+        params.put("token", sp.getString(GGUtils.TOKEN,""));
+        params.put("type","1");
+        params.put("pageNo",pageNo);
+        params.put("pageCount",pageCount);
+        OkGo.<Massage_Bean>post(MyUrls.BASEURL + "/recyclers/info/myNews")
+                .tag(this)
+                .params(params)
+                .execute(new DialogCallback<Massage_Bean>(getActivity(), Massage_Bean.class) {
+                    @Override
+                    public void onSuccess(Response<Massage_Bean> response) {
+                        Massage_Bean body = response.body();
+                        String code = body.getCode()+"";
+                        if (code.equals("200")) {
+                            List<Massage_Bean.DataListBean> dataList = body.getDataList();
+                            if(pageNo>1){
+                                if(dataList.size()>0){
+                                    list.addAll(dataList);
+                                }
+                            }else{
+                                list.addAll(dataList);
+                            }
+                            jumin_msg_adapter.notifyDataSetChanged();
+                        } else if (code.equals("201")) {
+                            ToastUtils.getToast(getActivity(), body.getMsg());
+                        } else if (code.equals("500")) {
+                            ToastUtils.getToast(getActivity(), body.getMsg());
+                        } else if (code.equals("404")) {
+                            ToastUtils.getToast(getActivity(), body.getMsg());
+                        } else if (code.equals("203")) {
+                            ToastUtils.getToast(getActivity(), body.getMsg());
+                        } else if (code.equals("204")) {
+                            ToastUtils.getToast(getActivity(), body.getMsg());
+                        }
+                    }
+                });
+    }
+
+    private void initdata() {
         //刷新加载
         sp_view.setType(SpringView.Type.FOLLOW);
         sp_view.setListener(new SpringView.OnFreshListener() {
@@ -55,7 +118,10 @@ public class Jumin_Msg_feagment extends BaseFragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
+                        pageNo=1;
+                        pageCount=10;
+                        list.clear();
+                        infoview();
                     }
                 },0);
                 sp_view.onFinishFreshAndLoad();
@@ -66,7 +132,9 @@ public class Jumin_Msg_feagment extends BaseFragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
+                        pageNo++;
+                        pageCount=pageCount+10;
+                        infoview();
                     }
                 },0);
                 sp_view.onFinishFreshAndLoad();
@@ -78,7 +146,12 @@ public class Jumin_Msg_feagment extends BaseFragment {
         recy_view.setNestedScrollingEnabled(false);
         recy_view.setLayoutManager(new LinearLayoutManager(getActivity()));
         recy_view.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-        Jumin_msg_Adapter jumin_msg_adapter = new Jumin_msg_Adapter(getActivity(), list);
+        jumin_msg_adapter = new Jumin_msg_Adapter(getActivity(), list);
         recy_view.setAdapter(jumin_msg_adapter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

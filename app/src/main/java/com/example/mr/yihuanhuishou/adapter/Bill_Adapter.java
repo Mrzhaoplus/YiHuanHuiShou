@@ -7,14 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
-import com.example.mr.yihuanhuishou.activity.QiangDan_DetailsActivity;
 import com.example.mr.yihuanhuishou.activity.Xuqiu_DetailActivity;
-import com.example.mr.yihuanhuishou.jsonbean.Fujin_Order_Bean;
-import com.example.mr.yihuanhuishou.utils.ToastUtils;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Fujin_Order_Bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +23,15 @@ import java.util.List;
 public class Bill_Adapter extends RecyclerView.Adapter<Bill_Adapter.Holder>{
     Context context;
     List<Fujin_Order_Bean.DataBean> list=new ArrayList<>();
+    private double lotitude;
+    private double longitude;
+    private GetQiangdan jiekou;
 
-    public Bill_Adapter(Context context, List<Fujin_Order_Bean.DataBean> list) {
+    public Bill_Adapter(Context context, List<Fujin_Order_Bean.DataBean> list, double longitude, double lotitude) {
         this.context = context;
         this.list = list;
+        this.lotitude = lotitude;
+        this.longitude = longitude;
     }
 
     @Override
@@ -42,26 +44,28 @@ public class Bill_Adapter extends RecyclerView.Adapter<Bill_Adapter.Holder>{
 
     @Override
     public void onBindViewHolder(Holder holder, final int position) {
-
+        holder.name.setText(list.get(position).getEecWasteinfo().getResidentaddr().getName());
+        holder.address.setText(list.get(position).getEecWasteinfo().getResidentaddr().getDetailAddr());
         holder.leixing.setText(list.get(position).getEecWasteinfo().getVarieties());
-        holder.address.setText(list.get(position).getEecWasteinfo().getWasteinfoAddr());
-
         holder.qiangdan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, QiangDan_DetailsActivity.class);
-                context.startActivity(intent);
+
+                jiekou.click(position);
             }
         });
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, Xuqiu_DetailActivity.class);
+                int id = list.get(position).getId();
+                intent.putExtra("id",id);
+                intent.putExtra("lon",longitude);
+                intent.putExtra("lat",lotitude);
+
                 context.startActivity(intent);
             }
         });
-
-
     }
 
     @Override
@@ -84,5 +88,11 @@ public class Bill_Adapter extends RecyclerView.Adapter<Bill_Adapter.Holder>{
             qiangdan = itemView.findViewById(R.id.qiangdan);
              address = itemView.findViewById(R.id.address);
         }
+    }
+    public interface GetQiangdan{
+        void click(int postion);
+    }
+    public void getclick(GetQiangdan jiekou){
+        this.jiekou=jiekou;
     }
 }

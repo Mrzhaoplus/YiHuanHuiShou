@@ -3,18 +3,14 @@ package com.example.mr.yihuanhuishou.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.activity.Address_DetailsActivity;
-import com.example.mr.yihuanhuishou.bean.Address_bean;
-import com.example.mr.yihuanhuishou.jsonbean.Address_List_Bean;
-import com.example.mr.yihuanhuishou.utils.ToastUtils;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Address_List_Bean;
 
 import java.util.List;
 
@@ -53,12 +49,12 @@ public class Address_Adapter extends RecyclerView.Adapter<Address_Adapter.Viewho
           holder.address.setText(list.get(position).getProvince()+list.get(position).getCity()+list.get(position).getCounry()+list.get(position).getDetailAddr());
           holder.tel.setText(list.get(position).getPhoneNumber());
         String isDefault = list.get(position).getIsDefault();
-        if(isDefault.equals("0")){
-            holder.moren.setVisibility(View.GONE);
-            holder.xian.setVisibility(View.GONE);
-        }else if(isDefault.equals("1")){
+         if(isDefault.equals("1")){
             holder.moren.setVisibility(View.VISIBLE);
             holder.xian.setVisibility(View.VISIBLE);
+        }else{
+            holder.moren.setVisibility(View.GONE);
+            holder.xian.setVisibility(View.GONE);
         }
 
         holder.view.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +70,6 @@ public class Address_Adapter extends RecyclerView.Adapter<Address_Adapter.Viewho
             }
         });
     }
-
 
     @Override
     public int getItemCount() {

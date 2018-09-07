@@ -105,6 +105,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     private TextView shumuTv;
     private List<String> list = new ArrayList<>();
     private RelativeLayout shumuRl;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,45 +117,41 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
     private void initView() {
         state = getIntent().getStringExtra("state");
+        id = getIntent().getIntExtra("id", 0);
         titleBackIv.setVisibility(View.VISIBLE);
         titleContentTv.setText("订单详情");
         switch (state){
-            case "全部":
-                stateTv.setText(state);
+            case "0":
                 jdsjLl.setVisibility(View.VISIBLE);
                 qhsjLl.setVisibility(View.VISIBLE);
                 rightTv.setText("取货");
                 middleTv.setVisibility(View.VISIBLE);
                 middleTv.setText("取消订单");
                 leftTv.setVisibility(View.VISIBLE);
+                stateTv.setText("待取货");
                 break;
-            case "待取货":
-                jdsjLl.setVisibility(View.VISIBLE);
-                qhsjLl.setVisibility(View.VISIBLE);
-                rightTv.setText("取货");
-                middleTv.setVisibility(View.VISIBLE);
-                middleTv.setText("取消订单");
-                leftTv.setVisibility(View.VISIBLE);
-                break;
-            case "配送中":
+            case "3":
                 fbsjLl.setVisibility(View.VISIBLE);
                 jdsjLl.setVisibility(View.VISIBLE);
                 shsjLl.setVisibility(View.VISIBLE);
                 zffsRl.setVisibility(View.VISIBLE);
                 rightTv.setText("配送完成");
                 middle2Tv.setVisibility(View.VISIBLE);
+                stateTv.setText("配送中");
                 break;
-            case "已完成":
+            case "4":
                 fbsjLl.setVisibility(View.VISIBLE);
                 jdsjLl.setVisibility(View.VISIBLE);
                 shsjLl.setVisibility(View.VISIBLE);
                 pswcsjLl.setVisibility(View.VISIBLE);
                 zffsRl.setVisibility(View.VISIBLE);
                 rightTv.setText("删除订单");
+                stateTv.setText("已完成");
                 break;
-            case "已取消":
+            case "6":
                 fbsjLl.setVisibility(View.VISIBLE);
                 rightTv.setText("删除订单");
+                stateTv.setText("已取消");
                 break;
         }
     }

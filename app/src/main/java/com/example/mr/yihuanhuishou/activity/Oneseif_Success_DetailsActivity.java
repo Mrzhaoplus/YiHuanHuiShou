@@ -7,11 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Oneseif_Success_DetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class Oneseif_Success_DetailsActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.beak)
     ImageView beak;
     @BindView(R.id.pay_bh)

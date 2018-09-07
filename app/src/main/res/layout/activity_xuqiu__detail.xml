@@ -46,12 +46,13 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <ImageView
+                <com.example.mr.yihuanhuishou.driver.weight.CircleImageView
+                    android:id="@+id/touxiang"
                     android:layout_width="40dip"
                     android:layout_height="40dip"
-                    android:src="@drawable/icon_tou"
                     />
                    <TextView
+                       android:id="@+id/name"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:text="居民名称"
@@ -81,9 +82,9 @@
                     android:layout_gravity="center_vertical"
                     />
                 <TextView
+                    android:id="@+id/jili"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="15Km"
                     android:textSize="16sp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
@@ -103,9 +104,9 @@
                     android:layout_gravity="center_vertical"
                     />
                 <TextView
+                    android:id="@+id/leixing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="衣物"
                     android:textSize="16sp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
@@ -125,9 +126,9 @@
                     android:layout_gravity="center_vertical"
                     />
                 <TextView
+                    android:id="@+id/zhong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="15Kg"
                     android:textSize="16sp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
@@ -147,15 +148,16 @@
                     android:layout_gravity="center_vertical"
                     />
                 <TextView
+                    android:id="@+id/shijian"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="立即上门"
                     android:textSize="16sp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     />
             </LinearLayout>
             <RelativeLayout
+                android:id="@+id/dizhi_rel"
                 android:padding="10dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -170,10 +172,10 @@
                     android:layout_gravity="center_vertical"
                     />
                 <TextView
+                    android:id="@+id/dizhi"
                     android:layout_toRightOf="@+id/szdz"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="北京市海淀区中关村软件园南区23号楼301室"
                     android:textSize="16sp"
                     android:layout_marginLeft="10dp"
                     />
@@ -193,10 +195,10 @@
                     android:layout_gravity="center_vertical"
                     />
                 <TextView
+                    android:id="@+id/miaoshu"
                     android:layout_toRightOf="@+id/xxms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="我这好多废品我这好多废品我这好多废品我这好多废品我这好多废品我这好多废品我这好多废品"
                     android:textSize="16sp"
                     android:layout_marginLeft="10dp"
                     />
@@ -222,29 +224,19 @@
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content">
 
-                      <ImageView
-                          android:layout_width="80dp"
-                          android:layout_height="80dp"
-                          android:src="@drawable/home_bg"
-                          />
-                      <ImageView
-                          android:layout_marginLeft="10dp"
-                          android:layout_marginRight="10dp"
-                          android:layout_width="80dp"
-                          android:layout_height="80dp"
-                          android:src="@drawable/home_bg"
-                          />
-                      <ImageView
-                          android:layout_width="80dp"
-                          android:layout_height="80dp"
-                          android:src="@drawable/home_bg"
-                          />
+                     <android.support.v7.widget.RecyclerView
+                         android:id="@+id/recy_view"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content">
+
+                     </android.support.v7.widget.RecyclerView>
                   </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
     <Button
+        android:id="@+id/qiang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="立即抢单"

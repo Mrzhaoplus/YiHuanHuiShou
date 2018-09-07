@@ -28,14 +28,19 @@
             android:textColor="@color/textColor"
             android:layout_marginLeft="5dp"/>
     </LinearLayout>
-    <android.support.v7.widget.RecyclerView
+    <com.liaoinstan.springview.widget.SpringView
         android:layout_above="@+id/ckdt"
         android:layout_below="@+id/ding"
+        android:id="@+id/sp_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
+    </com.liaoinstan.springview.widget.SpringView>
     <TextView
         android:id="@+id/ckdt"
         android:layout_width="match_parent"

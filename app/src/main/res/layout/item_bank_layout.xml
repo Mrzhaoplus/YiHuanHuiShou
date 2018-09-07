@@ -3,17 +3,16 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/item_img_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
             android:src="@drawable/zhongguo_bank_iv"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="10dp"/>
+            />
         <TextView
             android:id="@+id/item_name_tv"
             android:layout_width="wrap_content"
@@ -21,9 +20,11 @@
             android:text="中国银行"
             android:textColor="@color/textColor"
             android:textSize="16sp"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/item_img_iv"
-            android:layout_marginTop="10dp"/>
+            />
         <TextView
+            android:layout_marginLeft="10dp"
             android:id="@+id/item_num_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

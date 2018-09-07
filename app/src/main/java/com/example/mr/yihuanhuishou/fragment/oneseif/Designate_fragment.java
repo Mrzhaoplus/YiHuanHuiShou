@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +18,7 @@ import android.widget.TextView;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.adapter.Designate_Adapter;
 import com.example.mr.yihuanhuishou.base.BaseFragment;
-import com.example.mr.yihuanhuishou.jsonbean.Order_Daijiedan_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Order_Daijiedan_Bean;
 import com.example.mr.yihuanhuishou.utils.BaseDialog;
 import com.example.mr.yihuanhuishou.utils.DialogCallback;
 import com.example.mr.yihuanhuishou.utils.DividerItemDecoration;
@@ -38,7 +39,7 @@ import java.util.List;
  * Created by Mr赵 on 2018/5/9.
  */
 
-public class Designate_fragment extends BaseFragment {
+public class Designate_fragment extends BaseFragment implements Designate_Adapter.getclick {
 
     private SpringView sp_view;
     private RecyclerView recy_view;
@@ -46,7 +47,7 @@ public class Designate_fragment extends BaseFragment {
     private Button designate;
     List<Order_Daijiedan_Bean.DataBean>mlist=new ArrayList<>();
     private Designate_Adapter designate_adapter;
-
+    List<Boolean> pro=new ArrayList<>();
     /**
      * 设置Fragment要显示的布局
      *
@@ -68,11 +69,18 @@ public class Designate_fragment extends BaseFragment {
         all_xuan = contentView.findViewById(R.id.all_xuan);
         designate = contentView.findViewById(R.id.designate);
         initdata();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mlist.clear();
         infoview();
     }
 
     private void infoview() {
-        mlist.clear();
+
         SharedPreferences sp = getActivity().getSharedPreferences(GGUtils.SP_NAME, Context.MODE_PRIVATE);
         HttpParams params = new HttpParams();
         params.put("token",sp.getString(GGUtils.TOKEN,""));
@@ -88,6 +96,9 @@ public class Designate_fragment extends BaseFragment {
                         String code = body.getCode();
                         if (code.equals("200")) {
                             List<Order_Daijiedan_Bean.DataBean> data = body.getData();
+                            for (int i=0;i<data.size();i++){
+                                pro.add(false);
+                            }
                             if(data.size()>0){
                                 mlist.addAll(data);
                             }
@@ -106,7 +117,6 @@ public class Designate_fragment extends BaseFragment {
                     }
                 });
     }
-
     private void initdata() {
         //选定公司
         designate.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +135,8 @@ public class Designate_fragment extends BaseFragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
+                        mlist.clear();
+                        infoview();
                     }
                 },0);
                 sp_view.onFinishFreshAndLoad();
@@ -149,9 +160,9 @@ public class Designate_fragment extends BaseFragment {
         recy_view.setNestedScrollingEnabled(false);
         recy_view.setLayoutManager(new LinearLayoutManager(getActivity()));
         recy_view.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-        designate_adapter = new Designate_Adapter(getActivity(),mlist);
+        designate_adapter = new Designate_Adapter(getActivity(),mlist,pro);
         recy_view.setAdapter(designate_adapter);
-
+        designate_adapter.getclick(this);
     }
 
     private void shumaDialog(int grary, int animationStyle) {
@@ -179,12 +190,12 @@ public class Designate_fragment extends BaseFragment {
             public void onClick(View view) {
                 String trim = firm.getText().toString().trim();
                 if(TextUtils.isEmpty(trim)){
-                    ToastUtils.getToast(getActivity(),"已指派");
+                    ToastUtils.getToast(getActivity(),"指派失败，请输入指派公司！");
                 }else{
-                    ToastUtils.getToast(getActivity(),trim);
+                    ToastUtils.getToast(getActivity(),"您已指派"+trim);
                     firm.setText("");
-                }
 
+                }
                 dialog.dismiss();
             }
         });
@@ -198,6 +209,10 @@ public class Designate_fragment extends BaseFragment {
         dialog.show();
     }
 
-
+     //多选指定
+    @Override
+    public void click(List<String> cordnuber) {
+        Log.e("===================",cordnuber.toString());
+    }
 }
 

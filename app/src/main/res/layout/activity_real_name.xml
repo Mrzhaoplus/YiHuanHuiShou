@@ -57,6 +57,8 @@
             android:layout_marginTop="90dp"
             />
         <TextView
+            android:visibility="visible"
+            android:id="@+id/back_cord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="请上传手持身份证照片"
@@ -70,6 +72,8 @@
     </RelativeLayout>
 
      <Button
+         android:visibility="visible"
+         android:id="@+id/tijiao"
          android:layout_marginTop="60dp"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"

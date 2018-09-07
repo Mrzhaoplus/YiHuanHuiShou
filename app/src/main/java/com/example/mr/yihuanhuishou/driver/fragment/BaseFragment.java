@@ -35,6 +35,7 @@ import android.view.ViewGroup;
  * -注3: 针对初始就show的Fragment 为了触发onHiddenChanged事件 达到lazy效果 需要先hide再show
  */
 
+
 public abstract class BaseFragment extends Fragment {
 
     protected String fragmentTitle;             //fragment标题

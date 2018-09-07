@@ -87,6 +87,7 @@
             android:textColor="@color/black"
             />
         <EditText
+            android:inputType="number"
             android:id="@+id/add_tel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -159,6 +160,7 @@
 
         />
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/jiedao"
         android:background="@color/white"
         android:orientation="horizontal"
@@ -219,10 +221,24 @@
 
     </LinearLayout>
 
-    <com.amap.api.maps2d.MapView
-        android:id="@+id/map"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.amap.api.maps2d.MapView>
+        <com.amap.api.maps2d.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.amap.api.maps2d.MapView>
+
+        <ImageView
+            android:id="@+id/dingwei"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/driver_map_location_iv"
+            />
+    </RelativeLayout>
 
 </LinearLayout>

@@ -13,11 +13,12 @@
         android:background="@color/colorAccent"
         >
         <ImageView
+            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back_xxxhdpi"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="5dp"
             android:id="@+id/beak"
             />
 
@@ -30,6 +31,7 @@
             android:layout_centerInParent="true"
             />
         <TextView
+            android:visibility="gone"
             android:id="@+id/zhi_fh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,17 +98,18 @@
                 <TextView
                     android:id="@+id/zhi_bh"
                     android:layout_toRightOf="@+id/tile_bian"
+                    android:layout_toLeftOf="@+id/zhi_name"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12345678"
                     />
 
                 <TextView
                     android:id="@+id/zhi_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="蒋先生"
                     android:textSize="16sp"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/colorAccent"
@@ -163,7 +166,6 @@
                         android:textSize="16sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="衣物"
                         />
                 </LinearLayout>
 
@@ -187,7 +189,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:text="我的废品老多了，快来取吧！我的废品老多了，快来取吧！我的废品老多了，快来取吧！"
                         />
                 </RelativeLayout>
 
@@ -215,7 +216,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="北京市昌平区北七家镇白庙村中街华夏公寓315"
                     />
             </RelativeLayout>
             <RelativeLayout
@@ -240,7 +240,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="2017.11.30"
                     />
             </RelativeLayout>
         <LinearLayout
@@ -269,7 +268,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="10元/Kg"
                     />
 
             </LinearLayout>
@@ -291,7 +289,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="15Kg"
                     />
             </LinearLayout>
             <LinearLayout
@@ -313,7 +310,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:textColor="@color/orange"
-                    android:text="1000.00元"
                     />
             </LinearLayout>
             <LinearLayout
@@ -326,7 +322,7 @@
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="现金金额："
+                    android:text="支付易换劵："
                     />
                 <TextView
                     android:id="@+id/zhi_yihuan"
@@ -335,7 +331,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:textColor="@color/orange"
-                    android:text="1000.00元"
+
                     />
             </LinearLayout>
 

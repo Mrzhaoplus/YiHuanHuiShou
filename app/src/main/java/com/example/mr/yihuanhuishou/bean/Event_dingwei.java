@@ -6,10 +6,22 @@ package com.example.mr.yihuanhuishou.bean;
 
 public class Event_dingwei {
     private String city;
+    private  int flag;
 
-    public Event_dingwei( String city) {
+
+    public Event_dingwei(String city, int flag) {
         this.city = city;
+        this.flag = flag;
     }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
     public String getCity() {
         return city;
     }

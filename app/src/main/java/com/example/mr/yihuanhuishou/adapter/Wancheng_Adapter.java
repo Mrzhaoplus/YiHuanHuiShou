@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.activity.Wait_wancheng_DetailsActivity;
-import com.example.mr.yihuanhuishou.utils.ToastUtils;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Recy_Shangmen_Bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,17 +23,13 @@ import java.util.List;
 
 public class Wancheng_Adapter extends RecyclerView.Adapter<Wancheng_Adapter.Holder>{
     private Context context;
-    private List<String>list=new ArrayList<>();
-    public Wancheng_Adapter(Context context) {
+    private List<Recy_Shangmen_Bean.DataListBean>list=new ArrayList<>();
+
+    public Wancheng_Adapter(Context context, List<Recy_Shangmen_Bean.DataListBean> list) {
         this.context = context;
-        data();
+        this.list = list;
     }
 
-    private void data() {
-        for (int i=0;i<10;i++){
-            list.add("");
-        }
-    }
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(context).inflate(R.layout.wancheng_adapter, parent, false);
@@ -41,11 +37,21 @@ public class Wancheng_Adapter extends RecyclerView.Adapter<Wancheng_Adapter.Hold
         return holder;
     }
     @Override
-    public void onBindViewHolder(Holder holder, int position) {
+    public void onBindViewHolder(final Holder holder, final int position) {
+        holder.name.setText(list.get(position).getEecWasteinfo().getResidentaddr().getName());
+        holder.tel.setText(list.get(position).getEecWasteinfo().getResidentaddr().getPhoneNumber());
+        holder.bianhao.setText(list.get(position).getOrderNumber());
+        holder.sort.setText(list.get(position).getEecWasteinfo().getVarieties());
+        holder.yihuan.setText(list.get(position).getGiveCurrency()+"元");
+        holder.price.setText(list.get(position).getTotalMoney()+"元");
+
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, Wait_wancheng_DetailsActivity.class);
+                intent.putExtra("id",list.get(position).getId());
+                intent.putExtra("name",holder.name.getText().toString());
+                intent.putExtra("address",list.get(position).getEecWasteinfo().getResidentaddr().getDetailAddr());
                 context.startActivity(intent);
             }
         });

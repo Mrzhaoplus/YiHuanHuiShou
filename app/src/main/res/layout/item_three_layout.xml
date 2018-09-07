@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:background="@color/order_bg">
     <TextView
+        android:id="@+id/sort"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="XXX包装袋"

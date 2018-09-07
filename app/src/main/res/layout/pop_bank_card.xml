@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:gravity="center_horizontal"
+        android:padding="15dp"
+        android:id="@+id/bank_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/bank_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/zhongguo_bank_iv"
+            />
+        <TextView
+            android:id="@+id/bank_tv"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="中国银行"
+            android:textColor="@color/textColor"
+            android:layout_toRightOf="@+id/bank_iv"
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+</LinearLayout>

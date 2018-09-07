@@ -40,14 +40,12 @@
             android:id="@+id/face_iv"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/test_face_iv"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="160dp"/>
         <TextView
             android:id="@+id/name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="琉璃下的女孩"
             android:textSize="16sp"
             android:textColor="@color/textColor"
             android:layout_below="@+id/face_iv"

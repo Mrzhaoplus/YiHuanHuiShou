@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.adapter.Dingdan_itme_Adapter;
 import com.example.mr.yihuanhuishou.adapter.ZhiFu_Adapter;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
 import com.example.mr.yihuanhuishou.utils.BaseDialog;
 import com.example.mr.yihuanhuishou.utils.DividerItemDecoration;
 import com.example.mr.yihuanhuishou.utils.ToastUtils;
@@ -30,7 +31,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Dingdan_itmeActivity extends AppCompatActivity implements Dingdan_itme_Adapter.Onclickflag, View.OnClickListener {
+public class Dingdan_itmeActivity extends BaseActivity implements Dingdan_itme_Adapter.Onclickflag, View.OnClickListener {
 
     @BindView(R.id.beak)
     ImageView beak;

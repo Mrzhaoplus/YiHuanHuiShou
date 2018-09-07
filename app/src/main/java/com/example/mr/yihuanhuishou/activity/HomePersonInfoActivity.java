@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,9 +22,8 @@ import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.base.BaseActivity;
 import com.example.mr.yihuanhuishou.driver.weight.BaseSelectPopupWindow;
 import com.example.mr.yihuanhuishou.driver.weight.CircleImageView;
-import com.example.mr.yihuanhuishou.jsonbean.File_bean;
-import com.example.mr.yihuanhuishou.jsonbean.Login_Bean;
-import com.example.mr.yihuanhuishou.jsonbean.XiuGai_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.File_bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.XiuGai_Bean;
 import com.example.mr.yihuanhuishou.utils.BaseDialog;
 import com.example.mr.yihuanhuishou.utils.DialogCallback;
 import com.example.mr.yihuanhuishou.utils.GGUtils;
@@ -82,10 +81,10 @@ public class HomePersonInfoActivity extends BaseActivity {
     private SharedPreferences sp;
     private String sex;
     private String user_name;
-    private String age;
-    private String xingbie=null;
+    private int age;
+    private String xingbie="";
     private File file;
-    private String imags;
+    private SharedPreferences touxiang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,31 +92,74 @@ public class HomePersonInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_home_person_info);
         ButterKnife.bind(this);
         sp = getSharedPreferences(GGUtils.SP_NAME, MODE_PRIVATE);
+        touxiang = getSharedPreferences("touxiang", MODE_PRIVATE);
         initView();
     }
-
     private void initView() {
-        title_bj.setVisibility(View.VISIBLE);
+
+
+        nameTv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                    if(!user_name.equals(editable.toString())){
+                        title_bj.setVisibility(View.VISIBLE);
+                    }else{
+                        title_bj.setVisibility(View.GONE);
+                    }
+            }
+        });
+        ageTv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!TextUtils.isEmpty(editable.toString())){
+                    int i = Integer.parseInt(editable.toString());
+                    if(age!=i){
+                        title_bj.setVisibility(View.VISIBLE);
+                    }else{
+                        title_bj.setVisibility(View.GONE);
+                    }
+                }
+
+            }
+        });
         titleBackIv.setVisibility(View.VISIBLE);
         titleContentTv.setText("个人信息");
-
         String imag = sp.getString(GGUtils.IMAGE_path, "");
         Glide.with(this).load(imag).into(faceIv);
         if(imag.equals("")){
-            Glide.with(this).load(R.drawable.logo_xxxhdpi).into(faceIv);
+            Glide.with(this).load(R.drawable.test_face_iv).into(faceIv);
         }
-
         user_name = sp.getString(GGUtils.USER_NAME, "");
         if (user_name.equals("")||user_name==null) {
             nameTv.setText("");
         } else {
             nameTv.setText(user_name);
         }
-        age = sp.getString(GGUtils.AGE, "");
-        if (age.equals("")||age==null) {
+        age = sp.getInt(GGUtils.AGE, 0);
+        if (age==0) {
             ageTv.setText("");
         } else {
-            ageTv.setText(age);
+            ageTv.setText(age+"");
         }
         sex = sp.getString(GGUtils.SEX, "");
         if (sex.equals("0")) {
@@ -136,6 +178,7 @@ public class HomePersonInfoActivity extends BaseActivity {
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                title_bj.setVisibility(View.VISIBLE);
                 switch (i){
                     case R.id.rbt_nan:
                         xingbie="1";
@@ -146,7 +189,6 @@ public class HomePersonInfoActivity extends BaseActivity {
                 }
             }
         });
-
 
     }
 
@@ -186,6 +228,16 @@ public class HomePersonInfoActivity extends BaseActivity {
             public void onClick(View view) {
                 mDialog.dismiss();
                 requestPhoto();
+            }
+        });
+        mDialog.getView(R.id.chakan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialog.dismiss();
+                Intent intent = new Intent(HomePersonInfoActivity.this, Touxiang_DetailsActivity.class);
+                String imag = sp.getString(GGUtils.IMAGE_path, "");
+                intent.putExtra("imag",imag);
+                startActivity(intent);
             }
         });
     }
@@ -279,16 +331,15 @@ public class HomePersonInfoActivity extends BaseActivity {
                         public void onSuccess(Response<File_bean> response) {
                             File_bean body = response.body();
                             List<String> data = body.getData();
-                            imags = data.get(0);
-                            Log.e("===================",imags);
+                           String imags = data.get(0);
+                            title_bj.setVisibility(View.VISIBLE);
+                            Log.e("======================",imags);
+                            SharedPreferences.Editor edit = touxiang.edit();
+                            edit.putString("tou",imags);
+                            edit.commit();
                         }
-
                 });
-
-
     }
-
-
     @OnClick({R.id.title_back_iv, R.id.face_rl, R.id.title_more_bj})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -301,23 +352,22 @@ public class HomePersonInfoActivity extends BaseActivity {
             case R.id.title_more_bj:
                 String name = nameTv.getText().toString().trim();
                 String agetv = ageTv.getText().toString().trim();
-
+                if(!TextUtils.isEmpty(agetv)){
+                    int i = Integer.parseInt(agetv);
+                    if(age!=i){
+                        ageview(agetv);
+                    }
+                }
                 if(!user_name.equals(name)){
                     nameview(name);
-                }
-                if(!age.equals(agetv)){
-                    ageview(agetv);
-                }
-                if((xingbie!=null&&!sex.equals(xingbie))){
+                }if((!xingbie.equals("")&&!sex.equals(xingbie))){
                     sexview(xingbie);
-                }
-                if(!sp.getString(GGUtils.IMAGE_path,"").equals(imags)){
-                    imagview(imags);
+                } if(!sp.getString(GGUtils.IMAGE_path,"").equals(touxiang.getString("tou",""))){
+                    imagview(touxiang.getString("tou",""));
                 }
                 break;
         }
     }
-
 
 
 
@@ -404,7 +454,7 @@ public class HomePersonInfoActivity extends BaseActivity {
                         String code = body.getCode();
                         if (code.equals("200")) {
                             SharedPreferences.Editor edit = sp.edit();
-                            edit.putString(GGUtils.AGE,body.getData().getAge()+"");
+                            edit.putInt(GGUtils.AGE,body.getData().getAge());
                             edit.commit();
                             ToastUtils.getToast(HomePersonInfoActivity.this, body.getMsg());
                             finish();
@@ -455,7 +505,5 @@ public class HomePersonInfoActivity extends BaseActivity {
                         }
                     }
                 });
-
-
     }
 }

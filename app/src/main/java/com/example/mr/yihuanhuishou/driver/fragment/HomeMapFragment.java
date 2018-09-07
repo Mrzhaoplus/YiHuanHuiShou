@@ -1,5 +1,6 @@
 package com.example.mr.yihuanhuishou.driver.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -86,8 +87,6 @@ public class HomeMapFragment extends BaseFragment implements AMapLocationListene
     private List<LatLngBean> latLngBeanList;
     private BaseDialog mDialog;
     private BaseDialog.Builder mBuilder;
-
-
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_map_fragment,null);
@@ -98,8 +97,8 @@ public class HomeMapFragment extends BaseFragment implements AMapLocationListene
 
     @Override
     protected void initLazyData() {
-
     }
+
 
     private void initMap(Bundle savedInstanceState) {
         //创建地图
@@ -138,7 +137,6 @@ public class HomeMapFragment extends BaseFragment implements AMapLocationListene
         // 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
         //启动定位
         mlocationClient.startLocation();
-
         //marker标记
         initMarker(false);
     }

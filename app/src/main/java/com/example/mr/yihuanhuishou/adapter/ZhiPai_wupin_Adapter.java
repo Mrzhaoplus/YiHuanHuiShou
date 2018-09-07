@@ -2,6 +2,7 @@ package com.example.mr.yihuanhuishou.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.example.mr.yihuanhuishou.R;
-import com.example.mr.yihuanhuishou.jsonbean.Xitong_Recycler_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Xitong_Recycler_Bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,18 +51,21 @@ public class ZhiPai_wupin_Adapter extends RecyclerView.Adapter<ZhiPai_wupin_Adap
                       pos.add(position);
                       jiekou.flag(pos);
                   }else{
-                      pos.remove(position);
+                      for (int i=0;i<pos.size();i++){
+                          if(position==pos.get(i)){
+                              pos.remove(i);
+                          }
+                      }
+
                   }
+
               }
           });
     }
-
-
     @Override
     public int getItemCount() {
         return list.size();
     }
-
     public class Viewholder extends RecyclerView.ViewHolder {
 
         public CheckBox checkBox;

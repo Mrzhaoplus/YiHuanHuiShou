@@ -12,6 +12,12 @@ import android.widget.TextView;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.base.BaseActivity;
 import com.example.mr.yihuanhuishou.driver.fragment.DriverAllOrderFragment;
+import com.example.mr.yihuanhuishou.driver.fragment.DriverDQHOrderFragment;
+import com.example.mr.yihuanhuishou.driver.fragment.DriverDZFOrderFragment;
+import com.example.mr.yihuanhuishou.driver.fragment.DriverOrder_PSZFragment;
+import com.example.mr.yihuanhuishou.driver.fragment.DriverPSZOrderFragment;
+import com.example.mr.yihuanhuishou.driver.fragment.DriverYQXOrderFragment;
+import com.example.mr.yihuanhuishou.driver.fragment.DriverYWCOrderFragment;
 import com.example.mr.yihuanhuishou.driver.weight.NoCacheViewPager;
 import com.example.mr.yihuanhuishou.fragment.driver.Driver_all_fragment;
 
@@ -48,6 +54,7 @@ public class DriverOrderActivity extends BaseActivity {
 
         tabList.add("全部");
         tabList.add("待取货");
+        tabList.add("待支付");
         tabList.add("配送中");
         tabList.add("已完成");
         tabList.add("已取消");
@@ -66,19 +73,22 @@ public class DriverOrderActivity extends BaseActivity {
                 Fragment fragment = null;
                 switch (position){
                     case 0:
-                        fragment= new DriverAllOrderFragment(tabList.get(position));
+                        fragment= new DriverAllOrderFragment();
                         break;
                     case 1:
-                        fragment= new DriverAllOrderFragment(tabList.get(position));
+                        fragment= new DriverDQHOrderFragment();
                         break;
                     case 2:
-                        fragment= new DriverAllOrderFragment(tabList.get(position));
+                        fragment= new DriverDZFOrderFragment();
                         break;
                     case 3:
-                        fragment= new DriverAllOrderFragment(tabList.get(position));
+                        fragment= new DriverPSZOrderFragment();
                         break;
                     case 4:
-                        fragment= new DriverAllOrderFragment(tabList.get(position));
+                       fragment= new DriverYWCOrderFragment();
+                        break;
+                    case 5:
+                        fragment= new DriverYQXOrderFragment();
                         break;
                 }
                 return fragment;

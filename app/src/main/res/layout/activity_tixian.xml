@@ -23,6 +23,8 @@
             android:paddingTop="15dp"
             android:paddingLeft="15dp" />
         <EditText
+            android:id="@+id/price"
+            android:inputType="number|numberDecimal"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:hint="请输入可提现金额"
@@ -49,9 +51,10 @@
                 android:textColor="@color/textColorgray"
                 android:textSize="13sp"/>
             <TextView
+                android:id="@+id/gao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1000.00"
+                android:text="1000"
                 android:textColor="@color/colorPrimary"
                 android:textSize="13sp"
                 android:layout_marginLeft="5dp"/>
@@ -87,9 +90,11 @@
                 android:background="@drawable/fanxuan"
                 android:layout_centerVertical="true"
                 android:button="@null"
+                android:checked="true"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/weichat_rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -132,7 +137,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/view_01"
-                android:text="中国银行"
                 android:textColor="@color/textColorgray"
                 android:layout_marginRight="10dp"/>
         </RelativeLayout>

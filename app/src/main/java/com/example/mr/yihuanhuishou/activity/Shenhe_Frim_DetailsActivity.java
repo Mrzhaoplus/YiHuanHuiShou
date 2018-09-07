@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.mr.yihuanhuishou.R;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Shenhe_Frim_DetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class Shenhe_Frim_DetailsActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.beak)
     ImageView beak;

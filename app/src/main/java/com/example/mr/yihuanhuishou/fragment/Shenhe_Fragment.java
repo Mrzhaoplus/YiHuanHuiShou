@@ -46,9 +46,9 @@ public class Shenhe_Fragment extends BaseFragment {
     }
 
     private void initdata() {
-        for(int i=0;i<10;i++){
+        /*for(int i=0;i<10;i++){
             list.add("");
-        }
+        }*/
         mrecycler.setNestedScrollingEnabled(false);
         mrecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mrecycler.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));

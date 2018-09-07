@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
+        android:id="@+id/shijian"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="2018-06-05 17:06:00"

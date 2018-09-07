@@ -12,6 +12,7 @@ public class LatLngBean implements Serializable {
     private String phone;
     private String type;
 
+
     public String getType() {
         return type;
     }

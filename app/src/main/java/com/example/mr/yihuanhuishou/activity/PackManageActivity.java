@@ -39,9 +39,9 @@ public class PackManageActivity extends BaseActivity implements View.OnClickList
     private void initdata() {
         beak.setOnClickListener(this);
         tiaoma.setOnClickListener(this);
-        for (int i = 0; i < 10; i++) {
+        /*for (int i = 0; i < 10; i++) {
             mList.add("");
-        }
+        }*/
         //无下划线
         recyView.setNestedScrollingEnabled(false);
         recyView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

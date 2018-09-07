@@ -16,7 +16,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
     signingConfigs {
         release {
             keyAlias 'key0'
@@ -25,7 +24,6 @@ android {
             storeFile file('D:/yihuan.jks')
         }
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -38,7 +36,6 @@ android {
             signingConfig signingConfigs.release
         }
     }
-
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
@@ -70,6 +67,7 @@ dependencies {
     //地图
     compile 'com.amap.api:location:latest.integration'
     compile 'com.amap.api:map2d:latest.integration'
+    compile 'com.amap.api:search:latest.integration'
     compile 'com.lzy.net:okgo:3.0.4'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.orhanobut:logger:2.1.1'
@@ -83,5 +81,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     //WebSocket 依赖包
     compile 'org.java-websocket:Java-WebSocket:1.3.0'
-    implementation files('libs/AMapSearch_6.1.0_AMapLocation_4.1.0_20180619.jar')
+    implementation files('libs/alipaySdk-20180601.jar')
+    compile project(path: ':UpdateAppUtils')
+    implementation files('libs/libammsdk.jar')
+    // compile 'cn.yipianfengye.android:zxing-library:2.1'
 }

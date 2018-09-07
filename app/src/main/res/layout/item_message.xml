@@ -8,10 +8,9 @@
         android:orientation="horizontal">
         <ImageView
             android:id="@+id/item_img_iv"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/driver_phone_iv"
+            android:src="@drawable/tongzhi"
             android:layout_centerVertical="true"
             android:paddingLeft="15dp"
             android:paddingTop="15dp"
@@ -30,6 +29,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/dian_xxxhdpi"
             android:layout_alignParentRight="true"
+
             android:layout_marginRight="10dp"
             android:layout_centerVertical="true" />
     </RelativeLayout>

@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我的易换币"
+            android:text="我的易换劵"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_centerInParent="true"
@@ -41,15 +41,15 @@
             android:id="@+id/view_01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="易换币（元）"
+            android:text="易换劵（元）"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"/>
         <TextView
+            android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10000.00"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_below="@+id/view_01"

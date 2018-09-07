@@ -1,5 +1,6 @@
 package com.example.mr.yihuanhuishou.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,7 +11,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,7 +27,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
-import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.CameraPosition;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.MyLocationStyle;
 import com.amap.api.services.core.AMapException;
@@ -33,14 +36,16 @@ import com.amap.api.services.geocoder.GeocodeAddress;
 import com.amap.api.services.geocoder.GeocodeQuery;
 import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.bigkoo.pickerview.lib.WheelView;
 import com.bigkoo.pickerview.listener.OnItemSelectedListener;
 import com.example.mr.yihuanhuishou.R;
-import com.example.mr.yihuanhuishou.jsonbean.Location_Bean;
-import com.example.mr.yihuanhuishou.jsonbean.Zhece_Bean;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
+import com.example.mr.yihuanhuishou.bean.Event_fragment;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Zhece_Bean;
 import com.example.mr.yihuanhuishou.utils.BaseDialog;
 import com.example.mr.yihuanhuishou.utils.DialogCallback;
 import com.example.mr.yihuanhuishou.utils.GGUtils;
@@ -55,6 +60,7 @@ import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 
 import java.text.SimpleDateFormat;
@@ -65,7 +71,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class New_AddressActivity extends AppCompatActivity implements View.OnClickListener, AMapLocationListener, GeocodeSearch.OnGeocodeSearchListener {
+public class New_AddressActivity extends BaseActivity implements View.OnClickListener, AMapLocationListener, GeocodeSearch.OnGeocodeSearchListener, AMap.OnCameraChangeListener {
 
     @BindView(R.id.beak)
     ImageView beak;
@@ -93,6 +99,8 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
     EditText addTel;
     @BindView(R.id.xiangxi)
     EditText xiangxi;
+    @BindView(R.id.dingwei)
+    ImageView dingwei;
     private AMap aMap;
     List<String> list = new ArrayList<>();
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
@@ -109,11 +117,13 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
     private AMapLocationClientOption mLocationOption;
     private LatLng latLng;
     private AMapLocation aMapLocation;
-    private GeocodeSearch geocodeSearch;
+
     private String addressName;
     private double lat;
     private double lon;
     private Intent intent;
+    private LatLng target;
+    private LatLonPoint latLonPoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,20 +134,67 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
         initdata(savedInstanceState);
         initJsonData();
 
-        list.add("上地街道");
-        list.add("龙裕街道");
-        list.add("裕翔街道");
-        list.add("建华大街");
-        list.add("中华大街");
-        list.add("上地西路");
-        list.add("翟营大街");
-        list.add("祁连大街");
-        list.add("体育大街");
-        list.add("槐安路");
+        xiangxi.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                GeocodeSearch(editable.toString());
+            }
+        });
 
     }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if(ev.getAction()==MotionEvent.ACTION_DOWN){
+            View v=getCurrentFocus();
+            boolean  hideInputResult =isShouldHideInput(v,ev);
+            Log.v("hideInputResult","zzz-->>"+hideInputResult);
+            if(hideInputResult){
+                v.clearFocus();
+                InputMethodManager imm = (InputMethodManager) New_AddressActivity.this
+                        .getSystemService(Activity.INPUT_METHOD_SERVICE);
+                if(v != null){
+                    if(imm.isActive()){
+                        imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+    public  boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] leftTop = { 0, 0 };
+            //获取输入框当前的location位置
+            v.getLocationInWindow(leftTop);
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            //之前一直不成功的原因是,getX获取的是相对父视图的坐标,getRawX获取的才是相对屏幕原点的坐标！！！
+            Log.v("leftTop[]","zz--left:"+left+"--top:"+top+"--bottom:"+bottom+"--right:"+right);
+            Log.v("event","zz--getX():"+event.getRawX()+"--getY():"+event.getRawY());
+            if (event.getRawX() > left && event.getRawX() < right
+                    && event.getRawY() > top && event.getRawY() < bottom) {
+                // 点击的是输入框区域，保留点击EditText的事件
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     private void initdata(Bundle savedInstanceState) {
         //创建地图
@@ -149,11 +206,11 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
         aMap.getUiSettings().setZoomControlsEnabled(false);
 
 
-
         beak.setOnClickListener(this);
         baocun.setOnClickListener(this);
         diqu.setOnClickListener(this);
         jiedao.setOnClickListener(this);
+        dingwei.setOnClickListener(this);
 
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW);//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
@@ -162,12 +219,15 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
         aMap.moveCamera(CameraUpdateFactory.zoomTo(16));
 
         //更改定位图标
-        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.driver_map_location_iv));
+        //myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.driver_map_location_iv));
         //设置不显示范围圆圈
         myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0));// 设置圆形的边框颜色
         myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0));// 设置圆形的填充颜色
 
         mlocationClient = new AMapLocationClient(this);
+        //设置地图拖动监听
+        aMap.setOnCameraChangeListener(this);
+
         //初始化定位参数
         mLocationOption = new AMapLocationClientOption();
         //设置定位监听
@@ -201,8 +261,17 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
             case R.id.jiedao:
                 showFXDialog(Gravity.BOTTOM, R.style.Bottom_Top_aniamtion);
                 break;
-
+            case R.id.dingwei:
+                setCurrentLocationDetails();
+                break;
         }
+    }
+    private void setCurrentLocationDetails() {
+        GeocodeSearch geocodeSearch = new GeocodeSearch(getApplicationContext());
+        geocodeSearch.setOnGeocodeSearchListener(this);
+        // 第一个参数表示一个Latlng(经纬度)，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
+        RegeocodeQuery query = new RegeocodeQuery(latLonPoint, 25, GeocodeSearch.AMAP);
+        geocodeSearch.getFromLocationAsyn(query);
     }
 
     private void infodata() {
@@ -211,13 +280,9 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
         String add_sf = sheng.getText().toString().trim();
         String add_cs = shi.getText().toString().trim();
         String add_xq = qu.getText().toString().trim();
-        String add_jd = detaJiedao.getText().toString().trim();
         String add_xx = xiangxi.getText().toString().trim();
-        double latitude = aMapLocation.getLatitude();
-        double longitude = aMapLocation.getLongitude();
-
         boolean mobileNO = Validator.isMobileNO(tell);
-        if(mobileNO){
+        if (mobileNO) {
             HttpParams params = new HttpParams();
             params.put("token", sp.getString(GGUtils.TOKEN, ""));
             params.put("name", name);
@@ -226,9 +291,8 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
             params.put("city", add_cs);
             params.put("counry", add_xq);
             params.put("detailAddr", add_xx);
-            params.put("isDefault", "1");
-            params.put("longitude", lon);
-            params.put("latitude", lat);
+            params.put("longitude", lon + "");
+            params.put("latitude", lat + "");
             OkGo.<Zhece_Bean>post(MyUrls.BASEURL + "/recyclers/address/addOrUpdate")
                     .tag(this)
                     .params(params)
@@ -238,6 +302,7 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
                             Zhece_Bean body = response.body();
                             String code = body.getCode();
                             if (code.equals("200")) {
+                                EventBus.getDefault().postSticky(new Event_fragment(7));
                                 ToastUtils.getToast(New_AddressActivity.this, body.getMsg());
                                 finish();
                             } else if (code.equals("201")) {
@@ -253,14 +318,10 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
                             }
                         }
                     });
-        }else{
-            ToastUtils.getToast(New_AddressActivity.this,"手机号码有误！");
+        } else {
+            ToastUtils.getToast(New_AddressActivity.this, "手机号码有误！");
         }
-
-
-
     }
-
     private void showFXDialog(int grary, int animationStyle) {
         BaseDialog.Builder builder = new BaseDialog.Builder(New_AddressActivity.this);
         //设置触摸dialog外围是否关闭
@@ -324,7 +385,9 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
                 sheng.setText(options1Items.get(options1).getPickerViewText());
                 shi.setText(options2Items.get(options1).get(options2));
                 qu.setText(options3Items.get(options1).get(options2).get(options3));
-               GeocodeSearch(options3Items.get(options1).get(options2).get(options3));
+
+                    GeocodeSearch(shi.getText().toString()+qu.getText().toString());
+
             }
         }).setTitleText("")
                 .setDividerColor(Color.GRAY)
@@ -340,7 +403,7 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
 
     private void GeocodeSearch(String city) {
         //构造 GeocodeSearch 对象，并设置监听。
-        geocodeSearch = new GeocodeSearch(this);
+        GeocodeSearch geocodeSearch = new GeocodeSearch(this);
         geocodeSearch.setOnGeocodeSearchListener(this);
         GeocodeQuery query = new GeocodeQuery(city, city);
         geocodeSearch.getFromLocationNameAsyn(query);
@@ -381,10 +444,8 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
                         || jsonBean.get(i).getCityList().get(c).getArea().size() == 0) {
                     City_AreaList.add("");
                 } else {
-
                     for (int d = 0; d < jsonBean.get(i).getCityList().get(c).getArea().size(); d++) {//该城市对应地区所有数据
                         String AreaName = jsonBean.get(i).getCityList().get(c).getArea().get(d);
-
                         City_AreaList.add(AreaName);//添加该城市所有地区数据
                     }
                 }
@@ -422,7 +483,7 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onLocationChanged(AMapLocation amapLocation) {
-       aMapLocation =amapLocation;
+        aMapLocation = amapLocation;
         if (amapLocation != null) {
             if (amapLocation.getErrorCode() == 0) {
                 //定位成功回调信息，设置相关消息
@@ -435,8 +496,7 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
                         "经度：" + amapLocation.getLongitude() + "\n" +
                         "城市信息:" + amapLocation.getCity() + "\n" +
                         "定位时间：" + df.format(date) + "\n" +
-                        "区"+amapLocation.getCountry()
-
+                        "区" + amapLocation.getCountry()
                 );
                 latLng = new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude());
                 Logger.i(latLng.toString());
@@ -450,9 +510,11 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
     }
 
     @Override
-    public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
-
+    public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int rCode) {
+        String formatAddress = regeocodeResult.getRegeocodeAddress().getFormatAddress();
+        xiangxi.setText(formatAddress);
     }
+
     //正地理编码
     @Override
     public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
@@ -467,19 +529,28 @@ public class New_AddressActivity extends AppCompatActivity implements View.OnCli
                 LatLonPoint latLongPoint = address.getLatLonPoint();
                 lat = latLongPoint.getLatitude();
                 lon = latLongPoint.getLongitude();
-                /*       //然后把经纬度传递给地图界面
-                intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putDouble("Lat",lat);
-                bundle.putDouble("Lng",lon);
-                intent.putExtra("LAT",bundle);
-                New_AddressActivity.this.setResult(8, intent);
-                New_AddressActivity.this.finish();*/
+                aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng
+                        (lat, lon), 13.0f));
             }
-
         }
-
 
     }
 
+
+    @Override
+    public void onCameraChange(CameraPosition cameraPosition) {
+
+    }
+
+    @Override
+    public void onCameraChangeFinish(CameraPosition cameraPosition) {
+        dingwei.setVisibility(View.VISIBLE);
+        target = cameraPosition.target;
+        double latitude = target.latitude;
+        double longitude = target.longitude;
+        latLonPoint = new LatLonPoint(latitude, longitude);
+        Log.e("===================", latitude + "");
+        Log.e("===================", longitude + "");
+
+    }
 }

@@ -54,7 +54,7 @@ public class Driver_fragment extends BaseFragment {
         list.add("配送中");
         list.add("配送完");
         list.add("待支付");
-        list.add("已支付");
+       // list.add("已支付");
         list.add("已取消");
         vp.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
@@ -89,14 +89,14 @@ public class Driver_fragment extends BaseFragment {
                       // fragment= new Driver_peisongwan_fragment();
                         break;
                     case 5:
-                        fragment= new Driver_all_fragment("11");
+                        fragment= new Driver_all_fragment("7");
                         //fragment= new Driver_daizhifu_fragment();
                         break;
-                    case 6:
+                   /* case 6:
                         fragment= new Driver_all_fragment("12");
                         //fragment= new Driver_zhifuwan_fragment();
-                        break;
-                    case 7:
+                        break;*/
+                    case 6:
                         fragment= new Driver_all_fragment("5");
                         //fragment= new Driver_yiquxiao_fragment();
                         break;

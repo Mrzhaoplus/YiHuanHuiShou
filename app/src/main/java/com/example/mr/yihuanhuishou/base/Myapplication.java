@@ -5,9 +5,16 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
+import com.example.mr.yihuanhuishou.activity.MyMsgActivity;
+import com.example.mr.yihuanhuishou.adapter.Mymsg_Adapter;
 import com.example.mr.yihuanhuishou.driver.weight.HXHelper;
 import com.example.mr.yihuanhuishou.utils.AppManager;
+import com.hyphenate.EMMessageListener;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMMessage;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -22,6 +29,10 @@ import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
@@ -37,12 +48,14 @@ public class Myapplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         application = this;
         setLogger();
         setOkGo();//OkGo----第三方网络框架
         initEM();
     }
+
+
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -165,7 +178,7 @@ public class Myapplication extends Application {
                 .setRetryCount(3)//全局统一超时重连次数，默认为三次，那么最差的情况会请求4次(一次原始请求，三次重连请求)，不需要可以设置为0
                 .addCommonHeaders(headers)                         //全局公共头
                 .addCommonParams(params);                          //全局公共参数
-
     }
+
 }
 

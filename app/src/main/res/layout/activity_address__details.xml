@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:hint="赵先生"
+            android:hint="姓名"
             android:layout_marginLeft="20dp"
             />
     </LinearLayout>
@@ -91,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:hint="15321326526"
+            android:hint="联系电话"
             android:id="@+id/tel"
             android:layout_marginLeft="20dp"
             />
@@ -122,7 +122,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:hint="北京市海淀区"
+            android:hint="所在地区"
             android:id="@+id/add_qu"
             android:layout_marginLeft="20dp"
             />
@@ -137,6 +137,7 @@
 
         />
     <LinearLayout
+        android:visibility="gone"
         android:background="@color/white"
         android:orientation="horizontal"
         android:padding="10dp"
@@ -154,13 +155,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:hint="上地街道"
+            android:hint="所在街道"
             android:id="@+id/add_tree"
             android:layout_marginLeft="20dp"
             />
 
     </LinearLayout>
     <View
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/hui"
@@ -188,7 +190,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:hint="北京市海淀区上地街道123号"
+            android:hint="详细地址"
             android:id="@+id/add_detail"
             android:layout_marginLeft="20dp"
             />

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/power/PowerProject/YiHuanHuiShou/easeui/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-v22/values-v22.xml",
+            "outputFile": "D:\\YiHuanHuiShou\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-v22\\values-v22.xml",
             "map": [
                 {
-                    "source": "/Users/power/.gradle/caches/transforms-1/files-1.1/appcompat-v7-24.2.1.aar/dea465d7eb380393479f64dbe02aed5b/res/values-v22/values-v22.xml",
+                    "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-24.2.1.aar\\37d7e06afaeeafc3079aa6cd083f72fe\\res\\values-v22\\values-v22.xml",
                     "from": {
                         "startLines": "2,3,4,9",
                         "startColumns": "4,4,4,4",
@@ -17,10 +17,10 @@
             ]
         },
         {
-            "outputFile": "/Users/power/PowerProject/YiHuanHuiShou/easeui/build/intermediates/res/merged/androidTest/debug/values-v22/values-v22.xml",
+            "outputFile": "D:\\YiHuanHuiShou\\easeui\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v22\\values-v22.xml",
             "map": [
                 {
-                    "source": "/Users/power/.gradle/caches/transforms-1/files-1.1/appcompat-v7-24.2.1.aar/dea465d7eb380393479f64dbe02aed5b/res/values-v22/values-v22.xml",
+                    "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-24.2.1.aar\\37d7e06afaeeafc3079aa6cd083f72fe\\res\\values-v22\\values-v22.xml",
                     "from": {
                         "startLines": "2,3,4,9",
                         "startColumns": "4,4,4,4",

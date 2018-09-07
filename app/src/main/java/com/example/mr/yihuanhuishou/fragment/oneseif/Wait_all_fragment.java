@@ -8,10 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.mr.yihuanhuishou.R;
-import com.example.mr.yihuanhuishou.adapter.Oneseif_Wait_Pay_Adapter;
 import com.example.mr.yihuanhuishou.adapter.Oneseif_Wait_all_Adapter;
 import com.example.mr.yihuanhuishou.base.BaseFragment;
-import com.example.mr.yihuanhuishou.jsonbean.Order_Daijiedan_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Order_Daijiedan_Bean;
 import com.example.mr.yihuanhuishou.utils.DialogCallback;
 import com.example.mr.yihuanhuishou.utils.DividerItemDecoration;
 import com.example.mr.yihuanhuishou.utils.GGUtils;
@@ -58,11 +57,18 @@ public class Wait_all_fragment extends BaseFragment {
         sp_view = contentView.findViewById(R.id.sp_view);
 
         initdata();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mlist.clear();
         infoview();
     }
 
     private void infoview() {
-        mlist.clear();
+
         SharedPreferences sp = getActivity().getSharedPreferences(GGUtils.SP_NAME, Context.MODE_PRIVATE);
         HttpParams params = new HttpParams();
         params.put("token",sp.getString(GGUtils.TOKEN,""));
@@ -106,6 +112,7 @@ public class Wait_all_fragment extends BaseFragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        mlist.clear();
                         infoview();
                     }
                 },0);

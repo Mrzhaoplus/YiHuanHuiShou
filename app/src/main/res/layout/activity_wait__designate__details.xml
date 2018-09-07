@@ -13,11 +13,12 @@
         android:background="@color/colorAccent"
         >
         <ImageView
+            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back_xxxhdpi"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="5dp"
             android:id="@+id/beak"
             />
 
@@ -206,6 +207,7 @@
         android:layout_marginRight="10dp"
         />
     <Button
+        android:visibility="gone"
         android:id="@+id/desi_zhipai"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

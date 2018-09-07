@@ -8,7 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
-import com.example.mr.yihuanhuishou.jsonbean.Order_Details_Bean;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Order_Details_Bean;
 import com.example.mr.yihuanhuishou.utils.DialogCallback;
 import com.example.mr.yihuanhuishou.utils.GGUtils;
 import com.example.mr.yihuanhuishou.utils.MyUrls;
@@ -23,7 +24,7 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Driver_Cancle_DetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class Driver_Cancle_DetailsActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.beak)
     ImageView beak;
     @BindView(R.id.cancle_bh)

@@ -1,18 +1,34 @@
 package com.example.mr.yihuanhuishou.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.mr.yihuanhuishou.R;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.File_bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Shiming_Detail;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Zhece_Bean;
+import com.example.mr.yihuanhuishou.utils.DialogCallback;
+import com.example.mr.yihuanhuishou.utils.GGUtils;
+import com.example.mr.yihuanhuishou.utils.MyUrls;
+import com.example.mr.yihuanhuishou.utils.ToastUtils;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.compress.Luban;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Response;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,7 +37,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Real_nameActivity extends AppCompatActivity implements View.OnClickListener {
+public class Real_nameActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.beak)
     ImageView beak;
@@ -29,8 +45,13 @@ public class Real_nameActivity extends AppCompatActivity implements View.OnClick
     ImageView paizhao;
     @BindView(R.id.img_sfz)
     ImageView imgSfz;
+    @BindView(R.id.tijiao)
+    Button tijiao;
+    @BindView(R.id.back_cord)
+    TextView backCord;
     private List<LocalMedia> selectList = new ArrayList<>();
     private String cutPath;
+    private String imagpath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +61,53 @@ public class Real_nameActivity extends AppCompatActivity implements View.OnClick
         initdate();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        shiming_detail();
+    }
+
+    private void shiming_detail() {
+        SharedPreferences sp = getSharedPreferences(GGUtils.SP_NAME, MODE_PRIVATE);
+        HttpParams params = new HttpParams();
+        params.put("token", sp.getString(GGUtils.TOKEN, ""));
+        OkGo.<Shiming_Detail>post(MyUrls.BASEURL + "/recyclers/info/authenticationDetail")
+                .tag(this)
+                .params(params)
+                .execute(new DialogCallback<Shiming_Detail>(Real_nameActivity.this, Shiming_Detail.class) {
+                    @Override
+                    public void onSuccess(Response<Shiming_Detail> response) {
+                        Shiming_Detail body = response.body();
+                        String code = body.getCode() + "";
+                        if (code.equals("200")) {
+                            Shiming_Detail.DataBean data = body.getData();
+                            if (data != null) {
+                                Glide.with(Real_nameActivity.this).load(data.getIdcard()).into(imgSfz);
+                                paizhao.setVisibility(View.GONE);
+                                tijiao.setVisibility(View.GONE);
+                                backCord.setVisibility(View.GONE);
+                            }
+                        } else if (code.equals("201")) {
+                            ToastUtils.getToast(Real_nameActivity.this, body.getMsg());
+                        } else if (code.equals("500")) {
+                            ToastUtils.getToast(Real_nameActivity.this, body.getMsg());
+                        } else if (code.equals("404")) {
+                            ToastUtils.getToast(Real_nameActivity.this, body.getMsg());
+                        } else if (code.equals("203")) {
+                            ToastUtils.getToast(Real_nameActivity.this, body.getMsg());
+                        } else if (code.equals("204")) {
+                            ToastUtils.getToast(Real_nameActivity.this, body.getMsg());
+                        }
+                    }
+                });
+
+
+    }
+
     private void initdate() {
         beak.setOnClickListener(this);
         paizhao.setOnClickListener(this);
+        tijiao.setOnClickListener(this);
     }
 
     @Override
@@ -54,12 +119,50 @@ public class Real_nameActivity extends AppCompatActivity implements View.OnClick
             case R.id.paizhao:
                 requestPhoto();
                 break;
+            case R.id.tijiao:
+                if(TextUtils.isEmpty(imagpath)){
+                    ToastUtils.getToast(Real_nameActivity.this,"请上传手持身份证照片。");
+                }else{
+                    initview();
+                }
+                break;
         }
 
     }
 
-    private void requestPhoto() {
+    private void initview() {
+        SharedPreferences sp = getSharedPreferences(GGUtils.SP_NAME, MODE_PRIVATE);
+        HttpParams params = new HttpParams();
+        params.put("token", sp.getString(GGUtils.TOKEN, ""));
+        params.put("idCard", imagpath);
+        OkGo.<Zhece_Bean>post(MyUrls.BASEURL + "/recyclers/info/authentication")
+                .tag(this)
+                .params(params)
+                .execute(new DialogCallback<Zhece_Bean>(Real_nameActivity.this, Zhece_Bean.class) {
+                    @Override
+                    public void onSuccess(Response<Zhece_Bean> response) {
+                        Zhece_Bean body = response.body();
+                        String code = body.getCode();
+                        if (code.equals("200")) {
+                            ToastUtils.getToast(Real_nameActivity.this, body.getMsg());
+                            finish();
+                        } else if (code.equals("201")) {
+                            ToastUtils.getToast(Real_nameActivity.this, body.getMsg());
+                        } else if (code.equals("500")) {
+                            ToastUtils.getToast(Real_nameActivity.this, body.getMsg());
+                        } else if (code.equals("404")) {
+                            ToastUtils.getToast(Real_nameActivity.this, body.getMsg());
+                        } else if (code.equals("203")) {
+                            ToastUtils.getToast(Real_nameActivity.this, body.getMsg());
+                        } else if (code.equals("204")) {
+                            ToastUtils.getToast(Real_nameActivity.this, body.getMsg());
+                        }
+                    }
+                });
 
+    }
+
+    private void requestPhoto() {
         // 进入相册 以下是例子：不需要的api可以不写
         PictureSelector.create(this)
                 .openGallery(PictureMimeType.ofImage())// 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
@@ -117,8 +220,26 @@ public class Real_nameActivity extends AppCompatActivity implements View.OnClick
                     Glide.with(this).load(cutPath).into(imgSfz);
                     paizhao.setVisibility(View.GONE);
                     File file = new File(cutPath);
+                    infoview(file);
                     break;
             }
         }
+    }
+
+    private void infoview(File file) {
+        OkGo.<File_bean>post(MyUrls.BASEURL + "/resident/upload")
+                .tag(this)
+                .params("images", file)
+                .execute(new DialogCallback<File_bean>(Real_nameActivity.this, File_bean.class) {
+                    @Override
+                    public void onSuccess(Response<File_bean> response) {
+                        File_bean body = response.body();
+                        List<String> data = body.getData();
+                        imagpath = data.get(0);
+                        Log.e("======================", imagpath);
+                    }
+                });
+
+
     }
 }

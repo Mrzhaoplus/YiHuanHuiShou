@@ -20,8 +20,16 @@ import com.example.mr.yihuanhuishou.bean.Mine_bean;
 import com.example.mr.yihuanhuishou.driver.ui.DriverSettingActivity;
 import com.example.mr.yihuanhuishou.driver.ui.DriverWalletActivity;
 import com.example.mr.yihuanhuishou.driver.weight.CircleImageView;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Yajin_yue_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Zhece_Bean;
+import com.example.mr.yihuanhuishou.utils.DialogCallback;
 import com.example.mr.yihuanhuishou.utils.GGUtils;
+import com.example.mr.yihuanhuishou.utils.MyUrls;
 import com.example.mr.yihuanhuishou.utils.MyUtils;
+import com.example.mr.yihuanhuishou.utils.ToastUtils;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,13 +70,13 @@ public class MineActivity extends BaseActivity {
     @BindView(R.id.fire_weight)
     TextView fireWeight;
     private SharedPreferences sp;
+    private String depost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine);
         ButterKnife.bind(this);
-        sp = getSharedPreferences(GGUtils.SP_NAME, MODE_PRIVATE);
         initSystemBarTint();
         initdata();
     }
@@ -76,10 +84,11 @@ public class MineActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        sp = getSharedPreferences(GGUtils.SP_NAME, MODE_PRIVATE);
         String imagpath = sp.getString(GGUtils.IMAGE_path, "");
         Glide.with(this).load(imagpath).into(ivGrtx);
         if(imagpath.equals("")){
-            Glide.with(this).load(R.drawable.logo_xxxhdpi).into(ivGrtx);
+            Glide.with(this).load(R.drawable.test_face_iv).into(ivGrtx);
         }
         String user_name = sp.getString(GGUtils.USER_NAME, "");
         if(user_name.equals("")){
@@ -95,15 +104,46 @@ public class MineActivity extends BaseActivity {
         }else{
             sexImag.setVisibility(View.GONE);
         }
-        xianjin.setText(sp.getInt(GGUtils.XIANJIN,0)+".00元");
-        yihuan.setText(sp.getInt(GGUtils.YIHUAN,0)+".00元");
+        xianjin.setText(sp.getFloat(GGUtils.XIANJIN,0)+"元");
+        yihuan.setText(sp.getFloat(GGUtils.YIHUAN,0)+"元");
+        depost = sp.getString(GGUtils.DEPOST, "");
+            if(depost.equals("0")){
+                yajin.setText("未缴纳");
+            }else if(depost.equals("1")){
+                infoview();
+            }
     }
-
+    private void infoview() {
+        HttpParams params = new HttpParams();
+        params.put("token",sp.getString(GGUtils.TOKEN,""));
+        OkGo.<Yajin_yue_Bean>post(MyUrls.BASEURL + "/recyclers/info/depositBalance")
+                .tag(this)
+                .params(params)
+                .execute(new DialogCallback<Yajin_yue_Bean>(MineActivity.this, Yajin_yue_Bean.class) {
+                    @Override
+                    public void onSuccess(Response<Yajin_yue_Bean> response) {
+                        Yajin_yue_Bean body = response.body();
+                        String code = body.getCode()+"";
+                        if (code.equals("200")) {
+                            yajin.setText(body.getDeposit()+"元");
+                        } else if (code.equals("201")) {
+                            ToastUtils.getToast(MineActivity.this, body.getMsg());
+                        } else if (code.equals("500")) {
+                            ToastUtils.getToast(MineActivity.this, body.getMsg());
+                        } else if (code.equals("404")) {
+                            ToastUtils.getToast(MineActivity.this, body.getMsg());
+                        } else if (code.equals("203")) {
+                            ToastUtils.getToast(MineActivity.this, body.getMsg());
+                        } else if (code.equals("204")) {
+                            ToastUtils.getToast(MineActivity.this, body.getMsg());
+                        }
+                    }
+                });
+    }
     @Override
     protected boolean translucentStatusBar() {
         return true;
     }
-
     private int getStatusBarHeight(Context context) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -114,8 +154,6 @@ public class MineActivity extends BaseActivity {
     }
 
     private void initdata() {
-
-
         final int statusBarHeight = getStatusBarHeight(this);
         MyUtils.setMargins(titleRl, 0, statusBarHeight, 0, 0);
 
@@ -135,7 +173,6 @@ public class MineActivity extends BaseActivity {
                 finish();
             }
         });
-
         Mine_Adapter mine_adapter = new Mine_Adapter(MineActivity.this, list);
         gridView.setAdapter(mine_adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -167,7 +204,9 @@ public class MineActivity extends BaseActivity {
                         startActivity(new Intent(MineActivity.this, ComplaintActivity.class));
                         break;
                     case 8:
-                        startActivity(new Intent(MineActivity.this, DriverSettingActivity.class));
+                        Intent intent = new Intent(MineActivity.this, DriverSettingActivity.class);
+                        intent.putExtra("type",1);
+                        startActivity(intent);
                         break;
                 }
             }
@@ -182,7 +221,9 @@ public class MineActivity extends BaseActivity {
                 startActivity(new Intent(MineActivity.this, HomePersonInfoActivity.class));
                 break;
             case R.id.wallet_ll:
-                startActivity(new Intent(MineActivity.this, DriverWalletActivity.class));
+                Intent intent = new Intent(MineActivity.this, DriverWalletActivity.class);
+                intent.putExtra("state",1);
+                startActivity(intent);
                 break;
             case R.id.yihuanbi_ll:
                 startActivity(new Intent(MineActivity.this, YihuanBiActivity.class));

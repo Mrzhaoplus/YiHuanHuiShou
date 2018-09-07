@@ -13,9 +13,8 @@ import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.activity.Oneseif_Success_DetailsActivity;
 import com.example.mr.yihuanhuishou.activity.Oneseif_Wait_pay_detailsActivity;
 import com.example.mr.yihuanhuishou.activity.Wait_Designate_DetailsActivity;
-import com.example.mr.yihuanhuishou.jsonbean.Order_Daijiedan_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Order_Daijiedan_Bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

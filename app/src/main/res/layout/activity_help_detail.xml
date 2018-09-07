@@ -9,14 +9,11 @@
     android:background="@color/driver_bg"
     tools:context="com.example.mr.yihuanhuishou.driver.ui.HelpDetailActivity">
     <include layout="@layout/item_title_layout"/>
-    <TextView
-        android:id="@+id/content_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="这是内容"
-        android:textSize="16sp"
-        android:textColor="@color/textColor"
-        android:padding="10dp"
-        android:background="@color/white"
-        android:layout_marginTop="10dp"/>
+      <WebView
+          android:id="@+id/web_view"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+
+      </WebView>
 </LinearLayout>

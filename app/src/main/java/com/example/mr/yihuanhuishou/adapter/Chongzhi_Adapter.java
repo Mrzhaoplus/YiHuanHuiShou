@@ -1,18 +1,18 @@
 package com.example.mr.yihuanhuishou.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.JiLu_Bean;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,10 +21,10 @@ import java.util.List;
 
 public class Chongzhi_Adapter extends RecyclerView.Adapter<Chongzhi_Adapter.Viewholder> {
       private Context context;
-      List<String> mList=new ArrayList<>();
-      private int state;
+      List<JiLu_Bean.DataBean> mList=new ArrayList<>();
+      private String state;
 
-    public Chongzhi_Adapter(Context context, List<String> mList, int state) {
+    public Chongzhi_Adapter(Context context, List<JiLu_Bean.DataBean> mList, String state) {
         this.context = context;
         this.mList = mList;
         this.state = state;
@@ -40,15 +40,18 @@ public class Chongzhi_Adapter extends RecyclerView.Adapter<Chongzhi_Adapter.View
 
     @Override
     public void onBindViewHolder(Viewholder holder, int position) {
-        if(state==1){
-            holder.title.setText("您从支付宝向账户充值100元");
+
+        long createDate = mList.get(position).getCreateDate();
+        String dateToString = getDateToString(String.valueOf(createDate / 1000));
+        String content = mList.get(position).getContent();
+        holder.time.setText(dateToString);
+        if(state.equals("1")){
+            String[] split = content.split("，");
+            holder.title.setText(split[1]+mList.get(position).getAmount()+"元");
         }else{
-            holder.title.setText("您从账户账支出100元");
+            holder.title.setText(content+mList.get(position).getAmount()+"元");
         }
-
     }
-
-
     @Override
     public int getItemCount() {
         return mList.size();
@@ -66,5 +69,12 @@ public class Chongzhi_Adapter extends RecyclerView.Adapter<Chongzhi_Adapter.View
             title = itemView.findViewById(R.id.title);
             time = itemView.findViewById(R.id.time);
         }
+    }
+    //  时间戳转为日期  /年/月/日
+    public static String getDateToString(String time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long lcc_time = Long.valueOf(time);
+        String format = sdf.format(new Date(lcc_time * 1000L));
+        return format;
     }
 }

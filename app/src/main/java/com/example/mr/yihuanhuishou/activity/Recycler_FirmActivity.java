@@ -12,13 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
 import com.example.mr.yihuanhuishou.fragment.Shenhe_Fragment;
 import com.example.mr.yihuanhuishou.fragment.TongGuo_Fragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Recycler_FirmActivity extends AppCompatActivity implements View.OnClickListener {
+public class Recycler_FirmActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.beak)
     ImageView beak;
@@ -96,7 +97,6 @@ public class Recycler_FirmActivity extends AppCompatActivity implements View.OnC
         * 动态添加fragment方法
     * */
     public void AddFragment(Fragment f){
-
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         if(currfit !=null){

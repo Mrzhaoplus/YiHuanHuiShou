@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/power/PowerProject/YiHuanHuiShou/easeui/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-kn/values-kn.xml",
+            "outputFile": "D:\\YiHuanHuiShou\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-kn\\values-kn.xml",
             "map": [
                 {
-                    "source": "/Users/power/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.4.0.aar/ec3e73db645b3c6f0a0b08cd03d6fc42/res/values-kn/values.xml",
+                    "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-11.4.0.aar\\65981f14b46504249430d290f3831b35\\res\\values-kn\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/power/.gradle/caches/transforms-1/files-1.1/play-services-base-11.4.0.aar/e29a54e5c6c86f613211c583ae7aa719/res/values-kn/values.xml",
+                    "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-11.4.0.aar\\bf988b294d3636cfffdc5ba28fbfe652\\res\\values-kn\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -40,10 +40,10 @@
             ]
         },
         {
-            "outputFile": "/Users/power/PowerProject/YiHuanHuiShou/easeui/build/intermediates/res/merged/androidTest/debug/values-kn/values-kn.xml",
+            "outputFile": "D:\\YiHuanHuiShou\\easeui\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-kn\\values-kn.xml",
             "map": [
                 {
-                    "source": "/Users/power/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.4.0.aar/ec3e73db645b3c6f0a0b08cd03d6fc42/res/values-kn/values.xml",
+                    "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-11.4.0.aar\\65981f14b46504249430d290f3831b35\\res\\values-kn\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -60,7 +60,7 @@
                     }
                 },
                 {
-                    "source": "/Users/power/.gradle/caches/transforms-1/files-1.1/play-services-base-11.4.0.aar/e29a54e5c6c86f613211c583ae7aa719/res/values-kn/values.xml",
+                    "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-11.4.0.aar\\bf988b294d3636cfffdc5ba28fbfe652\\res\\values-kn\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",

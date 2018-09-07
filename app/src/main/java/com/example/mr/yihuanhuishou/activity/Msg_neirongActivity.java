@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
 import com.example.mr.yihuanhuishou.bean.Event_fragment;
 import com.example.mr.yihuanhuishou.fragment.Frie_Msg_Fragment;
 import com.example.mr.yihuanhuishou.fragment.Inform_msg_fragment;
@@ -28,7 +29,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Msg_neirongActivity extends AppCompatActivity implements View.OnClickListener {
+public class Msg_neirongActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.beak)
     ImageView beak;

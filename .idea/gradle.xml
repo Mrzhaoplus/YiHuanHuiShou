@@ -8,7 +8,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/UpdateAppUtils" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/easeui" />
+            <option value="$PROJECT_DIR$/indexlib" />
+            <option value="$PROJECT_DIR$/zxing" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -108,7 +108,7 @@
                     android:id="@+id/xianjin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100.00元"
+
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -132,14 +132,14 @@
                     android:id="@+id/yihuan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1000元"
+
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="易换币"
+                    android:text="易换劵"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -156,7 +156,7 @@
                     android:id="@+id/yajin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="199元"
+
                     android:textColor="@color/black"
                     android:textSize="16sp"/>
 
@@ -180,7 +180,7 @@
                     android:id="@+id/fire_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3个"
+                    android:text="0个"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 

@@ -23,7 +23,6 @@
              android:layout_toRightOf="@+id/til_bh"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="12345678910"
              android:textSize="16sp"
              />
           <TextView
@@ -53,7 +52,6 @@
         android:id="@+id/jie_lx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="衣服"
         android:textSize="16sp"
         />
 </LinearLayout>
@@ -76,7 +74,6 @@
             android:id="@+id/jie_zl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10Kg"
             android:textSize="16sp"
             />
         <LinearLayout
@@ -91,10 +88,10 @@
                 android:layout_height="wrap_content"
                 android:text="待支付金额："/>
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/jie_price"
-                android:text="1000元"
                 />
 
         </LinearLayout>

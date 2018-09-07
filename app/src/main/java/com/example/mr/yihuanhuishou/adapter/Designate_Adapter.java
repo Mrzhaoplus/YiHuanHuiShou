@@ -7,12 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ListView;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.activity.Wait_Designate_DetailsActivity;
-import com.example.mr.yihuanhuishou.jsonbean.Order_Daijiedan_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Order_Daijiedan_Bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +24,18 @@ import java.util.List;
 public class Designate_Adapter extends RecyclerView.Adapter<Designate_Adapter.Holder> {
      Context context;
      List<Order_Daijiedan_Bean.DataBean>list=new ArrayList<>();
+    List<Boolean> pro=new ArrayList<>();
+    List<String> string=new ArrayList<>();
+    private getclick click;
 
-    public Designate_Adapter(Context context, List<Order_Daijiedan_Bean.DataBean> list) {
+    public Designate_Adapter(Context context, List<Order_Daijiedan_Bean.DataBean> list, List<Boolean> pro) {
         this.context = context;
         this.list = list;
+        this.pro = pro;
     }
-
+    public void getclick(getclick jiekou){
+        this.click=jiekou;
+    }
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.designate_adapter, parent, false);
@@ -40,6 +46,7 @@ public class Designate_Adapter extends RecyclerView.Adapter<Designate_Adapter.Ho
 
     @Override
     public void onBindViewHolder(Holder holder, final int position) {
+        holder.xuan.setChecked(pro.get(position));
         holder.bianhao.setText(list.get(position).getOrderNumber());
         holder.sort.setText(list.get(position).getVarieties());
         holder.weight.setText(list.get(position).getCount()+""+list.get(position).getUnit());
@@ -52,6 +59,24 @@ public class Designate_Adapter extends RecyclerView.Adapter<Designate_Adapter.Ho
                 context.startActivity(intent);
             }
         });
+
+        holder.xuan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    string.add(list.get(position).getOrderNumber());
+                    click.click(string);
+                }else{
+                    for (int i=0;i<string.size();i++) {
+                        if(list.get(position).getOrderNumber().equals(string.get(i))){
+                            string.remove(i);
+                        }
+                    }
+                    click.click(string);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -77,4 +102,8 @@ public class Designate_Adapter extends RecyclerView.Adapter<Designate_Adapter.Ho
             xuan = itemView.findViewById(R.id.desi_xuan);
         }
     }
+    public interface getclick{
+        void click(List<String> cordnuber);
+    }
+
 }

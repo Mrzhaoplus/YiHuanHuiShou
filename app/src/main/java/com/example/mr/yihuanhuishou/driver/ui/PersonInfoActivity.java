@@ -1,35 +1,44 @@
 package com.example.mr.yihuanhuishou.driver.ui;
 
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.mr.yihuanhuishou.R;
+import com.example.mr.yihuanhuishou.activity.HomePersonInfoActivity;
 import com.example.mr.yihuanhuishou.base.BaseActivity;
 import com.example.mr.yihuanhuishou.driver.weight.BaseSelectPopupWindow;
 import com.example.mr.yihuanhuishou.driver.weight.CircleImageView;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.File_bean;
+import com.example.mr.yihuanhuishou.jsonbean.siji.Driv_Xiugai_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.siji.Geren_Bean;
 import com.example.mr.yihuanhuishou.utils.BaseDialog;
+import com.example.mr.yihuanhuishou.utils.DialogCallback;
+import com.example.mr.yihuanhuishou.utils.GGUtils;
+import com.example.mr.yihuanhuishou.utils.MyUrls;
+import com.example.mr.yihuanhuishou.utils.ToastUtils;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.compress.Luban;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Response;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -45,16 +54,18 @@ public class PersonInfoActivity extends BaseActivity {
     ImageView titleBackIv;
     @BindView(R.id.title_content_tv)
     TextView titleContentTv;
+    @BindView(R.id.title_more_bj)
+    ImageView title_bj;
     @BindView(R.id.face_iv)
     CircleImageView faceIv;
     @BindView(R.id.face_rl)
     RelativeLayout faceRl;
     @BindView(R.id.name_tv)
-    TextView nameTv;
+    EditText nameTv;
     @BindView(R.id.name_rl)
     RelativeLayout nameRl;
     @BindView(R.id.age_tv)
-    TextView ageTv;
+    EditText ageTv;
     @BindView(R.id.age_rl)
     RelativeLayout ageRl;
     @BindView(R.id.rbt_nan)
@@ -69,23 +80,164 @@ public class PersonInfoActivity extends BaseActivity {
     TextView gongsiTv;
     @BindView(R.id.gongsi_rl)
     RelativeLayout gongsiRl;
+    @BindView(R.id.rg)
+    RadioGroup rg;
     private BaseDialog mDialog;
     private BaseDialog.Builder mBuilder;
     private List<LocalMedia> selectList = new ArrayList<>();
     private String cutPath;
     private BaseSelectPopupWindow popWiw;// 昵称 编辑框
-
+    private SharedPreferences sp;
+    private boolean flag;
+    private String imags;
+    private boolean driverSex;
+    private int xingbie;
+    private int xingbie1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_info);
         ButterKnife.bind(this);
+        sp = getSharedPreferences(GGUtils.DrSP_NAME, MODE_PRIVATE);
         initView();
+        infoview();
+        boolean aBoolean = sp.getBoolean(GGUtils.DrSEX, false);
+        if(aBoolean){
+            xingbie1=1;
+        }else{
+            xingbie1=0;
+        }
+    }
+    private void infoview() {
+        HttpParams params3 = new HttpParams();
+        params3.put("token", sp.getString(GGUtils.DrTOKEN, ""));
+        OkGo.<Geren_Bean>get(MyUrls.BASEURL + "/driverMine/driverDetails")
+                .tag(this)
+                .params(params3)
+                .execute(new DialogCallback<Geren_Bean>(PersonInfoActivity.this, Geren_Bean.class) {
+                    @Override
+                    public void onSuccess(Response<Geren_Bean> response) {
+                        Geren_Bean body = response.body();
+                        String code = body.getCode();
+                        if (code.equals("200")) {
+                            String driverImage = body.getData().getDriver().getDriverImage();
+                            if (TextUtils.isEmpty(driverImage)) {
+                                Glide.with(PersonInfoActivity.this).load(R.drawable.test_face_iv).into(faceIv);
+                            } else {
+                                Glide.with(PersonInfoActivity.this).load(driverImage).into(faceIv);
+                            }
+                            String user_name = body.getData().getDriver().getDriverNicekname();
+                            if (TextUtils.isEmpty(user_name)) {
+                                nameTv.setText("");
+                            } else {
+                                nameTv.setText(user_name);
+                            }
+                            int age = body.getData().getDriver().getDriverAge();
+                            if (age == 0) {
+                                ageTv.setText("");
+                            } else {
+                                ageTv.setText(age + "");
+                            }
+                            driverSex = body.getData().getDriver().getDriverSex();
+                            if (driverSex) {
+                                rbtNan.setChecked(true);
+                                rbtNv.setChecked(false);
+                                xingbie=1;
+                            } else {
+                                rbtNan.setChecked(false);
+                                rbtNv.setChecked(true);
+                                xingbie=0;
+                            }
+                            chepaiTv.setText(body.getData().getUsedriverPlateNumber());
+
+                            List<Geren_Bean.DataBean.DriverCompanyBean> driverCompany = body.getData().getDriverCompany();
+                            if(driverCompany.size()>0){
+                                gongsiTv.setText(driverCompany.get(0).getEecCompany().getCompanyTitle());
+                            }else{
+                                gongsiTv.setText("暂无合作公司！");
+                            }
+                        } else if (code.equals("201")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("500")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("404")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("203")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("204")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        }
+                    }
+                });
     }
 
     private void initView() {
         titleBackIv.setVisibility(View.VISIBLE);
         titleContentTv.setText("个人信息");
+
+        nameTv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!sp.getString(GGUtils.DrUSER_NAME, "").equals(editable.toString())) {
+                    title_bj.setVisibility(View.VISIBLE);
+                } else {
+                    title_bj.setVisibility(View.GONE);
+                }
+            }
+        });
+        ageTv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!TextUtils.isEmpty(editable.toString())) {
+                    int i = Integer.parseInt(editable.toString());
+                    if (sp.getInt(GGUtils.DrAGE, 0) != i) {
+                        title_bj.setVisibility(View.VISIBLE);
+                    } else {
+                        title_bj.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+
+                switch (i){
+                    case R.id.rbt_nan:
+                        xingbie=1;
+                        break;
+                    case R.id.rbt_nv:
+                        xingbie=0;
+                        break;
+                }
+                if(xingbie!=xingbie1){
+                    title_bj.setVisibility(View.VISIBLE);
+                }else{
+                    title_bj.setVisibility(View.GONE);
+                }
+
+            }
+        });
+
+
     }
 
     private void showCameraDialog() {
@@ -201,12 +353,31 @@ public class PersonInfoActivity extends BaseActivity {
                     cutPath = selectList.get(0).getCutPath();
                     Glide.with(this).load(cutPath).into(faceIv);
                     File file = new File(cutPath);
+                    shangchuan(file);
                     break;
             }
         }
     }
 
-    private void showNickName(final String type) {
+    private void shangchuan(File file) {
+        OkGo.<File_bean>post(MyUrls.BASEURL + "/resident/upload")
+                .tag(this)
+                .params("images",file)
+                .execute(new DialogCallback<File_bean>(PersonInfoActivity.this, File_bean.class) {
+                    @Override
+                    public void onSuccess(Response<File_bean> response) {
+                        File_bean body = response.body();
+                        List<String> data = body.getData();
+                        imags = data.get(0);
+                        title_bj.setVisibility(View.VISIBLE);
+                        Log.e("======================", imags);
+                        SharedPreferences.Editor edit = sp.edit();
+                        edit.putString(GGUtils.DrIMAGE_xuan, imags);
+                        edit.commit();
+                    }
+                });
+    }
+    /*private void showNickName(final String type) {
         if (popWiw == null) {
             popWiw = new BaseSelectPopupWindow(this, R.layout.edit_data);
             // popWiw.setOpenKeyboard(true);
@@ -246,7 +417,6 @@ public class PersonInfoActivity extends BaseActivity {
         }
 //        edt.setImeOptions(EditorInfo.IME_ACTION_SEND);
         edt.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
@@ -256,11 +426,9 @@ public class PersonInfoActivity extends BaseActivity {
                     send.setEnabled(true);
                 }
             }
-
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
-
             }
 
             @Override
@@ -293,9 +461,9 @@ public class PersonInfoActivity extends BaseActivity {
 
         popWiw.showAtLocation(nameRl, Gravity.BOTTOM
                 | Gravity.CENTER_HORIZONTAL, 0, 0);
-    }
+    }*/
 
-    @OnClick({R.id.title_back_iv, R.id.face_rl, R.id.name_rl, R.id.age_rl, R.id.chepai_rl, R.id.gongsi_rl})
+    @OnClick({R.id.title_more_bj, R.id.title_back_iv, R.id.face_rl, R.id.name_rl, R.id.age_rl, R.id.chepai_rl, R.id.gongsi_rl})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_back_iv:
@@ -304,7 +472,7 @@ public class PersonInfoActivity extends BaseActivity {
             case R.id.face_rl:
                 showCameraDialog();
                 break;
-            case R.id.name_rl:
+           /* case R.id.name_rl:
                 showNickName("name");
                 break;
             case R.id.age_rl:
@@ -312,10 +480,173 @@ public class PersonInfoActivity extends BaseActivity {
                 break;
             case R.id.chepai_rl:
                 showNickName("chepai");
+                break;*/
+            case R.id.title_more_bj:
+                String name = nameTv.getText().toString().trim();
+                if (!sp.getString(GGUtils.DrUSER_NAME, "").equals(name)) {
+                    nameview(name);
+                }
+                String agetv = ageTv.getText().toString().trim();
+                if (!TextUtils.isEmpty(agetv)) {
+                    int i = Integer.parseInt(agetv);
+                    if (sp.getInt(GGUtils.DrAGE, 0) != i) {
+                        ageview(agetv);
+                    }
+                }
+                if(xingbie!=xingbie1){
+                    if(xingbie==1){
+                        sexview("true");
+                    }else{
+                        sexview("false");
+                    }
+
+                }
+                if(!sp.getString(GGUtils.DrIMAGE_path,"").equals(sp.getString(GGUtils.DrIMAGE_xuan,""))){
+                    imagview(imags);
+                }
                 break;
             case R.id.gongsi_rl:
-                startActivity(new Intent(this,HuishouCompanyActivity.class));
+                startActivity(new Intent(this, HuishouCompanyActivity.class));
                 break;
         }
+    }
+//头像M
+    private void imagview(String imags) {
+        HttpParams params = new HttpParams();
+        params.put("token", sp.getString(GGUtils.DrTOKEN, ""));
+        params.put("updCode", "driverImage");
+        params.put("content", imags);
+        OkGo.<Driv_Xiugai_Bean>post(MyUrls.BASEURL + "/driverMine/update")
+                .tag(this)
+                .params(params)
+                .execute(new DialogCallback<Driv_Xiugai_Bean>(PersonInfoActivity.this, Driv_Xiugai_Bean.class) {
+                    @Override
+                    public void onSuccess(Response<Driv_Xiugai_Bean> response) {
+                        Driv_Xiugai_Bean body = response.body();
+                        String code = body.getCode();
+                        if (code.equals("200")) {
+                            SharedPreferences.Editor edit = sp.edit();
+                            edit.putString(GGUtils.DrIMAGE_path,body.getData().getDriverImage());
+                            edit.commit();
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                            finish();
+                        } else if (code.equals("201")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("500")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("404")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("203")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("204")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        }
+                    }
+                });
+    }
+//性别
+    private void sexview(String s) {
+        HttpParams params = new HttpParams();
+        params.put("token", sp.getString(GGUtils.DrTOKEN, ""));
+        params.put("updCode", "driverSex");
+        params.put("content", s);
+        OkGo.<Driv_Xiugai_Bean>post(MyUrls.BASEURL + "/driverMine/update")
+                .tag(this)
+                .params(params)
+                .execute(new DialogCallback<Driv_Xiugai_Bean>(PersonInfoActivity.this, Driv_Xiugai_Bean.class) {
+                    @Override
+                    public void onSuccess(Response<Driv_Xiugai_Bean> response) {
+                        Driv_Xiugai_Bean body = response.body();
+                        String code = body.getCode();
+                        if (code.equals("200")) {
+                            SharedPreferences.Editor edit = sp.edit();
+                           edit.putBoolean(GGUtils.DrSEX,body.getData().getDriverSex());
+                            edit.commit();
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                            finish();
+                        } else if (code.equals("201")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("500")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("404")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("203")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("204")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        }
+                    }
+                });
+    }
+    //修改age
+    private void ageview(String agetv) {
+        HttpParams params = new HttpParams();
+        params.put("token", sp.getString(GGUtils.DrTOKEN, ""));
+        params.put("updCode", "driverAge");
+        params.put("content", agetv);
+        OkGo.<Driv_Xiugai_Bean>post(MyUrls.BASEURL + "/driverMine/update")
+                .tag(this)
+                .params(params)
+                .execute(new DialogCallback<Driv_Xiugai_Bean>(PersonInfoActivity.this, Driv_Xiugai_Bean.class) {
+                    @Override
+                    public void onSuccess(Response<Driv_Xiugai_Bean> response) {
+                        Driv_Xiugai_Bean body = response.body();
+                        String code = body.getCode();
+                        if (code.equals("200")) {
+                            SharedPreferences.Editor edit = sp.edit();
+                            edit.putInt(GGUtils.DrAGE, body.getData().getDriverAge());
+                            edit.commit();
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                            finish();
+                        } else if (code.equals("201")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("500")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("404")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("203")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("204")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        }
+                    }
+                });
+
+    }
+
+    //修改name
+    private void nameview(String name) {
+        HttpParams params = new HttpParams();
+        params.put("token", sp.getString(GGUtils.DrTOKEN, ""));
+        params.put("updCode", "driverNicekname");
+        params.put("content", name);
+        OkGo.<Driv_Xiugai_Bean>post(MyUrls.BASEURL + "/driverMine/update")
+                .tag(this)
+                .params(params)
+                .execute(new DialogCallback<Driv_Xiugai_Bean>(PersonInfoActivity.this, Driv_Xiugai_Bean.class) {
+                    @Override
+                    public void onSuccess(Response<Driv_Xiugai_Bean> response) {
+                        Driv_Xiugai_Bean body = response.body();
+                        String code = body.getCode();
+                        if (code.equals("200")) {
+                            SharedPreferences.Editor edit = sp.edit();
+                            edit.putString(GGUtils.DrUSER_NAME, body.getData().getDriverNicekname());
+                            edit.commit();
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                            finish();
+                        } else if (code.equals("201")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("500")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("404")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("203")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        } else if (code.equals("204")) {
+                            ToastUtils.getToast(PersonInfoActivity.this, body.getMsg());
+                        }
+                    }
+                });
+
     }
 }

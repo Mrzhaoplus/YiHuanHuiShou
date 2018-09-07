@@ -62,12 +62,17 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/shouji_xxxhdpi"
-                        />
+                    <LinearLayout
+                        android:layout_width="20dp"
+                        android:layout_height="20dp">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/shouji_xxxhdpi"
+                            />
+                    </LinearLayout>
                     <EditText
+                        android:inputType="number"
                         android:id="@+id/tel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -91,15 +96,21 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/yan"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp">
                     <ImageView
                         android:id="@+id/img_tu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/yanzheng_xxxhdpi"
                         />
+                    </LinearLayout>
                     <EditText
+                        android:inputType="number"
                         android:id="@+id/vertir_code"
-                        android:layout_toRightOf="@+id/img_tu"
+                        android:layout_toRightOf="@+id/yan"
                         android:layout_toLeftOf="@+id/huo_yan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -132,22 +143,27 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="20dp"
+                        android:layout_height="20dp">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/suo_xxxhdpi"
                         />
+                    </LinearLayout>
                     <EditText
+                        android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                        android:inputType="textPassword"
                         android:id="@+id/pass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:hint="请输入密码"
+                        android:hint="请输入密码,密码格式为6-18位数字加字母"
                         android:textSize="14sp"
                         android:layout_marginLeft="10dp"
                         />
                 </LinearLayout>
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -162,12 +178,17 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+                    <LinearLayout
+                    android:layout_width="20dp"
+                    android:layout_height="20dp">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/shenfen_xxxhdpi"
                         />
+                    </LinearLayout>
                     <EditText
+                        android:inputType="number"
                         android:id="@+id/IDcase"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

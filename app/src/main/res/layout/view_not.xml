@@ -7,10 +7,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/driver_weijiaru_iv">
         <TextView
-            android:id="@+id/item_name_tv"
+            android:id="@+id/item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="北京某某有限公司"
             android:textSize="12sp"
             android:textColor="@color/textColor"
             android:gravity="center_vertical"

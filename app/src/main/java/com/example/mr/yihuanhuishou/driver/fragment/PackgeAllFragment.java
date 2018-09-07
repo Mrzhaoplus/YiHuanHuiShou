@@ -1,5 +1,8 @@
 package com.example.mr.yihuanhuishou.driver.fragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,13 +11,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.mr.yihuanhuishou.R;
+import com.example.mr.yihuanhuishou.activity.Driver_is_ErweimaActivity;
+import com.example.mr.yihuanhuishou.jsonbean.siji.Baozhuang_all_N_Bean;
+import com.example.mr.yihuanhuishou.utils.DialogCallback;
+import com.example.mr.yihuanhuishou.utils.GGUtils;
+import com.example.mr.yihuanhuishou.utils.MyUrls;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Response;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -32,6 +46,11 @@ public class PackgeAllFragment extends BaseFragment {
     @BindView(R.id.first_recyclerView)
     RecyclerView firstRecyclerView;
     Unbinder unbinder;
+    List<Baozhuang_all_N_Bean.DataBean.ListBeanX> firstList = new ArrayList<>();
+    @BindView(R.id.erweima)
+    ImageView erweima;
+    Unbinder unbinder1;
+    private FirstAdapter firstAdapter;
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,68 +60,115 @@ public class PackgeAllFragment extends BaseFragment {
         return view;
     }
 
-    private void initData() {
-        List<String> firstList = new ArrayList<>();
-        firstList.add("");
-        firstList.add("");
-        firstList.add("");
-
-        firstRecyclerView.setNestedScrollingEnabled(false);
-        firstRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        FirstAdapter firstAdapter = new FirstAdapter(R.layout.item_first_not_layout,firstList);
-        firstRecyclerView.setAdapter(firstAdapter);
+    @Override
+    public void onResume() {
+        super.onResume();
+        firstList.clear();
+        infoview();
     }
 
-    private class FirstAdapter extends BaseQuickAdapter<String,BaseViewHolder> {
+    private void infoview() {
 
-        public FirstAdapter(int layoutResId, @Nullable List<String> data) {
+        final SharedPreferences sp = getActivity().getSharedPreferences(GGUtils.DrSP_NAME, Context.MODE_PRIVATE);
+        HttpParams params3 = new HttpParams();
+        params3.put("token", sp.getString(GGUtils.DrTOKEN, ""));
+        OkGo.<Baozhuang_all_N_Bean>get(MyUrls.BASEURL + "/driverMine/packList")
+                .tag(this)
+                .params(params3)
+                .execute(new DialogCallback<Baozhuang_all_N_Bean>(getActivity(), Baozhuang_all_N_Bean.class) {
+                    @Override
+                    public void onSuccess(Response<Baozhuang_all_N_Bean> response) {
+                        Baozhuang_all_N_Bean body = response.body();
+                        String code = body.getCode() + "";
+                        if (code.equals("200")) {
+                            zongjiTv.setText("总计：" + body.getData().getCount() + "个");
+                            List<Baozhuang_all_N_Bean.DataBean.ListBeanX> list = body.getData().getList();
+                            if (list.size() > 0) {
+                                firstList.addAll(list);
+                            }
+                            firstAdapter.notifyDataSetChanged();
+
+                        }
+                    }
+                });
+
+    }
+
+    private void initData() {
+        firstRecyclerView.setNestedScrollingEnabled(false);
+        firstRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        firstAdapter = new FirstAdapter(R.layout.item_first_not_layout, firstList);
+        firstRecyclerView.setAdapter(firstAdapter);
+
+        erweima.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), Driver_is_ErweimaActivity.class));
+            }
+        });
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    private class FirstAdapter extends BaseQuickAdapter<Baozhuang_all_N_Bean.DataBean.ListBeanX, BaseViewHolder> {
+
+        public FirstAdapter(int layoutResId, @Nullable List<Baozhuang_all_N_Bean.DataBean.ListBeanX> data) {
             super(layoutResId, data);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, String item) {
+        protected void convert(BaseViewHolder helper, Baozhuang_all_N_Bean.DataBean.ListBeanX item) {
             RecyclerView secondRecycler = helper.getView(R.id.second_recyclerView);
-            List<String> secondList = new ArrayList<>();
-            secondList.add("");
-            secondList.add("");
+            TextView shijian = helper.getView(R.id.shijian);
+            long createDate = item.getCreateDate();
+            String dateToString = getDateToString(String.valueOf(createDate / 1000));
+            shijian.setText(dateToString);
+            List<Baozhuang_all_N_Bean.DataBean.ListBeanX.ListBean> secondList = item.getList();
+
 
             secondRecycler.setNestedScrollingEnabled(false);
             secondRecycler.setLayoutManager(new LinearLayoutManager(mContext));
-            SecondAdapter secondAdapter = new SecondAdapter(R.layout.item_second_not_layout,secondList);
+            SecondAdapter secondAdapter = new SecondAdapter(R.layout.item_second_not_layout, secondList);
             secondRecycler.setAdapter(secondAdapter);
         }
     }
 
-    private class SecondAdapter extends BaseQuickAdapter<String,BaseViewHolder>{
+    private class SecondAdapter extends BaseQuickAdapter<Baozhuang_all_N_Bean.DataBean.ListBeanX.ListBean, BaseViewHolder> {
 
-        public SecondAdapter(int layoutResId, @Nullable List<String> data) {
+        public SecondAdapter(int layoutResId, @Nullable List<Baozhuang_all_N_Bean.DataBean.ListBeanX.ListBean> data) {
             super(layoutResId, data);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, String item) {
+        protected void convert(BaseViewHolder helper, Baozhuang_all_N_Bean.DataBean.ListBeanX.ListBean item) {
             RecyclerView threeRecycler = helper.getView(R.id.three_recyclerView);
-            List<String> threeList = new ArrayList<>();
-            for (int i = 0; i < 16; i++) {
-                threeList.add("");
-            }
-
+            TextView barname = helper.getView(R.id.barname);
+            barname.setText(item.getEecVarietiesName());
+            List<Baozhuang_all_N_Bean.DataBean.ListBeanX.ListBean.PackingBagListBean> threeList = item.getPackingBagList();
             threeRecycler.setNestedScrollingEnabled(false);
-            threeRecycler.setLayoutManager(new GridLayoutManager(mContext,4));
-            ThreeAdapter threeAdapter = new ThreeAdapter(R.layout.item_three_not_layout,threeList);
+            threeRecycler.setLayoutManager(new GridLayoutManager(mContext, 4));
+            ThreeAdapter threeAdapter = new ThreeAdapter(R.layout.item_three_not_layout, threeList);
             threeRecycler.setAdapter(threeAdapter);
         }
     }
 
-    private class ThreeAdapter extends BaseQuickAdapter<String,BaseViewHolder>{
+    private class ThreeAdapter extends BaseQuickAdapter<Baozhuang_all_N_Bean.DataBean.ListBeanX.ListBean.PackingBagListBean, BaseViewHolder> {
 
-        public ThreeAdapter(int layoutResId, @Nullable List<String> data) {
+        public ThreeAdapter(int layoutResId, @Nullable List<Baozhuang_all_N_Bean.DataBean.ListBeanX.ListBean.PackingBagListBean> data) {
             super(layoutResId, data);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, String item) {
-
+        protected void convert(BaseViewHolder helper, Baozhuang_all_N_Bean.DataBean.ListBeanX.ListBean.PackingBagListBean item) {
+            TextView barcord = helper.getView(R.id.barcord);
+            barcord.setText(item.getBarCode());
         }
     }
 
@@ -115,5 +181,13 @@ public class PackgeAllFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    //  时间戳转为日期  /年/月/日
+    public static String getDateToString(String time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long lcc_time = Long.valueOf(time);
+        String format = sdf.format(new Date(lcc_time * 1000L));
+        return format;
     }
 }

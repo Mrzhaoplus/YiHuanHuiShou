@@ -115,7 +115,6 @@
         android:layout_height="10dp"
         android:background="@color/hui"/>
     <FrameLayout
-        android:layout_marginTop="1dp"
         android:id="@+id/fl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

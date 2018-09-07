@@ -7,11 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.activity.Fire_msg_DetailsActivity;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Massage_Bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +22,9 @@ import java.util.List;
 
 public class Fire_Msg_Adapter extends RecyclerView.Adapter<Fire_Msg_Adapter.Holder> {
     private Context context;
-    List<String> list=new ArrayList<>();
+    List<Massage_Bean.DataListBean> list=new ArrayList<>();
 
-    public Fire_Msg_Adapter(Context context, List<String> list) {
+    public Fire_Msg_Adapter(Context context, List<Massage_Bean.DataListBean> list) {
         this.context = context;
         this.list = list;
     }
@@ -39,6 +39,15 @@ public class Fire_Msg_Adapter extends RecyclerView.Adapter<Fire_Msg_Adapter.Hold
 
     @Override
     public void onBindViewHolder(final Holder holder, int position) {
+        String state = list.get(position).getState();
+        if(state.equals("0")){
+            holder.dian.setVisibility(View.VISIBLE);
+        }else if(state.equals("1")){
+            holder.dian.setVisibility(View.GONE);
+            holder.title.setText(list.get(position).getContent());
+        }
+
+
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,13 +57,10 @@ public class Fire_Msg_Adapter extends RecyclerView.Adapter<Fire_Msg_Adapter.Hold
             }
         });
     }
-
-
     @Override
     public int getItemCount() {
         return list.size();
     }
-
     public class Holder extends RecyclerView.ViewHolder {
         public ImageView dian;
         public TextView title;

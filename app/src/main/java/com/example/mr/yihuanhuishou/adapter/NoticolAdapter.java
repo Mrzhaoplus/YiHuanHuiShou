@@ -7,12 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
-import com.example.mr.yihuanhuishou.activity.Infor_Msg_DetailsActivity;
 import com.example.mr.yihuanhuishou.activity.Noticol_DrtailActivity;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.XitongMassage_Bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +22,9 @@ import java.util.List;
 
 public class NoticolAdapter extends RecyclerView.Adapter<NoticolAdapter.Viewholder> {
     Context context;
-    List<String> list=new ArrayList<>();
+    List<XitongMassage_Bean.DataListBean> list=new ArrayList<>();
 
-    public NoticolAdapter(Context context, List<String> list) {
+    public NoticolAdapter(Context context, List<XitongMassage_Bean.DataListBean> list) {
         this.context = context;
         this.list = list;
     }
@@ -38,20 +37,28 @@ public class NoticolAdapter extends RecyclerView.Adapter<NoticolAdapter.Viewhold
     }
 
     @Override
-    public void onBindViewHolder(final Viewholder holder, int position) {
+    public void onBindViewHolder(final Viewholder holder, final int position) {
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 holder.dian.setVisibility(View.GONE);
                 Intent intent = new Intent(context, Noticol_DrtailActivity.class);
+                intent.putExtra("id",list.get(position).getId());
                 context.startActivity(intent);
             }
         });
+        int isRead = list.get(position).getIsRead();
+        if(isRead==0){
+            holder.dian.setVisibility(View.VISIBLE);
+        }else if(isRead==1){
+            holder.dian.setVisibility(View.GONE);
+        }
+        holder.neirong.setText(list.get(position).getTitle());
     }
 
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()    {
         return list.size();
     }
 

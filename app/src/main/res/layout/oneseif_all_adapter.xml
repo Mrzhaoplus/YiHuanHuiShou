@@ -17,7 +17,6 @@
               android:id="@+id/firm"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="北京某某某某有限公司"
               android:textColor="@color/black"
               android:textSize="16sp"
               />
@@ -45,7 +44,6 @@
                 android:layout_toRightOf="@+id/til_bianhao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1234567895623"
                 android:textSize="16sp"
                 />
             <TextView
@@ -77,7 +75,6 @@
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="衣服"
                 />
         </LinearLayout>
         <LinearLayout
@@ -100,7 +97,6 @@
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1000元"
                 />
         </LinearLayout>
     </LinearLayout>

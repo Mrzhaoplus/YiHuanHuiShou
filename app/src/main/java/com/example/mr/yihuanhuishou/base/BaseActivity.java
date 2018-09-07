@@ -23,6 +23,7 @@ import android.widget.PopupWindow;
 import com.example.mr.yihuanhuishou.R;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -31,6 +32,7 @@ import java.util.List;
  */
 
 public class BaseActivity extends AppCompatActivity {
+    private static LinkedList<AppCompatActivity> activities;//用户存储每一个打开的Activity
     private static List<Activity> activityList = new ArrayList<>();
     private static int MY_PERMISSION_REQUEST_CODE=1;
     protected Context mContext;
@@ -172,21 +174,6 @@ public class BaseActivity extends AppCompatActivity {
             activityList = null;
         }
     }
-//    private void UMPush() {
-//        UmengMessageHandler umengMessageHandler=new UmengMessageHandler(){
-//            @Override
-//            public Notification getNotification(Context context, UMessage uMessage) {
-//                EventMessage eventMessage=new EventMessage("tuisong");
-//                EventBus.getDefault().postSticky(eventMessage);
-//                return super.getNotification(context, uMessage);
-//
-//            }
-//        };
-//
-//
-//
-//    }
-
     public void setShowPop(PopupWindow popupWindow, View view){
         if(popupWindow!=null&&popupWindow.isShowing()){
             popupWindow.dismiss();
@@ -217,7 +204,6 @@ public class BaseActivity extends AppCompatActivity {
 
     /** 设置状态栏颜色 */
     protected void initSystemBarTint() {
-
         Window window = getWindow();
         if (translucentStatusBar()) {
             // 设置状态栏全透明

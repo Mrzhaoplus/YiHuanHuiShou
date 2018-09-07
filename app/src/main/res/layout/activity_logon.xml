@@ -12,7 +12,15 @@
         android:layout_height="50dp"
         android:background="@color/colorAccent"
         >
-
+        <ImageView
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_xxxhdpi"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/beak"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -45,12 +53,20 @@
               android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
-              <ImageView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:src="@drawable/shenfen_xxxhdpi"
-                  />
+              <LinearLayout
+                  android:layout_width="20dp"
+                  android:layout_height="20dp">
+                  <ImageView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:src="@drawable/shenfen_xxxhdpi"
+                      />
+
+              </LinearLayout>
+
+
               <EditText
+                  android:inputType="number"
                   android:id="@+id/IDcard"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content" 
@@ -71,17 +87,23 @@
               android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
+              <LinearLayout
+                  android:layout_width="20dp"
+                  android:layout_height="20dp">
               <ImageView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:src="@drawable/suo_xxxhdpi"
                   />
+              </LinearLayout>
               <EditText
+                  android:inputType="textPassword"
+                  android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                   android:id="@+id/password"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:background="@null"
-                  android:hint="请输入密码"
+                  android:hint="请输入密码，密码格式为6-18位数字加字母"
                   android:textSize="14sp"
                   android:layout_marginLeft="10dp"
                   />

@@ -1,21 +1,29 @@
 package com.example.mr.yihuanhuishou.driver.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.mr.yihuanhuishou.R;
+import com.example.mr.yihuanhuishou.driver.ui.HuiShouCompanyDetailActivity;
 import com.example.mr.yihuanhuishou.driver.ui.QiangdanDetailActivity;
+import com.example.mr.yihuanhuishou.fragment.Driver_home_frim_fragment;
+import com.example.mr.yihuanhuishou.fragment.Driver_home_person_fragment;
 import com.example.mr.yihuanhuishou.utils.TUtils;
 
 import java.util.ArrayList;
@@ -30,7 +38,7 @@ import butterknife.Unbinder;
  * Created by power on 2018/5/21.
  */
 
-public class HomeListFragment extends BaseFragment implements BaseQuickAdapter.OnItemClickListener {
+public class HomeListFragment extends BaseFragment {
     Unbinder unbinder;
     @BindView(R.id.renyuan_tv)
     TextView renyuanTv;
@@ -44,70 +52,61 @@ public class HomeListFragment extends BaseFragment implements BaseQuickAdapter.O
     View indicatorGongsi;
     @BindView(R.id.gongsi_ll)
     LinearLayout gongsiLl;
-    @BindView(R.id.search_tv)
-    TextView searchTv;
-    @BindView(R.id.search_et)
-    EditText searchEt;
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
+    @BindView(R.id.fl)
+    FrameLayout fl;
+    Unbinder unbinder1;
+    private Fragment currfit;
+    private Driver_home_person_fragment driver_home_person_fragment;
+    private Driver_home_frim_fragment driver_home_frim_fragment;
+    private double lat;
+    private double lon;
+    private String city;
 
+    @SuppressLint("ValidFragment")
+    public HomeListFragment(double lat, double lon,String city) {
+        this.lat = lat;
+        this.lon = lon;
+        this.city = city;
+    }
+
+    public HomeListFragment() {
+    }
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_list_fragment, null);
         unbinder = ButterKnife.bind(this, view);
-        initData();
         return view;
     }
-
     @Override
     protected void initLazyData() {
 
     }
-
-    private void initData() {
-        List<String> list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        HomeListAdapter listAdapter = new HomeListAdapter(R.layout.item_home_list,list);
-        recyclerView.setAdapter(listAdapter);
-        listAdapter.setOnItemClickListener(this);
-    }
-
     @Override
-    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        startActivity(new Intent(mContext,QiangdanDetailActivity.class));
-    }
-
-    private class HomeListAdapter extends BaseQuickAdapter<String,BaseViewHolder>{
-
-        public HomeListAdapter(int layoutResId, @Nullable List<String> data) {
-            super(layoutResId, data);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        if(driver_home_person_fragment==null){
+            driver_home_person_fragment = new Driver_home_person_fragment(lat,lon,city);
         }
-
-        @Override
-        protected void convert(BaseViewHolder helper, String item) {
-
-        }
+        AddFragment(driver_home_person_fragment);
+        return rootView;
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
-
     @OnClick(R.id.renyuan_ll)
     public void onRenyuanLlClicked() {
         renyuanTv.setTextColor(getResources().getColor(R.color.colorPrimary));
         gongsiTv.setTextColor(getResources().getColor(R.color.textColor));
         indicatorRenyuan.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         indicatorGongsi.setBackgroundColor(getResources().getColor(R.color.white));
-        searchEt.setHint("请输入回收人员名称或类型");
+        if(driver_home_person_fragment==null){
+            driver_home_person_fragment = new Driver_home_person_fragment();
+        }
+        AddFragment(driver_home_person_fragment);
     }
 
     @OnClick(R.id.gongsi_ll)
@@ -116,11 +115,30 @@ public class HomeListFragment extends BaseFragment implements BaseQuickAdapter.O
         gongsiTv.setTextColor(getResources().getColor(R.color.colorPrimary));
         indicatorRenyuan.setBackgroundColor(getResources().getColor(R.color.white));
         indicatorGongsi.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        searchEt.setHint("请输入回收公司名称或类型");
+        if(driver_home_frim_fragment==null){
+            driver_home_frim_fragment = new Driver_home_frim_fragment();
+        }
+        AddFragment(driver_home_frim_fragment);
+    }
+    /*
+       * 动态添加fragment方法
+       * */
+    public void AddFragment(Fragment f){
+        FragmentManager supportFragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+        if(currfit !=null){
+            fragmentTransaction.hide(currfit);
+        }
+        if(!f.isAdded()){
+            fragmentTransaction.add(R.id.fl,f);
+        }
+        fragmentTransaction.show(f);
+        fragmentTransaction.commit();
+        currfit =f;
+
+
     }
 
-    @OnClick(R.id.search_tv)
-    public void onSearchTvClicked() {
-        TUtils.showShort(mContext,"点击了搜索");
-    }
+
+
 }

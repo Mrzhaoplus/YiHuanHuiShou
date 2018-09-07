@@ -4,7 +4,7 @@
             "outputFile": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-ta\\values-ta.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\a2803110bb0a512faacaaf9b28c4e18b\\res\\values-ta\\values-ta.xml",
+                    "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\dce18c5fe8170cac00f5aa7cbd4ba0c8\\res\\values-ta\\values-ta.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -19,7 +19,7 @@
             "outputFile": "D:\\YiHuanHuiShou\\zxing\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-ta\\values-ta.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\a2803110bb0a512faacaaf9b28c4e18b\\res\\values-ta\\values-ta.xml",
+                    "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\dce18c5fe8170cac00f5aa7cbd4ba0c8\\res\\values-ta\\values-ta.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

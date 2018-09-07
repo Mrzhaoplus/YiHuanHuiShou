@@ -6,13 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.activity.Infor_Msg_DetailsActivity;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.XitongMassage_Bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +22,9 @@ import java.util.List;
 
 public class Infor_Msg_Adapter extends RecyclerView.Adapter<Infor_Msg_Adapter.Holder> {
     private Context context;
-    private List<String>list=new ArrayList<>();
+    private List<XitongMassage_Bean.DataListBean>list=new ArrayList<>();
 
-    public Infor_Msg_Adapter(Context context, List<String> list) {
+    public Infor_Msg_Adapter(Context context, List<XitongMassage_Bean.DataListBean> list) {
         this.context = context;
         this.list = list;
     }
@@ -39,17 +38,27 @@ public class Infor_Msg_Adapter extends RecyclerView.Adapter<Infor_Msg_Adapter.Ho
 
 
     @Override
-    public void onBindViewHolder(final Holder holder, int position) {
+    public void onBindViewHolder(final Holder holder, final int position) {
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String trim = holder.title.getText().toString().trim();
                 holder.dian.setVisibility(View.GONE);
                 Intent intent = new Intent(context, Infor_Msg_DetailsActivity.class);
-                intent.putExtra("title",trim);
+                intent.putExtra("id",list.get(position).getId());
                 context.startActivity(intent);
             }
         });
+        int isRead = list.get(position).getIsRead();
+        if(isRead==0){
+            holder.dian.setVisibility(View.VISIBLE);
+        }else if(isRead==1){
+            holder.dian.setVisibility(View.GONE);
+        }
+        holder.title.setText(list.get(position).getTitle());
+        String content = list.get(position).getContent();
+            holder.neirong.setText(content);
+
+
     }
     @Override
     public int getItemCount() {

@@ -29,16 +29,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        int falg = getIntent().getIntExtra("flag", 0);
-        if(falg==1){
-            Intent intent = new Intent(MainActivity.this, Home_detailActivity.class);
-            startActivity(intent);
-        }
-        boolean jinru = SpUtils.getBoolean(this, "jinru", false);
-         /*if(jinru){
-             Intent intent = new Intent(MainActivity.this, Home_detailActivity.class);
-             startActivity(intent);
-         }*/
         //点击事件
         huishou_img.setOnClickListener(this);
         siji_img.setOnClickListener(this);
@@ -48,14 +38,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.huishou_img:
-                SpUtils.putBoolean(this,"jinru",true);
-                Intent intent = new Intent(MainActivity.this, Home_detailActivity.class);
+                Intent intent = new Intent(MainActivity.this, LogonActivity.class);
+                intent.putExtra("type",1);
                 startActivity(intent);
-                Log.e("====================",getSharedPreferences(GGUtils.SP_NAME,MODE_PRIVATE).getString(GGUtils.TOKEN,""));
                 break;
             case R.id.siji_img:
-                SpUtils.putBoolean(this,"jinru",true);
-                Intent intent1 = new Intent(MainActivity.this, DriverHomeActivity.class);
+                Intent intent1 = new Intent(MainActivity.this, LogonActivity.class);
+                intent1.putExtra("type",2);
                 startActivity(intent1);
                 break;
         }

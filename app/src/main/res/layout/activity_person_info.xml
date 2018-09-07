@@ -10,6 +10,8 @@
     tools:context="com.example.mr.yihuanhuishou.driver.ui.PersonInfoActivity">
     <include layout="@layout/item_title_layout"/>
     <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -30,8 +32,7 @@
                 android:id="@+id/face_iv"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_toLeftOf="@+id/view_01"
-                android:src="@drawable/test_face_iv"/>
+                android:layout_toLeftOf="@+id/view_01"/>
             <ImageView
                 android:id="@+id/view_01"
                 android:layout_width="wrap_content"
@@ -57,11 +58,13 @@
                 android:layout_height="wrap_content"
                 android:text="昵称"
                 android:textColor="@color/textColor"/>
-            <TextView
+            <EditText
                 android:id="@+id/name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sense"
+                android:background="@null"
+                android:hint="昵称"
+                android:textSize="14sp"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
         <View
@@ -80,11 +83,13 @@
                 android:layout_height="wrap_content"
                 android:text="年龄"
                 android:textColor="@color/textColor"/>
-            <TextView
+            <EditText
                 android:id="@+id/age_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="21"
+                android:hint="年龄"
+                android:background="@null"
+                android:textSize="14sp"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
         <View
@@ -103,6 +108,7 @@
                 android:text="性别"
                 android:textColor="@color/textColor"/>
             <RadioGroup
+                android:id="@+id/rg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -112,8 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:button="@null"
-                    android:background="@drawable/fanxuan"
-                    android:checked="true"/>
+                    android:background="@drawable/fanxuan"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -125,7 +130,6 @@
                     android:layout_height="wrap_content"
                     android:button="@null"
                     android:background="@drawable/fanxuan"
-                    android:checked="false"
                     android:layout_marginLeft="30dp"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -154,7 +158,8 @@
                 android:id="@+id/chepai_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="京P123SDL"
+                android:hint="车牌号"
+                android:textSize="14sp"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
         <View
@@ -179,7 +184,6 @@
                 android:id="@+id/gongsi_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="XXX回收公司"
                 android:gravity="end"
                 android:layout_toLeftOf="@+id/view_02"
                 android:layout_toRightOf="@+id/view_03"

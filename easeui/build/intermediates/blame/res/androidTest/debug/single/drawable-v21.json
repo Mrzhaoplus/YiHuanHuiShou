@@ -1,14 +1,14 @@
 [
     {
-        "merged": "/Users/power/PowerProject/YiHuanHuiShou/easeui/build/intermediates/res/merged/androidTest/debug/drawable-v21/abc_action_bar_item_background_material.xml",
-        "source": "/Users/power/.gradle/caches/transforms-1/files-1.1/appcompat-v7-24.2.1.aar/dea465d7eb380393479f64dbe02aed5b/res/drawable-v21/abc_action_bar_item_background_material.xml"
+        "merged": "D:\\YiHuanHuiShou\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-24.2.1.aar\\37d7e06afaeeafc3079aa6cd083f72fe\\res\\drawable-v21\\abc_edit_text_material.xml"
     },
     {
-        "merged": "/Users/power/PowerProject/YiHuanHuiShou/easeui/build/intermediates/res/merged/androidTest/debug/drawable-v21/abc_edit_text_material.xml",
-        "source": "/Users/power/.gradle/caches/transforms-1/files-1.1/appcompat-v7-24.2.1.aar/dea465d7eb380393479f64dbe02aed5b/res/drawable-v21/abc_edit_text_material.xml"
+        "merged": "D:\\YiHuanHuiShou\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\abc_action_bar_item_background_material.xml",
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-24.2.1.aar\\37d7e06afaeeafc3079aa6cd083f72fe\\res\\drawable-v21\\abc_action_bar_item_background_material.xml"
     },
     {
-        "merged": "/Users/power/PowerProject/YiHuanHuiShou/easeui/build/intermediates/res/merged/androidTest/debug/drawable-v21/abc_btn_colored_material.xml",
-        "source": "/Users/power/.gradle/caches/transforms-1/files-1.1/appcompat-v7-24.2.1.aar/dea465d7eb380393479f64dbe02aed5b/res/drawable-v21/abc_btn_colored_material.xml"
+        "merged": "D:\\YiHuanHuiShou\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\Mr赵\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-24.2.1.aar\\37d7e06afaeeafc3079aa6cd083f72fe\\res\\drawable-v21\\abc_btn_colored_material.xml"
     }
 ]

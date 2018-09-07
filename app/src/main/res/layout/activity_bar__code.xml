@@ -13,23 +13,34 @@
         android:background="@color/colorAccent"
         >
         <ImageView
+            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back_xxxhdpi"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="5dp"
             android:id="@+id/beak"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我的条形码"
+            android:text="我的二维码"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_centerInParent="true"
             android:id="@+id/textView2" />
     </RelativeLayout>
+     <LinearLayout
+         android:gravity="center"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent">
+         <ImageView
+             android:id="@+id/cord"
+             android:layout_width="200dp"
+             android:layout_height="200dp"
+             />
 
+     </LinearLayout>
 
 
 

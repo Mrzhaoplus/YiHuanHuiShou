@@ -1,6 +1,7 @@
 package com.example.mr.yihuanhuishou.driver.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +16,10 @@ import com.example.mr.yihuanhuishou.activity.MyMsgActivity;
 import com.example.mr.yihuanhuishou.adapter.Mymsg_Adapter;
 import com.example.mr.yihuanhuishou.base.BaseActivity;
 import com.example.mr.yihuanhuishou.bean.Event_fragment;
+import com.example.mr.yihuanhuishou.utils.GGUtils;
 import com.example.mr.yihuanhuishou.utils.SpUtils;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseConstant;
 import com.luck.picture.lib.tools.Constant;
@@ -30,6 +34,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,11 +57,14 @@ public class MyDriverMessageActivity extends BaseActivity {
     LinearLayout gonggaoLl;
     List<String> list = new ArrayList<>();
     private Intent intent;
+    private Map<String, EMConversation> map;
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_driver_message);
+        sp = getSharedPreferences(GGUtils.DrSP_NAME, MODE_PRIVATE);
         ButterKnife.bind(this);
         initView();
     }
@@ -63,24 +72,27 @@ public class MyDriverMessageActivity extends BaseActivity {
     private void initView() {
         titleBackIv.setVisibility(View.VISIBLE);
         titleContentTv.setText("我的消息");
-        //循环添加集合
-        for (int i=0;i<8;i++){
-            list.add("");
+        map = EMClient.getInstance().chatManager().getAllConversations();
+        Set<Map.Entry<String, EMConversation>> set = map.entrySet();
+        for (Map.Entry<String, EMConversation> me:set){
+            String key = me.getKey();
+            list.add(key);
         }
+
         swipRecycler.setNestedScrollingEnabled(false);
         swipRecycler.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
 
-        final Mymsg_Adapter mymsg_adapter = new Mymsg_Adapter(MyDriverMessageActivity.this,list);
+        final Mymsg_Adapter mymsg_adapter = new Mymsg_Adapter(MyDriverMessageActivity.this,list,map);
         mymsg_adapter.setOnMyItemClickListener(new Mymsg_Adapter.OnMyItemClickListener() {
             @Override
             public void myClick(View v, int pos) {
                 //设置要发送出去的昵称
-                SpUtils.putString(MyDriverMessageActivity.this,"userName","Power回收司机");
+                SpUtils.putString(MyDriverMessageActivity.this,"userName",sp.getString(GGUtils.DrUSER_NAME,""));
                 //设置要发送出去的头像
-                SpUtils.putString(MyDriverMessageActivity.this,"face","http://img5.duitang.com/uploads/item/201508/30/20150830132007_TjANX.thumb.224_0.jpeg");
+                SpUtils.putString(MyDriverMessageActivity.this,"face", sp.getString(GGUtils.DrIMAGE_path,""));
 
                 Intent intent = new Intent(MyDriverMessageActivity.this,ChatActivity.class);
-                intent.putExtra(EaseConstant.EXTRA_USER_ID,"test01");
+                intent.putExtra(EaseConstant.EXTRA_USER_ID,list.get(pos));
                 intent.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EMMessage.ChatType.Chat);
                 startActivity(intent);
             }
@@ -94,6 +106,20 @@ public class MyDriverMessageActivity extends BaseActivity {
                 list.remove( menuBridge.getAdapterPosition());
                 menuBridge.closeMenu();
                 mymsg_adapter.notifyDataSetChanged();
+
+                //删除和某个user会话，如果需要保留聊天记录，传false
+                EMClient.getInstance().chatManager().deleteConversation(list.get(menuBridge.getAdapterPosition()), false);
+                list=new ArrayList<>();
+                map = EMClient.getInstance().chatManager().getAllConversations();
+                Set<Map.Entry<String, EMConversation>> set = map.entrySet();
+                for (Map.Entry<String, EMConversation> me:set){
+                    String key = me.getKey();
+                    list.add(key);
+                }
+                //开启适配器
+                mymsg_adapter.notifyDataSetChanged();
+
+
             }
         });
         swipRecycler.setAdapter(mymsg_adapter);

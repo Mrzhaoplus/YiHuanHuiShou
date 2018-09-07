@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.adapter.PackManage_Adapter;
 import com.example.mr.yihuanhuishou.adapter.PackManage_Details_Adapter;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PackManage_DetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class PackManage_DetailsActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.beak)
     ImageView beak;

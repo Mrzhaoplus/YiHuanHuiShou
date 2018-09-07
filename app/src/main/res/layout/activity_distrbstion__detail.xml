@@ -13,11 +13,12 @@
         android:background="@color/colorAccent"
         >
         <ImageView
+            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back_xxxhdpi"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="5dp"
             android:id="@+id/beak"
             />
 
@@ -30,15 +31,11 @@
             android:layout_centerInParent="true"
             />
     </RelativeLayout>
-
-    <ScrollView
-        android:layout_above="@+id/cancle_bill"
-        android:layout_below="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <RelativeLayout
+            android:id="@+id/relat"
+            android:layout_below="@+id/line"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
             <RelativeLayout
                 android:id="@+id/rela1"
                 android:background="@color/white"
@@ -61,7 +58,6 @@
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12345678"
                     />
 
                 <TextView
@@ -103,7 +99,6 @@
                         android:textSize="16sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="衣物"
                         />
                 </LinearLayout>
                 <LinearLayout
@@ -126,7 +121,6 @@
                         android:textSize="16sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="15Kg"
                         />
                 </LinearLayout>
                 <LinearLayout
@@ -150,7 +144,6 @@
                         android:layout_width="wrap_content"
                         android:textColor="@color/orange"
                         android:layout_height="wrap_content"
-                        android:text="1000元"
                         />
                 </LinearLayout>
 
@@ -169,7 +162,6 @@
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="蒋先生"
                     />
                 <TextView
                     android:layout_marginLeft="5dp"
@@ -179,7 +171,6 @@
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="13522543564"
                     />
                 <TextView
                     android:layout_marginTop="5dp"
@@ -188,7 +179,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="北京市昌平区北七家镇白庙村中街华夏公寓315"
                     />
             </RelativeLayout>
             <RelativeLayout
@@ -213,7 +203,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="立即上门"
                     />
             </RelativeLayout>
             <RelativeLayout
@@ -238,7 +227,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="2017.11.30"
                     />
                 <TextView
                     android:layout_marginTop="5dp"
@@ -258,7 +246,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="2017.11.30"
                     />
                 <TextView
                     android:layout_marginTop="5dp"
@@ -278,7 +265,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="2017.11.30"
                     />
             </RelativeLayout>
             <RelativeLayout
@@ -303,14 +289,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="京P.J8U86"
                     />
             </RelativeLayout>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rela4"
-                />
         </RelativeLayout>
-    </ScrollView>
+    <com.amap.api.maps2d.MapView
+        android:id="@+id/map"
+        android:layout_below="@+id/relat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.amap.api.maps2d.MapView>
 </RelativeLayout>

@@ -13,11 +13,12 @@
         android:background="@color/colorAccent"
         >
         <ImageView
+            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back_xxxhdpi"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="5dp"
             android:id="@+id/beak"
             />
 
@@ -43,7 +44,6 @@
             android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="系统标题"
             />
         <View
             android:layout_marginTop="15dp"
@@ -56,7 +56,6 @@
             android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，系统详细详情，"
             />
     </LinearLayout>
 

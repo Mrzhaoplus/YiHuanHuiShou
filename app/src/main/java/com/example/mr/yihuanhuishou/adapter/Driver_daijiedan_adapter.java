@@ -11,14 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
-import com.example.mr.yihuanhuishou.activity.Clame_Goods_DetailsActivity;
-import com.example.mr.yihuanhuishou.activity.Distrbstion_DetailActivity;
-import com.example.mr.yihuanhuishou.activity.Distribution_success_DetailsActivity;
-import com.example.mr.yihuanhuishou.activity.Driver_Cancle_DetailsActivity;
-import com.example.mr.yihuanhuishou.activity.Driver_Wait_zhifu_DetailsActivity;
 import com.example.mr.yihuanhuishou.activity.Driver_dingdan_DetailsActivity;
-import com.example.mr.yihuanhuishou.activity.Driver_zhifu_success_DetailsActivity;
-import com.example.mr.yihuanhuishou.jsonbean.Order_Daijiedan_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Order_Daijiedan_Bean;
 import com.example.mr.yihuanhuishou.utils.ToastUtils;
 
 import java.util.ArrayList;

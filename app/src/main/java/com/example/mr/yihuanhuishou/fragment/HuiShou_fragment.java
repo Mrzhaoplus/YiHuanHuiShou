@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.base.BaseFragment;
 import com.example.mr.yihuanhuishou.bean.Event_fragment;
+import com.example.mr.yihuanhuishou.fragment.huishou.All_fragment;
 import com.example.mr.yihuanhuishou.fragment.huishou.Shangmen_fragment;
 import com.example.mr.yihuanhuishou.fragment.huishou.Wancheng_fragment;
 import com.example.mr.yihuanhuishou.fragment.huishou.Zhifu_fragment;
@@ -44,6 +45,7 @@ public class HuiShou_fragment extends BaseFragment implements View.OnClickListen
     private Wancheng_fragment wancheng_fragment;
     private boolean flag=true;
     private int msg;
+    private All_fragment all_fragment;
 
     /**
      * 设置Fragment要显示的布局
@@ -54,7 +56,6 @@ public class HuiShou_fragment extends BaseFragment implements View.OnClickListen
     protected int setContentView() {
         return R.layout.huishou_fragment;
     }
-
     /**
      * 当视图初始化并且对用户可见的时候去真正的加载数据
      */
@@ -93,7 +94,6 @@ public class HuiShou_fragment extends BaseFragment implements View.OnClickListen
     public void fangfa(Event_fragment eveen){
         msg = eveen.getMsg();
         if(msg==1){
-
             xian1.setVisibility(View.VISIBLE);
             xian2.setVisibility(View.GONE);
             xian3.setVisibility(View.GONE);
@@ -104,10 +104,10 @@ public class HuiShou_fragment extends BaseFragment implements View.OnClickListen
             wancheng.setTextColor(getResources().getColor(R.color.black));
             AddFragment(new Shangmen_fragment());
         }else{
-            if(shangmen_fragment==null){
-                shangmen_fragment = new Shangmen_fragment();
+            if(all_fragment==null){
+                all_fragment = new All_fragment();
             }
-            AddFragment(shangmen_fragment);
+            AddFragment(all_fragment);
         }
     }
     @Override
@@ -123,10 +123,10 @@ public class HuiShou_fragment extends BaseFragment implements View.OnClickListen
                 shangmen.setTextColor(getResources().getColor(R.color.black));
                 zhifu.setTextColor(getResources().getColor(R.color.black));
                 wancheng.setTextColor(getResources().getColor(R.color.black));
-                if(shangmen_fragment==null){
-                    shangmen_fragment = new Shangmen_fragment();
+                if(all_fragment==null){
+                    all_fragment = new All_fragment();
                 }
-                AddFragment(shangmen_fragment);
+                AddFragment(all_fragment);
                 break;
             //待上门
             case R.id.rela2:

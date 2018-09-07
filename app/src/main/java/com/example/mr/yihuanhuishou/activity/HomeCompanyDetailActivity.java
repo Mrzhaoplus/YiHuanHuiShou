@@ -18,7 +18,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.adapter.ZhiPai_wupin_Adapter;
 import com.example.mr.yihuanhuishou.base.BaseActivity;
-import com.example.mr.yihuanhuishou.jsonbean.Xitong_Recycler_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Xitong_Recycler_Bean;
 import com.example.mr.yihuanhuishou.utils.BaseDialog;
 import com.example.mr.yihuanhuishou.utils.DialogCallback;
 import com.example.mr.yihuanhuishou.utils.MyUrls;
@@ -266,12 +266,19 @@ public class HomeCompanyDetailActivity extends BaseActivity implements ZhiPai_wu
                 .builder();
         dialog.show();
         TextView text_sure = dialog.getView(R.id.text_sure);
+        TextView quxiao = dialog.getView(R.id.quxiao);
         RecyclerView recyclerView = dialog.getView(R.id.recy_view);
         recyclerView.setLayoutManager(new GridLayoutManager(HomeCompanyDetailActivity.this,3));
         recyclerView.setNestedScrollingEnabled(false);
         zhiPai_wupin_adapter = new ZhiPai_wupin_Adapter(HomeCompanyDetailActivity.this,mlist);
         recyclerView.setAdapter(zhiPai_wupin_adapter);
         zhiPai_wupin_adapter.getclick(this);
+        quxiao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
         //知道了
         text_sure.setOnClickListener(new View.OnClickListener() {
             @Override

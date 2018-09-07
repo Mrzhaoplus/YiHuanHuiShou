@@ -15,12 +15,14 @@
         android:paddingTop="15dp"
         android:paddingBottom="15dp">
         <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="张三："
             android:textSize="16sp"
             android:textColor="@color/textColor"/>
         <TextView
+            android:id="@+id/tel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="17611228899"

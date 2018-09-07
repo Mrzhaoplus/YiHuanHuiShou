@@ -1,11 +1,17 @@
 package com.example.mr.yihuanhuishou.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,7 +24,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
-import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.CameraPosition;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.MyLocationStyle;
 import com.amap.api.services.core.AMapException;
@@ -27,10 +33,12 @@ import com.amap.api.services.geocoder.GeocodeAddress;
 import com.amap.api.services.geocoder.GeocodeQuery;
 import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.example.mr.yihuanhuishou.R;
-import com.example.mr.yihuanhuishou.jsonbean.Zhece_Bean;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Zhece_Bean;
 import com.example.mr.yihuanhuishou.utils.DialogCallback;
 import com.example.mr.yihuanhuishou.utils.GGUtils;
 import com.example.mr.yihuanhuishou.utils.JsonBean;
@@ -53,7 +61,7 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Address_bianjiActivity extends AppCompatActivity implements View.OnClickListener, AMapLocationListener, GeocodeSearch.OnGeocodeSearchListener {
+public class Address_bianjiActivity extends BaseActivity implements View.OnClickListener, AMapLocationListener, GeocodeSearch.OnGeocodeSearchListener, AMap.OnCameraChangeListener {
 
     @BindView(R.id.beak)
     ImageView beak;
@@ -75,6 +83,8 @@ public class Address_bianjiActivity extends AppCompatActivity implements View.On
     EditText tel;
     @BindView(R.id.xiangxi)
     EditText xiangxi;
+    @BindView(R.id.dingwei)
+    ImageView dingwei;
     private AMap aMap;
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
@@ -92,10 +102,11 @@ public class Address_bianjiActivity extends AppCompatActivity implements View.On
     private String city;
     private String counry;
     private String detailAddr;
-    private GeocodeSearch geocodeSearch;
     private String addressName;
     private double lat;
     private double lon;
+    private Intent intent;
+    private LatLonPoint latLonPoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +124,23 @@ public class Address_bianjiActivity extends AppCompatActivity implements View.On
 
         initdata(savedInstanceState);
         initJsonData();
+
+        xiangxi.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                GeocodeSearch(editable.toString());
+            }
+        });
     }
 
     private void initdata(Bundle savedInstanceState) {
@@ -122,7 +150,7 @@ public class Address_bianjiActivity extends AppCompatActivity implements View.On
         if (aMap == null) {
             aMap = map.getMap();
         }
-
+        dingwei.setOnClickListener(this);
         beak.setOnClickListener(this);
         baocun.setOnClickListener(this);
         diqu.setOnClickListener(this);
@@ -133,15 +161,17 @@ public class Address_bianjiActivity extends AppCompatActivity implements View.On
         shi.setText(city);
         qu.setText(counry);
         xiangxi.setText(detailAddr);
+        GeocodeSearch(shi.getText().toString());
 
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW);//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
         aMap.moveCamera(CameraUpdateFactory.zoomTo(16));
-
+//设置地图拖动监听
+        aMap.setOnCameraChangeListener(this);
         //更改定位图标
-        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.driver_map_location_iv));
+        // myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.driver_map_location_iv));
         //设置不显示范围圆圈
         myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0));// 设置圆形的边框颜色
         myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0));// 设置圆形的填充颜色
@@ -163,6 +193,8 @@ public class Address_bianjiActivity extends AppCompatActivity implements View.On
         // 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
         //启动定位
         mlocationClient.startLocation();
+
+
     }
 
     @Override
@@ -177,12 +209,20 @@ public class Address_bianjiActivity extends AppCompatActivity implements View.On
             case R.id.diqu:
                 showPickerView();
                 break;
+            case R.id.dingwei:
+                setCurrentLocationDetails();
+                break;
         }
     }
 
+    private void setCurrentLocationDetails() {
+        GeocodeSearch geocodeSearch = new GeocodeSearch(getApplicationContext());
+        geocodeSearch.setOnGeocodeSearchListener(this);
+        // 第一个参数表示一个Latlng(经纬度)，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
+        RegeocodeQuery query = new RegeocodeQuery(latLonPoint, 25, GeocodeSearch.AMAP);
+        geocodeSearch.getFromLocationAsyn(query);
+    }
     private void infodata() {
-
-
         String name = add_name.getText().toString().trim();
         String tell = tel.getText().toString().trim();
         String add_sf = sheng.getText().toString().trim();
@@ -192,7 +232,7 @@ public class Address_bianjiActivity extends AppCompatActivity implements View.On
         double latitude = aMapLocation.getLatitude();
         double longitude = aMapLocation.getLongitude();
         boolean mobileNO = Validator.isMobileNO(tell);
-        if(mobileNO){
+        if (mobileNO) {
             HttpParams params = new HttpParams();
             params.put("token", sp.getString(GGUtils.TOKEN, ""));
             params.put("id", id);
@@ -228,13 +268,11 @@ public class Address_bianjiActivity extends AppCompatActivity implements View.On
                             }
                         }
                     });
-        }else{
-            ToastUtils.getToast(Address_bianjiActivity.this,"手机号码有误！");
+        } else {
+            ToastUtils.getToast(Address_bianjiActivity.this, "手机号码有误！");
         }
 
     }
-
-
     private void showPickerView() {
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
             @Override
@@ -243,7 +281,7 @@ public class Address_bianjiActivity extends AppCompatActivity implements View.On
                 sheng.setText(options1Items.get(options1).getPickerViewText());
                 shi.setText(options2Items.get(options1).get(options2));
                 qu.setText(options3Items.get(options1).get(options2).get(options3));
-                GeocodeSearch(options3Items.get(options1).get(options2).get(options3));
+                    GeocodeSearch(shi.getText().toString()+qu.getText().toString());
             }
         }).setTitleText("")
                 .setDividerColor(Color.GRAY)
@@ -256,10 +294,9 @@ public class Address_bianjiActivity extends AppCompatActivity implements View.On
         pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
         pvOptions.show();
     }
-
     private void GeocodeSearch(String city) {
         //构造 GeocodeSearch 对象，并设置监听。
-        geocodeSearch = new GeocodeSearch(this);
+        GeocodeSearch geocodeSearch = new GeocodeSearch(this);
         geocodeSearch.setOnGeocodeSearchListener(this);
         GeocodeQuery query = new GeocodeQuery(city, city);
         geocodeSearch.getFromLocationNameAsyn(query);
@@ -276,7 +313,6 @@ public class Address_bianjiActivity extends AppCompatActivity implements View.On
         //  获取json数据
         String JsonData = JsonFileReader.getJson(this, "province_data.json");
         ArrayList<JsonBean> jsonBean = parseData(JsonData);//用Gson 转成实体
-
         /**
          * 添加省份数据
          *
@@ -362,12 +398,14 @@ public class Address_bianjiActivity extends AppCompatActivity implements View.On
                         + amapLocation.getErrorCode() + ", errInfo:"
                         + amapLocation.getErrorInfo());
             }
+
         }
     }
 
     @Override
     public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
-
+        String formatAddress = regeocodeResult.getRegeocodeAddress().getFormatAddress();
+        xiangxi.setText(formatAddress);
     }
 
     @Override
@@ -383,16 +421,68 @@ public class Address_bianjiActivity extends AppCompatActivity implements View.On
                 LatLonPoint latLongPoint = address.getLatLonPoint();
                 lat = latLongPoint.getLatitude();
                 lon = latLongPoint.getLongitude();
-                /*       //然后把经纬度传递给地图界面
-                intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putDouble("Lat",lat);
-                bundle.putDouble("Lng",lon);
-                intent.putExtra("LAT",bundle);
-                New_AddressActivity.this.setResult(8, intent);
-                New_AddressActivity.this.finish();*/
+                aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng
+                        (lat, lon), 13.0f));
             }
 
         }
+    }
+
+    @Override
+    public void onCameraChange(CameraPosition cameraPosition) {
+
+    }
+
+    @Override
+    public void onCameraChangeFinish(CameraPosition cameraPosition) {
+        dingwei.setVisibility(View.VISIBLE);
+        latLng = cameraPosition.target;
+        double latitude = latLng.latitude;
+        double longitude = latLng.longitude;
+        latLonPoint = new LatLonPoint(latitude, longitude);
+        Log.e("===================", latitude + "");
+        Log.e("===================", longitude + "");
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if(ev.getAction()==MotionEvent.ACTION_DOWN){
+            View v=getCurrentFocus();
+            boolean  hideInputResult =isShouldHideInput(v,ev);
+            Log.v("hideInputResult","zzz-->>"+hideInputResult);
+            if(hideInputResult){
+                v.clearFocus();
+                InputMethodManager imm = (InputMethodManager) Address_bianjiActivity.this
+                        .getSystemService(Activity.INPUT_METHOD_SERVICE);
+                if(v != null){
+                    if(imm.isActive()){
+                        imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+    public  boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] leftTop = { 0, 0 };
+            //获取输入框当前的location位置
+            v.getLocationInWindow(leftTop);
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            //之前一直不成功的原因是,getX获取的是相对父视图的坐标,getRawX获取的才是相对屏幕原点的坐标！！！
+            Log.v("leftTop[]","zz--left:"+left+"--top:"+top+"--bottom:"+bottom+"--right:"+right);
+            Log.v("event","zz--getX():"+event.getRawX()+"--getY():"+event.getRawY());
+            if (event.getRawX() > left && event.getRawX() < right
+                    && event.getRawY() > top && event.getRawY() < bottom) {
+                // 点击的是输入框区域，保留点击EditText的事件
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 }

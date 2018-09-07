@@ -68,6 +68,14 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/saoma_iv"
                     android:layout_marginLeft="10dp"/>
+                <TextView
+                    android:visibility="gone"
+                    android:textSize="16sp"
+                    android:id="@+id/tiao_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="11111111111111"
+                    android:layout_marginLeft="10dp"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"

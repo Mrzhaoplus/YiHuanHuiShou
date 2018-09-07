@@ -9,16 +9,15 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
 import com.example.mr.yihuanhuishou.R;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
 import com.example.mr.yihuanhuishou.fragment.Driver_fragment;
 import com.example.mr.yihuanhuishou.fragment.HuiShou_fragment;
 import com.example.mr.yihuanhuishou.fragment.Oneseif_fragment;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class OrderActivity extends AppCompatActivity implements View.OnClickListener {
+public class OrderActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.beak)
     ImageView beak;
     @BindView(R.id.dd_hs)
@@ -39,14 +38,12 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
     private HuiShou_fragment huiShou_fragment;
     private Driver_fragment driver_fragment;
     private Oneseif_fragment oneseif_fragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         ButterKnife.bind(this);
         int state = getIntent().getIntExtra("state", 0);
-
         beak.setOnClickListener(this);
         dd_hs.setOnClickListener(this);
         siji.setOnClickListener(this);
@@ -73,7 +70,6 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
             jiao3.setVisibility(View.VISIBLE);
         }
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -83,7 +79,6 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
             case R.id.dd_hs:
                 if(huiShou_fragment==null){
                     huiShou_fragment = new HuiShou_fragment();
-
                 }
                 AddFragment(huiShou_fragment);
                 jiao1.setVisibility(View.VISIBLE);
@@ -110,12 +105,10 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
-
     /*
        * 动态添加fragment方法
        * */
     public void AddFragment(Fragment f){
-
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         if(currfit !=null){
@@ -127,9 +120,5 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         fragmentTransaction.show(f);
         fragmentTransaction.commit();
         currfit =f;
-
-
     }
-
-
 }

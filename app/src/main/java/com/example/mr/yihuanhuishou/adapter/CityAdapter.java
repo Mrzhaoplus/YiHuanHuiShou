@@ -56,7 +56,8 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
             public void onClick(View v) {
                 int position = holder.getLayoutPosition();
                 mOnItemClickListener.onItemClick(holder.itemView, position);
-                EventBus.getDefault().postSticky(new Event_dingwei(mDatas.get(position).getCity()));
+
+
             }
         });
     }

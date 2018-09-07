@@ -4,18 +4,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
-import com.example.mr.yihuanhuishou.jsonbean.Address_Details_Bean;
-import com.example.mr.yihuanhuishou.jsonbean.Address_List_Bean;
-import com.example.mr.yihuanhuishou.jsonbean.Zhece_Bean;
+import com.example.mr.yihuanhuishou.base.BaseActivity;
+import com.example.mr.yihuanhuishou.bean.Event_fragment;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Address_Details_Bean;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Zhece_Bean;
 import com.example.mr.yihuanhuishou.utils.DialogCallback;
 import com.example.mr.yihuanhuishou.utils.GGUtils;
 import com.example.mr.yihuanhuishou.utils.MyUrls;
@@ -24,12 +23,12 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 
-import java.util.List;
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Address_DetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class Address_DetailsActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.beak)
     ImageView beak;
@@ -61,6 +60,12 @@ public class Address_DetailsActivity extends AppCompatActivity implements View.O
         sp = getSharedPreferences(GGUtils.SP_NAME, MODE_PRIVATE);
         id = getIntent().getIntExtra("addid", 0);
         initdata();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initview();
     }
 
@@ -84,11 +89,12 @@ public class Address_DetailsActivity extends AppCompatActivity implements View.O
                             addtree.setText("");
                             adddetail.setText(data.getDetailAddr());
                             String isDefault = data.getIsDefault();
-                            if(isDefault.equals("0")){
-                                xuan.setChecked(false);
-                            }else if(isDefault.equals("1")){
+                             if(isDefault.equals("1")){
                                 xuan.setChecked(true);
-                            }
+                            }else{
+                                 xuan.setChecked(false);
+                             }
+
                         } else if (code.equals("201")) {
                             ToastUtils.getToast(Address_DetailsActivity.this, body.getMsg());
                         } else if (code.equals("500")) {
@@ -142,6 +148,7 @@ public class Address_DetailsActivity extends AppCompatActivity implements View.O
                             if (code.equals("200")) {
                             } else if (code.equals("201")) {
                                 ToastUtils.getToast(Address_DetailsActivity.this, body.getMsg());
+                                finish();
                             } else if (code.equals("500")) {
                                 ToastUtils.getToast(Address_DetailsActivity.this, body.getMsg());
                             } else if (code.equals("404")) {
@@ -178,6 +185,7 @@ public class Address_DetailsActivity extends AppCompatActivity implements View.O
                             if (code.equals("200")) {
                             } else if (code.equals("201")) {
                                 ToastUtils.getToast(Address_DetailsActivity.this, body.getMsg());
+                                finish();
                             } else if (code.equals("500")) {
                                 ToastUtils.getToast(Address_DetailsActivity.this, body.getMsg());
                             } else if (code.equals("404")) {
@@ -216,7 +224,6 @@ public class Address_DetailsActivity extends AppCompatActivity implements View.O
                 break;
         }
     }
-
     private void infodata() {
         HttpParams params = new HttpParams();
         params.put("token",sp.getString(GGUtils.TOKEN,""));
@@ -247,5 +254,10 @@ public class Address_DetailsActivity extends AppCompatActivity implements View.O
                 });
 
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

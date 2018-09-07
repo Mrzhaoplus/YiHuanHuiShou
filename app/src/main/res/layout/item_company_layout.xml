@@ -11,7 +11,6 @@
             android:id="@+id/item_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="XXX回收公司"
             android:textColor="@color/textColor"
             android:layout_centerVertical="true"
             android:textSize="16sp"/>
