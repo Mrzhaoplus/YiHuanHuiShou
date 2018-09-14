@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.base.BaseActivity;
+import com.example.mr.yihuanhuishou.bean.Event_fragment;
+import com.example.mr.yihuanhuishou.bean.Event_zhishushaxin;
 import com.example.mr.yihuanhuishou.jsonbean.huishou.Recy_Dingdan_Details_Bean;
 import com.example.mr.yihuanhuishou.utils.DialogCallback;
 import com.example.mr.yihuanhuishou.utils.MyUrls;
@@ -17,6 +19,10 @@ import com.example.mr.yihuanhuishou.utils.ToastUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -61,7 +67,7 @@ public class Wait_zhifu_DetailsActivity extends BaseActivity implements View.OnC
     private double totalMoney;
     private String orderNumber;
     private float giveCurrency;
-
+    private boolean flag=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +78,19 @@ public class Wait_zhifu_DetailsActivity extends BaseActivity implements View.OnC
         name1 = getIntent().getStringExtra("name");
         add = getIntent().getStringExtra("address");
         initview();
-
+        if (flag) {
+            //注册
+            EventBus.getDefault().register(this);
+            flag = false;
+        }
         beak.setOnClickListener(this);
         fanhui.setOnClickListener(this);
         zhifu.setOnClickListener(this);
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void fangfa(Event_zhishushaxin eveen) {
+        finish();
+    }
     private void initview() {
 
         HttpParams params = new HttpParams();
@@ -154,5 +167,13 @@ public class Wait_zhifu_DetailsActivity extends BaseActivity implements View.OnC
         long lcc_time = Long.valueOf(time);
         String format = sdf.format(new Date(lcc_time * 1000L));
         return format;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //注销
+        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().removeAllStickyEvents();
     }
 }

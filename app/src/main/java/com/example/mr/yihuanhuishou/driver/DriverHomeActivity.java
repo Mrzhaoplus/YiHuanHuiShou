@@ -246,10 +246,7 @@ public class DriverHomeActivity extends AppCompatActivity implements AMapLocatio
             }
         };
         EMClient.getInstance().chatManager().addMessageListener(msgListener);
-
-
     }
-
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void fangfa(Event_dingwei eveen) {
         int flag = eveen.getFlag();
@@ -318,7 +315,7 @@ public class DriverHomeActivity extends AppCompatActivity implements AMapLocatio
 
     private void initMarker(final boolean isCompany) {
         if (!isCompany) {
-            if(!TextUtils.isEmpty(sp.getString(GGUtils.CITY, ""))){
+            if(!TextUtils.isEmpty(sp.getString(GGUtils.DrCITY, ""))){
                 recycl();
             }
         } else {
@@ -345,7 +342,6 @@ public class DriverHomeActivity extends AppCompatActivity implements AMapLocatio
                                 showDialog(latLngBeanList.get(i).getEecRecyclersaddr().getPhoneNumber());
                             }
                         });
-
                     } else {
                         String title = marker.getTitle();
                         int i = Integer.parseInt(title);
@@ -353,7 +349,6 @@ public class DriverHomeActivity extends AppCompatActivity implements AMapLocatio
                         intent.putExtra("id",companyBeanList.get(i).getCompany().getId());
                         startActivity(intent);
                     }
-
                 } else {
                     marker.hideInfoWindow();
                 }
@@ -391,7 +386,6 @@ private void recycl() {
                                 latLngBeanList.addAll(data);
                             }
                             for (int i = 0; i < data.size(); i++) {
-
                                 infoWindowAdapter = new MyInfoWindowAdapter(DriverHomeActivity.this);
                                 aMap.setInfoWindowAdapter(infoWindowAdapter);
                                 Driver_Recyclers_Bean.DataBean latLngBean = data.get(i);
@@ -524,13 +518,13 @@ private void recycl() {
     @OnClick(R.id.home_ddxx)
     public void onHomeDdxxClicked() {
         for (int i=0;i<latLngBeanList.size();i++){
-            if(latLngBeanList.get(i).getState().equals("1")){
+            if(latLngBeanList.get(i).getState().equals("0")){
                 Intent intent = new Intent(DriverHomeActivity.this, QiangdanDetailActivity.class);
                 intent.putExtra("id",latLngBeanList.get(i).getId());
                 startActivity(intent);
+                break;
             }
         }
-
     }
     @OnClick(R.id.home_suofang)
     public void onHomeSuofangClicked() {
@@ -580,7 +574,9 @@ private void recycl() {
         map.onResume();
         if (!TextUtils.isEmpty(sp.getString(GGUtils.DrCITY, ""))){
             aMap.clear();
+            latLngBeanList.clear();
             initMarker(false);
+            recycl();
         }
     }
 
@@ -631,7 +627,6 @@ private void recycl() {
             //注册一个监听连接状态的listener
             EMClient.getInstance().addConnectionListener(new MyConnectionListener());
         }
-
     }
 
     @Override
@@ -703,7 +698,6 @@ private void recycl() {
                 @Override
                 public void onOpen(ServerHandshake serverHandshake) {
                     Log.e("====================", "开启通道");
-
                 }
                 @Override
                 public void onMessage(String s) {
@@ -739,9 +733,7 @@ private void recycl() {
 
     @Override
     public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
-
     }
-
     @Override
     public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
         if (i == AMapException.CODE_AMAP_SUCCESS) {
@@ -793,7 +785,6 @@ private void recycl() {
     public void onHomeDingdanClicked() {
         startActivity(new Intent(this, DriverOrderActivity.class));
     }
-
     //个人中心L
     @OnClick(R.id.home_lianxiren)
     public void onHomeLianxirenClicked() {

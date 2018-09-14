@@ -175,6 +175,7 @@
             <EditText
                 android:id="@+id/back_cord"
                 android:inputType="number"
+                android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"

@@ -20,6 +20,7 @@ import com.alipay.sdk.app.PayTask;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.base.BaseActivity;
 import com.example.mr.yihuanhuishou.bean.Event_fragment;
+import com.example.mr.yihuanhuishou.bean.Event_zhishushaxin;
 import com.example.mr.yihuanhuishou.bean.PayResult;
 import com.example.mr.yihuanhuishou.jsonbean.WX_zhifu_Bean;
 import com.example.mr.yihuanhuishou.jsonbean.ZFB_zhifu_Bean;
@@ -89,6 +90,7 @@ public class Pay_DetailsActivity extends BaseActivity implements View.OnClickLis
                         edit.putFloat(GGUtils.YIHUAN,sp.getFloat(GGUtils.YIHUAN,0)-yihuan);
                         edit.commit();
                         finish();
+                        EventBus.getDefault().postSticky(new Event_zhishushaxin());
                     } else {
                         if (TextUtils.equals(resultStatus, "8000")) {
                             Toast.makeText(Pay_DetailsActivity.this, "支付结果确认中", Toast.LENGTH_SHORT).show();
@@ -193,6 +195,7 @@ public class Pay_DetailsActivity extends BaseActivity implements View.OnClickLis
             edit.putFloat(GGUtils.YIHUAN,sp.getFloat(GGUtils.YIHUAN,0)-yihuan);
             edit.commit();
             finish();
+            EventBus.getDefault().postSticky(new Event_zhishushaxin());
         }else if(msg==2){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.app_tip);

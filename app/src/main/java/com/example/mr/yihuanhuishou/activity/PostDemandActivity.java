@@ -51,6 +51,7 @@ import com.bjxf.zxing.view.SweepCodeActivity;
 import com.example.mr.yihuanhuishou.R;
 import com.example.mr.yihuanhuishou.adapter.Pop_Adapter;
 import com.example.mr.yihuanhuishou.base.BaseActivity;
+import com.example.mr.yihuanhuishou.jsonbean.huishou.Xitong_Recycler_Bean;
 import com.example.mr.yihuanhuishou.jsonbean.huishou.Zhece_Bean;
 import com.example.mr.yihuanhuishou.utils.BaseDialog;
 import com.example.mr.yihuanhuishou.utils.DialogCallback;
@@ -141,7 +142,7 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
     private TextView queding;
     private TextView quxiao;
     private int index1;
-    List<String> mlist = new ArrayList<>();
+    List<Xitong_Recycler_Bean.DataBean> mlist = new ArrayList<>();
     private String list_itme;
     private int TIAO_DEMO = 0;
     private BroadcastReceiver bdr = new BroadcastReceiver() {
@@ -183,6 +184,32 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
         initView(savedInstanceState);
         pslx.setOnCheckedChangeListener(this);
         rg.setOnCheckedChangeListener(this);
+        initdataview();
+    }
+
+    private void initdataview() {
+        mlist.clear();
+        OkGo.<Xitong_Recycler_Bean>post(MyUrls.BASEURL + "/recyclers/info/allVarieties")
+                .tag(this)
+                .execute(new DialogCallback<Xitong_Recycler_Bean>(PostDemandActivity.this, Xitong_Recycler_Bean.class) {
+                    @Override
+                    public void onSuccess(Response<Xitong_Recycler_Bean> response) {
+                        Xitong_Recycler_Bean body = response.body();
+                        String code = body.getCode() + "";
+                        if (code.equals("200")) {
+                            List<Xitong_Recycler_Bean.DataBean> data = body.getData();
+                            if(data.size()>0){
+                                mlist.addAll(data);
+                            }
+                        } else {
+                            ToastUtils.getToast(PostDemandActivity.this, body.getMsg());
+                        }
+
+                    }
+                });
+
+
+
     }
 
     @Override
@@ -288,14 +315,7 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
             aMap = map.getMap();
         }
         aMap.getUiSettings().setZoomControlsEnabled(false);
-        mlist.add("衣物");
-        mlist.add("金属");
-        mlist.add("塑料");
-        mlist.add("纸箱");
-        mlist.add("塑料瓶");
-        mlist.add("大家电");
-        mlist.add("鞋类");
-        mlist.add("手机数码");
+
 
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW);//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
@@ -346,24 +366,28 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
                 Date date = new Date();
                 String format1 = format.format(date);
                 try {
-                    Date parse = format.parse(time);
-                    Date parse1 = format.parse(format1);
-                    if(comeType.equals("0")){
-                        if(parse.getTime()<parse1.getTime()){
-                            ToastUtils.getToast(PostDemandActivity.this,"取货时间错误，请重新选取时间！");
-                            initTimePicker1();
+                    if(TextUtils.isEmpty(time)){
+                        ToastUtils.getToast(PostDemandActivity.this,"请完善信息后再发送！");
+                    }else{
+                        Date parse = format.parse(time);
+                        Date parse1 = format.parse(format1);
+                        if(comeType.equals("0")){
+                            if(parse.getTime()<parse1.getTime()){
+                                ToastUtils.getToast(PostDemandActivity.this,"取货时间错误，请重新选取时间！");
+                                initTimePicker1();
+                            }else{
+                                fabuview();
+                            }
                         }else{
+
                             fabuview();
                         }
-                    }else{
-                        fabuview();
                     }
+
 
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-                Log.e("===============",time);
                 break;
             //二维码扫描器
             case R.id.saoma_iv:
@@ -520,7 +544,6 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
             ala = data.getStringExtra("la");
         }
     }
-
     private void infoview() {
         if (popupWindow == null) {
             inflate = LayoutInflater.from(this).inflate(R.layout.popwindow_listview, null);
@@ -582,9 +605,9 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
             @Override
             public void onClick(View view) {
                 if (index1 < 0 || index1 == 0) {
-                    list_itme = mlist.get(0);
+                    list_itme = mlist.get(0).getName();
                 } else {
-                    list_itme = mlist.get(index1);
+                    list_itme = mlist.get(index1).getName();
                 }
                 leixingTv.setText(list_itme);
                 dialog.dismiss();
@@ -600,8 +623,6 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
             }
         });
     }
-
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -615,7 +636,6 @@ public class PostDemandActivity extends BaseActivity implements RadioGroup.OnChe
         //在activity执行onPause时执行mMapView.onPause ()，暂停地图的绘制
         map.onPause();
     }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
