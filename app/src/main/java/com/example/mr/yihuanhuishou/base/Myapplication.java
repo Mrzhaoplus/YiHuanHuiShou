@@ -1,20 +1,8 @@
 package com.example.mr.yihuanhuishou.base;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.os.Bundle;
-import android.support.multidex.MultiDex;
-import android.util.Log;
 
-import com.example.mr.yihuanhuishou.activity.MyMsgActivity;
-import com.example.mr.yihuanhuishou.adapter.Mymsg_Adapter;
-import com.example.mr.yihuanhuishou.driver.weight.HXHelper;
-import com.example.mr.yihuanhuishou.utils.AppManager;
-import com.hyphenate.EMMessageListener;
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMConversation;
-import com.hyphenate.chat.EMMessage;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -25,14 +13,11 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.BuildConfig;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
@@ -42,8 +27,8 @@ import okhttp3.OkHttpClient;
  * Created by Administrator on 2017/8/24.
  */
 
-public class Myapplication extends Application {
-    private static Myapplication application;
+public class MyApplication extends Application {
+    private static MyApplication application;
 
     @Override
     public void onCreate() {
@@ -51,51 +36,12 @@ public class Myapplication extends Application {
         application = this;
         setLogger();
         setOkGo();//OkGo----第三方网络框架
-        initEM();
     }
-
-
 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-       MultiDex.install(this);
-        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
-            @Override
-            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                AppManager.getAppManager().addActivity(activity);
-            }
-
-            @Override
-            public void onActivityStarted(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivityResumed(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivityPaused(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivityStopped(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
-            }
-
-            @Override
-            public void onActivityDestroyed(Activity activity) {
-                AppManager.getAppManager().finishActivity(activity);
-            }
-        });
+//        MultiDex.install(this);
     }
 
     public static Application getInstance() {
@@ -104,11 +50,6 @@ public class Myapplication extends Application {
 
     public static Context getGloableContext() {
         return application.getApplicationContext();
-    }
-
-    private void initEM() {
-        //初始化UI界面
-        HXHelper.getInstance().init(this);
     }
 
     /**
@@ -178,7 +119,7 @@ public class Myapplication extends Application {
                 .setRetryCount(3)//全局统一超时重连次数，默认为三次，那么最差的情况会请求4次(一次原始请求，三次重连请求)，不需要可以设置为0
                 .addCommonHeaders(headers)                         //全局公共头
                 .addCommonParams(params);                          //全局公共参数
-    }
 
+    }
 }
 
